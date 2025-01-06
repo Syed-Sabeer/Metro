@@ -1,0 +1,22 @@
+<svg id="chat" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49.036" height="49.035" viewBox="0 0 49.036 49.035">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1" x2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a93aff"/>
+      <stop offset="1" stop-color="#ff81ff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="1" x2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffbef9"/>
+      <stop offset="1" stop-color="#fff1ff"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_9807" data-name="Group 9807" transform="translate(5.363 7.279)">
+    <g id="Group_9806" data-name="Group 9806">
+      <path id="Path_12257" data-name="Path 12257" d="M98.236,86.056H79.56V76H56V91.994H73.718V112.01a1.437,1.437,0,0,0,1.437,1.437H87.489l3.889,3.889a1.437,1.437,0,0,0,2.452-1.016v-2.873h4.406a1.437,1.437,0,0,0,1.437-1.437V87.493A1.437,1.437,0,0,0,98.236,86.056Z" transform="translate(-56 -76)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_9809" data-name="Group 9809" transform="translate(0)">
+    <g id="Group_9808" data-name="Group 9808">
+      <path id="Path_12258" data-name="Path 12258" d="M36.01,36.01a1.437,1.437,0,1,0,1.437,1.437A1.437,1.437,0,0,0,36.01,36.01Zm0-12.929a4.315,4.315,0,0,0-4.31,4.31,1.437,1.437,0,0,0,2.873,0,1.437,1.437,0,1,1,1.968,1.336,3.108,3.108,0,0,0-1.968,2.9V31.7a1.437,1.437,0,1,0,2.873,0v-.072A.252.252,0,0,1,37.6,31.4a4.31,4.31,0,0,0-1.594-8.315ZM31.7,10.152A10.116,10.116,0,0,0,21.645,0H10.152A10.22,10.22,0,0,0,0,10.152v8.62a7.075,7.075,0,0,0,2.163,5.091,7.3,7.3,0,0,0,3.679,1.951v4.451A1.437,1.437,0,0,0,8.295,31.28l5.326-5.326h8.024A10.068,10.068,0,0,0,31.7,15.9Zm-21.549,4.31a1.437,1.437,0,1,1,1.437-1.437A1.437,1.437,0,0,1,10.152,14.462Zm5.746,0a1.437,1.437,0,1,1,1.437-1.437A1.437,1.437,0,0,1,15.9,14.462Zm5.746,0a1.437,1.437,0,1,1,1.437-1.437A1.437,1.437,0,0,1,21.645,14.462Z" transform="translate(0)" fill="url(#linear-gradient-2)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.001" height="25.001" viewBox="0 0 25.001 25.001">
+  <g id="Group_1637" data-name="Group 1637" transform="translate(-145 -356.119)">
+    <path id="Rectangle_564" data-name="Rectangle 564" d="M1.823,0H23.177A1.823,1.823,0,0,1,25,1.823v2.6A1.822,1.822,0,0,1,23.179,6.25H1.822A1.822,1.822,0,0,1,0,4.428v-2.6A1.823,1.823,0,0,1,1.823,0Z" transform="translate(145 356.119)" fill="#5f63f2"/>
+    <path id="Path_1020" data-name="Path 1020" d="M169.219,366.536h-15.1a.781.781,0,0,0,0,1.563h15.1a.781.781,0,1,0,0-1.563Z" fill="#5f63f2" opacity="0.5"/>
+    <path id="Path_1021" data-name="Path 1021" d="M169.219,369.661h-15.1a.781.781,0,0,0,0,1.563h15.1a.781.781,0,1,0,0-1.563Z" fill="#5f63f2" opacity="0.5"/>
+    <path id="Path_1022" data-name="Path 1022" d="M169.219,375.912h-15.1a.781.781,0,0,0,0,1.562h15.1a.781.781,0,1,0,0-1.562Z" fill="#5f63f2" opacity="0.5"/>
+    <path id="Path_1023" data-name="Path 1023" d="M169.219,379.037h-15.1a.781.781,0,0,0,0,1.562h15.1a.781.781,0,1,0,0-1.562Z" fill="#5f63f2" opacity="0.5"/>
+    <circle id="Ellipse_114" data-name="Ellipse 114" cx="3.125" cy="3.125" r="3.125" transform="translate(145 365.494)" fill="#5f63f2"/>
+    <circle id="Ellipse_115" data-name="Ellipse 115" cx="3.125" cy="3.125" r="3.125" transform="translate(145 374.869)" fill="#5f63f2"/>
+  </g>
+</svg>

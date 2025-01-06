@@ -1,0 +1,29 @@
+<svg id="theme" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <path id="Path_1316" data-name="Path 1316" d="M64,56.9V3.1A3.1,3.1,0,0,1,67.1,0h30l10.345,10.345V56.9a3.1,3.1,0,0,1-3.1,3.1H67.1A3.1,3.1,0,0,1,64,56.9Zm0,0" transform="translate(-55.724)" fill="#50becf"/>
+  <path id="Path_1317" data-name="Path 1317" d="M323.1,12.414h7.241V10.345L320,0V9.31A3.1,3.1,0,0,0,323.1,12.414Zm0,0" transform="translate(-278.621)" fill="#71c4d1"/>
+  <path id="Path_1318" data-name="Path 1318" d="M323.1,10.345h7.241L320,0V7.241A3.1,3.1,0,0,0,323.1,10.345Zm0,0" transform="translate(-278.621)" fill="#d6d9db"/>
+  <path id="Path_1319" data-name="Path 1319" d="M96.008,24h2.069v2.069H96.008Zm0,0" transform="translate(-83.593 -20.897)" fill="#2c99ff"/>
+  <path id="Path_1320" data-name="Path 1320" d="M128.008,24h2.069v2.069h-2.069Zm0,0" transform="translate(-111.455 -20.897)" fill="#2c99ff"/>
+  <path id="Path_1321" data-name="Path 1321" d="M160.008,24h2.069v2.069h-2.069Zm0,0" transform="translate(-139.317 -20.897)" fill="#2c99ff"/>
+  <path id="Path_1322" data-name="Path 1322" d="M35.172,100.69H0V86.207L6.207,80H35.172Zm0,0" transform="translate(0 -69.655)" fill="#2c99ff"/>
+  <path id="Path_1323" data-name="Path 1323" d="M0,144.276,10.345,136l10.345,9.31,7.241-6.207,7.241,6.207v4.138H0Zm0,0" transform="translate(0 -118.414)" fill="#88b337"/>
+  <path id="Path_1324" data-name="Path 1324" d="M142.207,107.1a3.1,3.1,0,1,1-3.1-3.1A3.1,3.1,0,0,1,142.207,107.1Zm0,0" transform="translate(-118.414 -90.552)" fill="#e8594a"/>
+  <path id="Path_1325" data-name="Path 1325" d="M35.07,173.89l5.173-4.14,1.294,1.617-5.173,4.14Zm0,0" transform="translate(-30.535 -147.8)" fill="#aacc60"/>
+  <path id="Path_1326" data-name="Path 1326" d="M194.348,196.413l2.068-2.069,1.463,1.463-2.068,2.069Zm0,0" transform="translate(-169.217 -169.213)" fill="#aacc60"/>
+  <path id="Path_1327" data-name="Path 1327" d="M6.207,86.207V80L0,86.207Zm0,0" transform="translate(0 -69.655)" fill="#87ced9"/>
+  <path id="Path_1328" data-name="Path 1328" d="M264,312h22.759v14.483H264Zm0,0" transform="translate(-229.862 -271.655)" fill="#ff4d4f"/>
+  <path id="Path_1329" data-name="Path 1329" d="M32,272H57.862v12.414H32Zm0,0" transform="translate(-27.862 -236.828)" fill="#fdb62f"/>
+  <g id="Group_1821" data-name="Group 1821" transform="translate(7.241 38.276)">
+    <path id="Path_1330" data-name="Path 1330" d="M56,296h2.069v2.069H56Zm0,0" transform="translate(-56 -296)" fill="#fd882f"/>
+    <path id="Path_1331" data-name="Path 1331" d="M88,296h15.517v2.069H88Zm0,0" transform="translate(-83.862 -296)" fill="#fd882f"/>
+    <path id="Path_1332" data-name="Path 1332" d="M56,328h2.069v2.069H56Zm0,0" transform="translate(-56 -323.862)" fill="#fd882f"/>
+    <path id="Path_1333" data-name="Path 1333" d="M88,328h15.517v2.069H88Zm0,0" transform="translate(-83.862 -323.862)" fill="#fd882f"/>
+  </g>
+  <path id="Path_1334" data-name="Path 1334" d="M304,184h20.69v12.414H304Zm0,0" transform="translate(-264.69 -160.207)" fill="#2c99ff"/>
+  <path id="Path_1335" data-name="Path 1335" d="M328,208h4.138v2.069H328Zm0,0" transform="translate(-285.586 -181.103)" fill="#126099"/>
+  <path id="Path_1336" data-name="Path 1336" d="M376,208h8.276v2.069H376Zm0,0" transform="translate(-327.379 -181.103)" fill="#126099"/>
+  <path id="Path_1337" data-name="Path 1337" d="M328,240h14.483v2.069H328Zm0,0" transform="translate(-285.586 -208.966)" fill="#126099"/>
+  <path id="Path_1339" data-name="Path 1339" d="M298.375,346.344l-2.069,2.069a1.035,1.035,0,0,0,0,1.463l2.069,2.069,1.463-1.463-1.338-1.338,1.338-1.338Zm0,0" transform="translate(-257.727 -301.558)" fill="#c44639"/>
+  <path id="Path_1340" data-name="Path 1340" d="M381.875,348.413l-2.069-2.069-1.463,1.463,1.338,1.337-1.338,1.338,1.463,1.463,2.069-2.069a1.035,1.035,0,0,0,0-1.463Zm0,0" transform="translate(-329.42 -301.558)" fill="#c44639"/>
+  <path id="Path_1341" data-name="Path 1341" d="M336.25,342.335l2.067-8.276,2.006.5-2.067,8.276Zm0,0" transform="translate(-292.769 -290.862)" fill="#c44639"/>
+</svg>

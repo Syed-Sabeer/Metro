@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Slack" transform="translate(-26.002 -26.001)">
+    <g id="Group_1822" data-name="Group 1822" transform="translate(26.002 26.001)">
+      <path id="Path_1345" data-name="Path 1345" d="M36.516,273.621a5.257,5.257,0,1,1-5.257-5.257h5.257Z" transform="translate(-26.003 -242.026)" fill="#e01e5a"/>
+      <path id="Path_1346" data-name="Path 1346" d="M147,273.621a5.257,5.257,0,0,1,10.514,0v13.163a5.257,5.257,0,0,1-10.514,0Z" transform="translate(-133.847 -242.04)" fill="#e01e5a"/>
+      <path id="Path_1347" data-name="Path 1347" d="M152.253,36.516a5.257,5.257,0,1,1,5.257-5.257v5.257Z" transform="translate(-133.847 -26.002)" fill="#36c5f0"/>
+      <path id="Path_1348" data-name="Path 1348" d="M44.422,147a5.257,5.257,0,1,1,0,10.513H31.259a5.257,5.257,0,0,1,0-10.513Z" transform="translate(-26.002 -133.848)" fill="#36c5f0"/>
+      <path id="Path_1349" data-name="Path 1349" d="M389.359,152.254a5.257,5.257,0,1,1,5.257,5.256h-5.257v-5.256Z" transform="translate(-349.872 -133.848)" fill="#2eb67d"/>
+      <path id="Path_1350" data-name="Path 1350" d="M278.877,44.421a5.257,5.257,0,0,1-10.514,0V31.258a5.257,5.257,0,0,1,10.514,0V44.421Z" transform="translate(-242.025 -26.001)" fill="#2eb67d"/>
+      <path id="Path_1351" data-name="Path 1351" d="M273.62,389.358a5.257,5.257,0,1,1-5.257,5.257v-5.257Z" transform="translate(-242.025 -349.871)" fill="#ecb22e"/>
+      <path id="Path_1352" data-name="Path 1352" d="M273.62,278.878a5.257,5.257,0,0,1,0-10.514h13.163a5.257,5.257,0,0,1,0,10.514Z" transform="translate(-242.039 -242.026)" fill="#ecb22e"/>
+    </g>
+  </g>
+</svg>
