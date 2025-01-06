@@ -15,6 +15,7 @@ use App\Http\Controllers\ChatController;
 |
 */
 
+
 Route::get('/rooms', [ChatController::class, 'getRooms']);
 Route::get('/rooms/{roomId}/messages', [ChatController::class, 'getMessages']);
 Route::post('/rooms/messages', [ChatController::class, 'sendMessage']);
