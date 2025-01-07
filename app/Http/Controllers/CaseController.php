@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Casenew;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoomParticipant;
-use App\Models\CaseFile;
+use App\Models\Casefile;
 
 class CaseController extends Controller
 {
@@ -71,7 +71,7 @@ class CaseController extends Controller
         $case = Casenew::findOrFail($id);
         $statuses = Status::orderBy('status_number')->get();
         // dd($case, $statuses);
-        $caseFiles = CaseFile::where('case_id', $id)->get();
+        $caseFiles = Casefile::where('case_id', $id)->get();
         // dd($caseFiles);
         return view('caseview', compact('case', 'caseFiles', 'statuses')); // Or return a proper view
     }
@@ -96,7 +96,7 @@ class CaseController extends Controller
             $file->move(public_path('uploads'), $fileName);
 
             // Save the file path in the database
-            CaseFile::create([
+            Casefile::create([
                 'case_id' => $id,
                 'file_path' => 'uploads/' . $fileName, // Store the relative path
             ]);
