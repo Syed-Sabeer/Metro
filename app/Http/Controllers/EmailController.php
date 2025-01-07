@@ -79,7 +79,7 @@ class EmailController extends Controller
     public function destroy(Email $email)
     {
         // Delete the email
-        $email->delete();
+        $email->delete(); 
 
         // Set custom notification
         $notification = [
