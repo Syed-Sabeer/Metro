@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserHomeController;
+use App\Http\Controllers\EmailController;
 
 // Route::get('/', function () {
 //     return view('index');
@@ -60,7 +61,10 @@ Route::get('/user/delete/{id}', [UserController::class, 'DeleteUser'])->name('us
 Route::get('/add-employee', [UserController::class, 'AddEmployee'])->name('add.employee');
 Route::post('/storeemployee', [UserController::class, 'StoreEmployee'])->name('store.employee');
 Route::get('/view-employee', [UserController::class, 'viewEmployee'])->name('view.employee');
-
+// Route::get('/view-email', [UserController::class, 'viewemail'])->name('view.email');
+Route::get('/view-email', function () {
+    return view('emailsa');
+})->name('view.email');
 // update status
 Route::post('/update-status', [UserController::class, 'updateStatus'])->name('update.status');
 
@@ -78,6 +82,16 @@ Route::post('/case/{id}/back-status', [CaseController::class, 'backStatus'])->na
 // Route for moving forward the status
 Route::post('/case/{id}/forward-status', [CaseController::class, 'forwardStatus'])->name('case.forward');
 
+
+// Email CRUD Routes
+Route::prefix('emails')->group(function () {
+    Route::get('/', [EmailController::class, 'index'])->name('emails.index'); // List all emails
+    Route::get('/create', [EmailController::class, 'create'])->name('emails.create'); // Show form to create email
+    Route::post('/store', [EmailController::class, 'store'])->name('store.email'); // Store email
+    Route::get('/{email}/edit', [EmailController::class, 'edit'])->name('emails.edit'); // Show form to edit email
+    Route::put('/{email}', [EmailController::class, 'update'])->name('emails.update'); // Update email
+    Route::get('/{email}', [EmailController::class, 'destroy'])->name('emails.destroy'); // Delete email
+});
 
 // Route::get('/caseview', function () {
 //     return view('caseview');

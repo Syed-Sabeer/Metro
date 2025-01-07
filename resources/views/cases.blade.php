@@ -120,7 +120,7 @@
 
                                                             <div class="form-group col-md-6 mb-10">
                                                                 <label for="name47">Select User</label>
-                                                                <input type="text" name="client_name" class="form-control" id="name47" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
+                                                                <input type="text" name="account_name" class="form-control" id="name47" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
                                                                 <div id="search-results" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
                                                             </div>
 
@@ -380,7 +380,7 @@
             </div>
 
 
-                
+
         </div>
     </div>
 @endsection
