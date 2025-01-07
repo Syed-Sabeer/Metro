@@ -103,6 +103,27 @@
                         </ul>
                     </li>
 
+
+                    <li class="has-child">
+                        <a href="#" class="has-child">
+                            <span class="nav-icon uil uil-envelope"></span>
+                            <span class="menu-text">Email</span>
+                            <span class="toggle-icon"></span>
+                        </a>
+                        <ul>
+                            <li class>
+                                <a href="{{ route('view.email') }}">Emails </a>
+                            </li>
+                            <li class>
+                                <a href="{{ route('emails.index') }}">View Emails </a>
+                            </li>
+                            <li class>
+                                <a href="{{ route('emails.create') }}">Add Emails </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>
