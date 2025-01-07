@@ -25,9 +25,12 @@ class CaseController extends Controller
 
     public function storecase(Request $request)
     {
-        $client_id = User::where('email', $request->user_name)->value('id');
+                // dd(Auth::id());
+
+
+        $client_id = User::where('email', $request->client_name)->value('id');
         $case = new Casenew;
-        $case->status_id = $request->status_id;
+        $case->status_id = $request->case_status;
         $case->origin = $request->case_origin;
         $case->priority = $request->priority;
         $case->owner_id = Auth::id();
