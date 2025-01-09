@@ -4,12 +4,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="footer-copyright">
-                        <p><span>© 2023</span><a href="#">Metro Textiles</a>
+                        <p><span>© 2025</span><a href="#">Metro Textiles</a>
                         </p>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="footer-menu text-end">
+                    {{-- <div class="footer-menu text-end">
                         <ul>
                             <li>
                                 <a href="#">About</a>
@@ -21,7 +21,7 @@
                                 <a href="#">Contact</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

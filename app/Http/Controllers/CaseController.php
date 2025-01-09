@@ -24,8 +24,11 @@ class CaseController extends Controller
         $case_owner = User::where('id', Auth::id())->value('name');
         // dd($case_owner);
         $cases = Casenew::all();
+     
+        $totalRows = Status::latest('id')->value('id');
+        $totalcaese = Casenew::count();
         // dd($cases);
-        return view('cases', compact('statuses', 'randomNumber', 'case_owner', 'cases'));
+        return view('cases', compact('statuses', 'randomNumber','totalcaese', 'case_owner','totalRows', 'cases'));
     }
 
     public function storecase(Request $request)
