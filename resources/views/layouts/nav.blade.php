@@ -230,17 +230,17 @@
                     <li class="nav-author">
                         <div class="dropdown-custom">
                             <a href="javascript:;" class="nav-item-toggle">
-                                <img src="{{ asset('img/author-nav.jpg') }}" alt class="rounded-circle">
-                                <span class="nav-item__title">Danial<i class="las la-angle-down nav-item__arrow"></i></span>
+                                {{-- <img src="{{ asset('img/author-nav.jpg') }}" alt class="rounded-circle"> --}}
+                                <span class="nav-item__title">{{ Auth::user()->name; }}<i class="las la-angle-down nav-item__arrow"></i></span>
                             </a>
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
                                     <div class="nav-author__info">
                                         <div class="author-img">
-                                            <img src="{{ asset('img/author-nav.jpg') }}" alt class="rounded-circle">
+                                          
                                         </div>
                                         <div>
-                                            <h6>Rabbi Islam Rony</h6>
+                                            <h6>{{ Auth::user()->name; }}</h6>
                                             <span>UI Designer</span>
                                         </div>
                                     </div>

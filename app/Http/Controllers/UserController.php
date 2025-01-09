@@ -40,7 +40,6 @@ class UserController extends Controller
                     'message' => 'Super Admin Login Successfully',
                     'alert-type' => 'success',
                 );
-
                 return redirect()->route('dashboard')->with($notification);
             }
             else{
