@@ -9,6 +9,10 @@ use App\Models\Casenew;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoomParticipant;
 use App\Models\Casefile;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Room;
+use App\Models\Email;
+
 
 
 class CaseController extends Controller
@@ -26,10 +30,13 @@ class CaseController extends Controller
 
     public function storecase(Request $request)
     {
-                // dd(Auth::id());
+        // Debugging: Verify all incoming data
+        // dd($request->all());
 
+        // Fetch the client ID based on the provided email
+        $client_id = User::where('email', $request->customer_email)->value('id');
 
-        $client_id = User::where('email', $request->client_name)->value('id');
+        // Create a new case
         $case = new Casenew;
         $case->status_id = $request->case_status;
         $case->origin = $request->case_origin;
@@ -42,28 +49,63 @@ class CaseController extends Controller
         $case->description = $request->description;
         $case->save();
 
+        // Create a new room associated with the case
+        $room = new Room;
+        $room->case_id = $case->id;
+        $room->save();
+
+        // Fetch superadmins and admins
         $superadmins = User::where('role', 'supperadmin')->get();
         $admins = User::where('role', 'admin')->get();
 
-        $userIds = [$client_id];
-
+        // Collect all participant IDs
+        $userIds = [$client_id]; // Add the client ID
         foreach ($superadmins as $superadmin) {
             $userIds[] = $superadmin->id;
         }
-
         foreach ($admins as $admin) {
             $userIds[] = $admin->id;
         }
 
+        // Add employee IDs from the request
+        if (!empty($request->employee_emails)) {
+            foreach ($request->employee_emails as $employeeId) {
+                $userIds[] = $employeeId;
+            }
+        }
+
+        // Store participants in the RoomParticipant table
         foreach ($userIds as $userId) {
             $participant = new RoomParticipant;
             $participant->case_id = $case->id;
             $participant->user_id = $userId;
+            $participant->room_id = $room->id;
             $participant->save();
+            $userss = User::find($userId);
+            $email= $userss->email;
+            $data = [
+                'name' => $userss->name,  // Assuming $name is the variable containing the user's name
+                'message' => $request->email_description,  // Or any other content you want
+            ];
+            $sub= $request->email_subject;
+            Mail::send('emails.user_credentials', $data, function ($message) use ($email,$sub) {
+                $message->to($email)
+                        ->subject($sub);
+                // Embed the image in the email body using CID (Content-ID)
+                $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
+            });
+
         }
 
-        return redirect()->back()->with('success', 'Case added successfully!');
+        $notification = array(
+            'message' => 'New Case Created Successfully',
+            'alert-type' => 'success',
+        );
+
+        // Redirect with a success message
+        return redirect()->back()->with($notification);
     }
+
 
 
     public function viewCase($id)
@@ -186,9 +228,36 @@ public function forwardStatus($id, Request $request)
     public function SearchMember(Request $request)
     {
         $query = $request->input('q');
-        // Perform the search query (modify the model and fields as needed)
-        $members = User::where('email', 'LIKE', '%' . $query . '%')->take(10)->get(['id', 'email']);
+        $members = User::where('email', 'LIKE', '%' . $query . '%')->where('role', 'customer')->take(10)->get(['id', 'email']);
 
         return response()->json($members);
     }
+
+    public function SearchEmployee(Request $request)
+    {
+        $query = $request->input('q');
+        $employees = User::where('email', 'LIKE', '%' . $query . '%')
+                         ->where('role', 'employee') // Ensure the role is 'employee'
+                         ->limit(3) // Explicitly limit the results to 3
+                         ->get(['id', 'email']); // Return id and email for frontend processing
+
+        return response()->json($employees);
+    }
+
+
+    public function searchEmailIdentifier(Request $request)
+    {
+        $query = $request->get('q');  // Get the query parameter 'q'
+
+        if ($query) {
+            // Fetch identifier_name, subject, and description from the database based on the query
+            $results = Email::where('identifier_name', 'like', '%' . $query . '%')
+                            ->get(['identifier_name', 'subject', 'description']);  // Include subject and description
+
+            return response()->json($results);  // Return as JSON
+        }
+
+        return response()->json([]);  // Return empty array if query is empty
+    }
+
 }

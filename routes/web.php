@@ -73,6 +73,7 @@ Route::post('/update-status', [UserController::class, 'updateStatus'])->name('up
 // Cases All Route
 Route::get('/cases', [CaseController::class, 'Cases'])->name('add.cases');
 Route::get('/search-members', [CaseController::class, 'SearchMember'])->name('members.search');
+Route::get('/search-employees', [CaseController::class, 'SearchEmployee'])->name('employees.search');
 Route::post('/case/store', [CaseController::class, 'storecase'])->name('case.store');
 Route::get('/caseview/{id}', [CaseController::class, 'viewCase'])->name('case.view');
 
@@ -81,6 +82,10 @@ Route::post('/cases/upload-file/{id}', [CaseController::class, 'casefileupload']
 Route::post('/case/{id}/back-status', [CaseController::class, 'backStatus'])->name('case.back');
 // Route for moving forward the status
 Route::post('/case/{id}/forward-status', [CaseController::class, 'forwardStatus'])->name('case.forward');
+
+
+Route::get('/search/email-identifier', [CaseController::class, 'searchEmailIdentifier'])->name('search.email-identifier');
+
 
 
 // Email CRUD Routes
@@ -99,7 +104,7 @@ Route::prefix('emails')->group(function () {
 
 Route::get('/userindex', function () {
     return view('userindex');
-});
+})->name('userss'); 
 Route::get('/usercaseview', function () {
     return view('usercaseview');
 });
