@@ -51,7 +51,7 @@
                                 <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
                                     <div class="d-flex align-items-center user-member__title justify-content-center me-sm-25">
                                         <h4 class="text-capitalize fw-500 breadcrumb-title">Cases</h4>
-                                        <span class="sub-title ms-sm-25 ps-sm-25">12 Running Cases</span>
+                                        <span class="sub-title ms-sm-25 ps-sm-25">{{ $totalcaese }} Running Cases</span>
                                     </div>
                                 </div>
                                 <div class="action-btn">
@@ -159,7 +159,7 @@
                                                 </div>
                                             </div>
                                             <div class="user-group-people mt-15 text-capitalize">
-                                                <p>{{ $case->description }}</p>
+                                                <p>{{ implode(' ', array_slice(explode(' ', $case->description), 0, 10)) }}...</p>
                                                 <div class="user-group-project">
                                                     <div class="d-flex align-items-center user-group-progress-top">
                                                         <div class="media-ui__start">
@@ -170,13 +170,18 @@
                                                 </div>
                                             </div>
                                             <div class="user-group-progress-bar">
+                                                @php
+                                                        $completedTasks = $case->status->id; // Example: Get the number of completed tasks from your database or logic
+                                                        $totalTasks = $totalRows; // Example: Get the total number of tasks
+                                                        $progressPercentage = ($completedTasks / $totalTasks) * 100;
+                                                @endphp
                                                 <div class="progress-wrap d-flex align-items-center mb-0">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 83%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $progressPercentage }}%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
-                                                    <span class="progress-percentage">83%</span>
+                                                    <span class="progress-percentage">{{ $progressPercentage }}%</span>
                                                 </div>
-                                                <p class="color-light fs-12 mb-20">12 / 15 tasks completed</p>
+                                                <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{  $totalTasks }} tasks completed</p>
                                             </div>
                                         </div>
                                         <div class="mt-20 px-30">

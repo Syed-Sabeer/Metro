@@ -25,7 +25,7 @@
                             <input type="hidden" name="current_status_id" value="{{ $case->status_id }}">
                             <div class="action-btn me-10 my-sm-0">
                                 <button type="submit" class="btn btn-primary bg-primary fs-12 fw-500">
-                                    <img src="img/svg/minus.svg" alt="minus" class="svg"> Backward
+                                    <img src="{{asset('img/svg/minus.svg')}}" alt="minus" class="svg"> Backward
                                 </button>
                             </div>
                         </form>
@@ -35,7 +35,7 @@
                             @csrf
                             <div class="action-btn me-10 my-sm-0">
                                 <button type="submit" class="btn btn-primary bg-primary fs-12 fw-500">
-                                    <img src="img/svg/plus.svg" alt="plus" class="svg"> Forward
+                                    <img src="{{asset('img/svg/plus.svg')}}" alt="plus" class="svg"> Forward
                                 </button>
                             </div>
                         </form>
@@ -44,10 +44,10 @@
                     <div class="d-flex text-capitalize">
                         <button type="button"
                             class="breadcrumb-edit btn btn-white border-0 color-primary content-center fs-12 fw-500 radius-md">
-                            <img src="img/svg/edit-3.svg" alt="edit-3" class="svg">edit</button>
+                            <img src="{{asset('img/svg/edit-3.svg')}}" alt="edit-3" class="svg">edit</button>
                         <button type="button"
                             class="breadcrumb-remove border-0 color-danger content-center bg-white fs-12 fw-500 ms-10 radius-md">
-                            <img class="svg" src="img/svg/trash-2.svg" alt="trash-2">remove</button>
+                            <img class="svg" src="{{asset('img/svg/trash-2.svg')}}" alt="trash-2">remove</button>
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@
                         <div class="card-body">
                             <div class="application-task d-flex align-items-center mb-25">
                                 {{-- <div class="application-task-icon wh-60 bg-opacity-secondary content-center">
-                                    <img class="svg wh-25 text-secondary" src="img/svg/at.svg" alt="img">
+                                    <img class="svg wh-25 text-secondary" src="{{asset('img/svg/at.svg')}}" alt="img">
                                 </div> --}}
                                 <div class="application-task-content">
                                     <h4>Case owner</h4>
@@ -158,7 +158,7 @@
                             </div>
                             <div class="application-task d-flex align-items-center mb-25">
                                 {{-- <div class="application-task-icon wh-60 bg-opacity-primary content-center">
-                                    <img class="svg wh-25 text-primary" src="img/svg/at2.svg" alt="img">
+                                    <img class="svg wh-25 text-primary" src="{{asset('img/svg/at2.svg')}}" alt="img">
                                 </div> --}}
                                 <div class="application-task-content">
                                     <h4>Start Date</h4>
@@ -167,7 +167,7 @@
                             </div>
                             {{-- <div class="application-task d-flex align-items-center mb-25">
                                 <div class="application-task-icon wh-60 bg-opacity-success content-center">
-                                    <img class="svg wh-25 text-success" src="img/svg/at4.svg" alt="img">
+                                    <img class="svg wh-25 text-success" src="{{asset('img/svg/at4.svg')}}" alt="img">
                                 </div>
                                 <div class="application-task-content">
                                     <h4>$27,500</h4>
@@ -176,7 +176,7 @@
                             </div> --}}
                             {{-- <div class="application-task d-flex align-items-center">
                                 <div class="application-task-icon wh-60 bg-opacity-warning content-center">
-                                    <img class="svg wh-25 text-warning" src="img/svg/at3.svg" alt="img">
+                                    <img class="svg wh-25 text-warning" src="{{asset('img/svg/at3.svg')}}" alt="img">
                                 </div>
                                 <div class="application-task-content">
                                     <h4>250</h4>
@@ -228,39 +228,39 @@
                             <h6 class="fw-500 ">users</h6>
                             <button type="button"
                                 class="border radius-lg color-primary fw-500 fs-12 bg-transparent acButton">
-                                <img class="svg" src="img/svg/user-plus.svg" alt> add user</button>
+                                <img class="svg" src="{{asset('img/svg/user-plus.svg')}}" alt> add user</button>
                         </div>
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-25">
-                                <img src="img/tm1.png" class="wh-46 me-15" alt="img">
+                                <img src="{{asset('img/tm1.png')}}" class="wh-46 me-15" alt="img">
                                 <div>
                                     <p class="fs-14 fw-600 color-dark mb-0">Meyri Carles</p>
                                     <span class=" mt-1 fs-14  color-light ">UI Designer</span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-25">
-                                <img src="img/tm2.png" class="wh-46 me-15" alt="img">
+                                <img src="{{asset('img/tm2.png')}}" class="wh-46 me-15" alt="img">
                                 <div>
                                     <p class="fs-14 fw-600 color-dark mb-0">Shreyu Neu</p>
                                     <span class=" mt-1 fs-14  color-light ">Web Developer</span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-25">
-                                <img src="img/tm3.png" class="wh-46 me-15" alt="img">
+                                <img src="{{asset('img/tm3.png')}}" class="wh-46 me-15" alt="img">
                                 <div>
                                     <p class="fs-14 fw-600 color-dark mb-0">Tuhin Molla</p>
                                     <span class=" mt-1 fs-14  color-light ">Project Manager</span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-25">
-                                <img src="img/tm4.png" class="wh-46 me-15" alt="img">
+                                <img src="{{asset('img/tm4.png')}}" class="wh-46 me-15" alt="img">
                                 <div>
                                     <p class="fs-14 fw-600 color-dark mb-0">Billal Hossain</p>
                                     <span class=" mt-1 fs-14  color-light ">App Developer</span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <img src="img/tm5.png" class="wh-46 me-15" alt="img">
+                                <img src="{{asset('img/tm5.png')}}" class="wh-46 me-15" alt="img">
                                 <div>
                                     <p class="fs-14 fw-600 color-dark mb-0">Khalid Hasan</p>
                                     <span class=" mt-1 fs-14  color-light ">App Developer</span>
@@ -284,9 +284,9 @@
                         </div>
                         <div id="app">
                             <Roots>
-                                
-                             
-                            
+
+
+
                             </Roots>
                         </div>
                     </div>
@@ -312,14 +312,14 @@
 
                                                 <!-- Dynamic icon based on file type -->
                                                 @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-                                                    <img src="{{ asset($file->file_path) }}" alt="img" class="wh-42">
+                                                    <img src="{{asset($file->file_path) }}" alt="img" class="wh-42">
                                                 @elseif(in_array($fileExtension, ['pdf']))
                                                     <!-- Embed or provide a download link -->
                                                     <a href="{{ asset($file->file_path) }}" class="fs-12 fw-500 color-primary" target="_blank">View PDF</a>
                                                 @elseif(in_array($fileExtension, ['zip']))
-                                                    <img src="{{ asset($file->file_path) }}" alt="img" class="wh-42">
+                                                    <img src="{{asset($file->file_path) }}" alt="img" class="wh-42">
                                                 @else
-                                                    <img src="{{ asset($file->file_path) }}" alt="img" class="wh-42">
+                                                    <img src="{{asset($file->file_path) }}" alt="img" class="wh-42">
                                                 @endif
                                             </div>
                                             <div class="files-area__title">
@@ -341,7 +341,7 @@
                                                 {{-- <button class="btn-link border-0 bg-transparent p-0"
                                                     data-bs-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
-                                                    <img src="img/svg/more-horizontal.svg" alt="more-horizontal"
+                                                    <img src="{{asset('img/svg/more-horizontal.svg')}}" alt="more-horizontal"
                                                         class="svg">
                                                 </button> --}}
                                                 <div class="dropdown-menu dropdown-menu--dynamic">
@@ -395,7 +395,7 @@
                                 <div class="files-area d-flex justify-content-between align-items-center">
                                     <div class="files-area__left d-flex align-items-center">
                                         <div class="files-area__img">
-                                            <img src="img/pdf@2x.png" alt="img" class="wh-42">
+                                            <img src="{{asset('img/pdf@2x.png')}}" alt="img" class="wh-42">
                                         </div>
                                         <div class="files-area__title">
                                             <p class="mb-0 fs-14 fw-500 color-dark text-capitalize">
@@ -413,7 +413,7 @@
                                             <button class="btn-link border-0 bg-transparent p-0"
                                                 data-bs-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                                <img src="img/svg/more-horizontal.svg" alt="more-horizontal"
+                                                <img src="{{asset('img/svg/more-horizontal.svg')}}" alt="more-horizontal"
                                                     class="svg">
                                             </button>
                                             <div class="dropdown-menu dropdown-menu--dynamic">
@@ -430,7 +430,7 @@
                                 <div class="files-area d-flex justify-content-between align-items-center">
                                     <div class="files-area__left d-flex align-items-center">
                                         <div class="files-area__img">
-                                            <img src="img/psd@2x.png" alt="img" class="wh-42">
+                                            <img src="{{asset('img/psd@2x.png')}}" alt="img" class="wh-42">
                                         </div>
                                         <div class="files-area__title">
                                             <p class="mb-0 fs-14 fw-500 color-dark text-capitalize">
@@ -447,7 +447,7 @@
                                             <button class="btn-link border-0 bg-transparent p-0"
                                                 data-bs-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                                <img src="img/svg/more-horizontal.svg" alt="more-horizontal"
+                                                <img src="{{asset('img/svg/more-horizontal.svg')}}" alt="more-horizontal"
                                                     class="svg">
                                             </button>
                                             <div class="dropdown-menu dropdown-menu--dynamic">
@@ -464,7 +464,7 @@
                                 <div class="files-area d-flex justify-content-between align-items-center">
                                     <div class="files-area__left d-flex align-items-center">
                                         <div class="files-area__img">
-                                            <img src="img/jpg@2x.png" alt="img" class="wh-42">
+                                            <img src="{{asset('img/jpg@2x.png')}}" alt="img" class="wh-42">
                                         </div>
                                         <div class="files-area__title">
                                             <p class="mb-0 fs-14 fw-500 color-dark text-capitalize">
@@ -482,7 +482,7 @@
                                             <button class="btn-link border-0 bg-transparent p-0"
                                                 data-bs-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                                <img src="img/svg/more-horizontal.svg" alt="more-horizontal"
+                                                <img src="{{asset('img/svg/more-horizontal.svg')}}" alt="more-horizontal"
                                                     class="svg">
                                             </button>
                                             <div class="dropdown-menu dropdown-menu--dynamic">
@@ -499,7 +499,7 @@
                                 <div class="files-area d-flex justify-content-between align-items-center">
                                     <div class="files-area__left d-flex align-items-center">
                                         <div class="files-area__img">
-                                            <img src="img/png@2x.png" alt="img" class="wh-42">
+                                            <img src="{{asset('img/png@2x.png')}}" alt="img" class="wh-42">
                                         </div>
                                         <div class="files-area__title">
                                             <p class="mb-0 fs-14 fw-500 color-dark text-capitalize">Logo.png</p>
@@ -516,7 +516,7 @@
                                             <button class="btn-link border-0 bg-transparent p-0"
                                                 data-bs-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                                <img src="img/svg/more-horizontal.svg" alt="more-horizontal"
+                                                <img src="{{asset('img/svg/more-horizontal.svg')}}" alt="more-horizontal"
                                                     class="svg">
                                             </button>
                                             <div class="dropdown-menu dropdown-menu--dynamic">
@@ -534,7 +534,7 @@
 
                 </div>
 
-             
+
 
             </div>
         </div>
