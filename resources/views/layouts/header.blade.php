@@ -9,11 +9,11 @@
 <title>Home page</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="{{url('css/plugin.min.css')}}">
-<link rel="stylesheet" href="{{url('css/style.css')}}">
+<link rel="stylesheet" href="{{asset('css/plugin.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
 <meta name="user-id" content="{{ auth()->check() ? auth()->user()->id : 'null' }}">
 <meta name="room-id" content="{{ session('room_id', '') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="img/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.png') }}">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.8/css/line.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >

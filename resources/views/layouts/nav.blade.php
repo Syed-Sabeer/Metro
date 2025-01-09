@@ -12,11 +12,11 @@
             <div class="navbar-left">
                 <div class="logo-area">
                     <a class="navbar-brand" href="{{url('/')}}">
-                        <img class="dark" src="img/logo-dark.jpg" alt="logo">
-                        <img class="light" src="img/logo-white.png" alt="logo">
+                        <img class="dark" src="{{ asset('img/logo-dark.jpg') }}" alt="logo">
+                        <img class="light" src="{{ asset('img/logo-white.png') }}" alt="logo">
                     </a>
                     <a href="#" class="sidebar-toggle">
-                        <img class="svg" src="img/svg/align-center-alt.svg" alt="img"></a>
+                        <img class="svg" src="{{ asset('img/svg/align-center-alt.svg') }}" alt="img"></a>
                 </div>
 
             </div>
@@ -27,7 +27,7 @@
                     <li class="nav-message">
                         <div class="dropdown-custom">
                             <a href="javascript:;" class="nav-item-toggle icon-active">
-                                <img class="svg" src="img/svg/message.svg" alt="img">
+                                <img class="svg" src="{{ asset('img/svg/message.svg') }}" alt="img">
                             </a>
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
@@ -36,7 +36,7 @@
                                     <ul>
                                         <li class="author-online has-new-message">
                                             <div class="user-avater">
-                                                <img src="img/team-1.png" alt>
+                                                <img src="{{ asset('img/team-1.png') }}" alt>
                                             </div>
                                             <div class="user-message">
                                                 <p>
@@ -72,7 +72,7 @@
                                         </li>
                                         <li class="author-online has-new-message">
                                             <div class="user-avater">
-                                                <img src="img/team-1.png" alt>
+                                                <img src="{{ asset('img/team-1.png') }}" alt>
                                             </div>
                                             <div class="user-message">
                                                 <p>
@@ -90,7 +90,7 @@
                                         </li>
                                         <li class="author-offline">
                                             <div class="user-avater">
-                                                <img src="img/team-1.png" alt>
+                                                <img src="{{ asset('img/team-1.png') }}" alt>
                                             </div>
                                             <div class="user-message">
                                                 <p>
@@ -107,7 +107,7 @@
                                         </li>
                                         <li class="author-offline">
                                             <div class="user-avater">
-                                                <img src="img/team-1.png" alt>
+                                                <img src="{{ asset('img/team-1.png') }}" alt>
                                             </div>
                                             <div class="user-message">
                                                 <p>
@@ -132,7 +132,7 @@
                     <li class="nav-notification">
                         <div class="dropdown-custom">
                             <a href="javascript:;" class="nav-item-toggle icon-active">
-                                <img class="svg" src="img/svg/alarm.svg" alt="img">
+                                <img class="svg" src="{{ asset('img/svg/alarm.svg') }}" alt="img">
                             </a>
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
@@ -142,7 +142,7 @@
                                         <li
                                             class="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
                                             <div class="nav-notification__type nav-notification__type--primary">
-                                                <img class="svg" src="img/svg/inbox.svg" alt="inbox">
+                                                <img class="svg" src="{{ asset('img/svg/inbox.svg') }}" alt="inbox">
                                             </div>
                                             <div class="nav-notification__details">
                                                 <p>
@@ -158,7 +158,7 @@
                                         <li
                                             class="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
                                             <div class="nav-notification__type nav-notification__type--secondary">
-                                                <img class="svg" src="img/svg/upload.svg" alt="upload">
+                                                <img class="svg" src="{{ asset('img/svg/upload.svg') }}" alt="upload">
                                             </div>
                                             <div class="nav-notification__details">
                                                 <p>
@@ -174,7 +174,7 @@
                                         <li
                                             class="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
                                             <div class="nav-notification__type nav-notification__type--success">
-                                                <img class="svg" src="img/svg/log-in.svg" alt="log-in">
+                                                <img class="svg" src="{{ asset('img/svg/log-in.svg') }}" alt="log-in">
                                             </div>
                                             <div class="nav-notification__details">
                                                 <p>
@@ -189,7 +189,7 @@
                                         </li>
                                         <li class="nav-notification__single nav-notification__single d-flex flex-wrap">
                                             <div class="nav-notification__type nav-notification__type--info">
-                                                <img class="svg" src="img/svg/at-sign.svg" alt="at-sign">
+                                                <img class="svg" src="{{ asset('img/svg/at-sign.svg') }}" alt="at-sign">
                                             </div>
                                             <div class="nav-notification__details">
                                                 <p>
@@ -204,7 +204,7 @@
                                         </li>
                                         <li class="nav-notification__single nav-notification__single d-flex flex-wrap">
                                             <div class="nav-notification__type nav-notification__type--danger">
-                                                <img src="img/svg/heart.svg" alt="heart" class="svg">
+                                                <img src="{{ asset('img/svg/heart.svg') }}" alt="heart" class="svg">
                                             </div>
                                             <div class="nav-notification__details">
                                                 <p>
@@ -230,14 +230,14 @@
                     <li class="nav-author">
                         <div class="dropdown-custom">
                             <a href="javascript:;" class="nav-item-toggle">
-                                <img src="img/author-nav.jpg" alt class="rounded-circle">
+                                <img src="{{ asset('img/author-nav.jpg') }}" alt class="rounded-circle">
                                 <span class="nav-item__title">Danial<i class="las la-angle-down nav-item__arrow"></i></span>
                             </a>
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
                                     <div class="nav-author__info">
                                         <div class="author-img">
-                                            <img src="img/author-nav.jpg" alt class="rounded-circle">
+                                            <img src="{{ asset('img/author-nav.jpg') }}" alt class="rounded-circle">
                                         </div>
                                         <div>
                                             <h6>Rabbi Islam Rony</h6>

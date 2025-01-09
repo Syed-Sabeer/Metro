@@ -73,6 +73,7 @@ Route::post('/update-status', [UserController::class, 'updateStatus'])->name('up
 // Cases All Route
 Route::get('/cases', [CaseController::class, 'Cases'])->name('add.cases');
 Route::get('/search-members', [CaseController::class, 'SearchMember'])->name('members.search');
+Route::get('/search-employees', [CaseController::class, 'SearchEmployee'])->name('employees.search');
 Route::post('/case/store', [CaseController::class, 'storecase'])->name('case.store');
 Route::get('/caseview/{id}', [CaseController::class, 'viewCase'])->name('case.view');
 

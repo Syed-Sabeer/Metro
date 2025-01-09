@@ -47,7 +47,7 @@
         <h4 class="customizer__title">Customizer</h4>
         <span class="customizer__sub-title">Customize your overview page layout</span>
         <a href="#" class="customizer-close">
-            <img class="svg" src="img/svg/x2.svg" alt>
+            <img class="svg" src="{{ asset('img/svg/x2.svg') }}" alt>
         </a>
     </div>
     <div class="customizer__body">
@@ -110,8 +110,8 @@
 </div>
 </div>
 
-<script src="{{url('js/plugins.min.js')}}"></script>
-<script src="{{url('js/script.min.js')}}"></script>
+<script src="{{asset('js/plugins.min.js')}}"></script>
+<script src="{{asset('js/script.min.js')}}"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
