@@ -240,9 +240,9 @@
                     <div class="tab-pane fade show active" id="ap-overview" role="tabpanel" aria-labelledby="ap-overview-tab">
                         <div class="row">
                             @foreach($cases as $case)
-                                <div class="col-xl-4 mb-25 col-md-6">
+                                                         <div class="col-xl-3 mb-25 col-md-3">
                                     <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
-                                        <div class="border-bottom px-30">
+                                        <div class="border-bottom px-20">
                                             <div class="media user-group-media d-flex justify-content-between">
                                                 <div class="media-body d-flex align-items-center flex-wrap text-capitalize my-sm-0 my-n2">
                                                     <a href="{{ route('case.view', ['id' => $case->id]) }}">
@@ -258,10 +258,10 @@
                                                             <img src="{{ asset('img/svg/more-horizontal.svg') }}" alt="more-horizontal" class="svg">
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a>
+                                                            {{-- <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a> --}}
                                                             <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Leave</a>
-                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                            {{-- <a class="dropdown-item" href="#">Leave</a>
+                                                            <a class="dropdown-item" href="#">Delete</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -289,19 +289,26 @@
                                         </div>
                                         <div class="mt-20 px-30">
                                             <div class="d-flex justify-content-between">
-                                                <p class="fs-13 color-light mb-10">Assigned To</p>
+                                                {{-- <p class="fs-13 color-light mb-10">Assigned To</p> --}}
+                                                <div class="dropdown dropdown-hover">
+                                                    <a class="btn-link">Assigned To</a>
+                                                    <div class="dropdown-default">
+                                                        @foreach($case->room_participants as $participant)
+                                                        {{-- {{ dd($participant) }} --}}
+
+                                                                <a class="dropdown-item">{{ $participant->user->name }}</a>
+
+                                                        @endforeach
+
+                                                    </div>
+                                                    </div>
+
                                                 @php
                                                     $created_name = App\Models\User::where('id', $case->owner_id)->value('name');
                                                 @endphp
                                                 <p class="fs-13 color-light mb-10">Created By: <span class="user">{{ $created_name }}</span></p>
                                             </div>
-                                            <ul class="d-flex flex-wrap user-group-people__parent">
-                                                @foreach($case->room_participants as $participant)
-                                                    <li>
-                                                        <span class="user">{{ $participant->user->name }}</span>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -314,7 +321,7 @@
                     <div class="tab-pane fade" id="{{ strtolower(str_replace(' ', '', $status->status_name)) }}" role="tabpanel" aria-labelledby="{{ strtolower(str_replace(' ', '', $status->status_name)) }}-tab">
                             <div class="row">
                                 @forelse($cases->where('status_id', $status->id) as $case)
-                                    <div class="col-xl-4 mb-25 col-md-6">
+                                    <div class="col-xl-3 mb-25 col-md-3">
                                         <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
                                             <!-- Same Card Structure as Above -->
                                             <div class="border-bottom px-30">
@@ -333,10 +340,10 @@
                                                                 <img src="{{ asset('img/svg/more-horizontal.svg') }}" alt="more-horizontal" class="svg">
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a>
+                                                                {{-- <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a> --}}
                                                                 <a class="dropdown-item" href="#">Edit</a>
-                                                                <a class="dropdown-item" href="#">Leave</a>
-                                                                <a class="dropdown-item" href="#">Delete</a>
+                                                                {{-- <a class="dropdown-item" href="#">Leave</a> --}}
+                                                                {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                                                             </div>
                                                         </div>
                                                     </div>

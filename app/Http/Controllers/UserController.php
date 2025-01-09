@@ -22,7 +22,7 @@ class UserController extends Controller
     {
 
 
-           
+
         // Validate input fields
         $request->validate([
             'email' => 'required|email',
@@ -34,7 +34,7 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Check if the logged-in user has the role 'admin'
-            if (Auth::user()->role === 'supperadmin' || Auth::user()->role === 'customer') {
+            if (Auth::user()->role === 'supperadmin' ) {
                 // Redirect to admin dashboard
                 $notification = array(
                     'message' => 'Super Admin Login Successfully',
@@ -43,6 +43,15 @@ class UserController extends Controller
 
                 return redirect()->route('dashboard')->with($notification);
             }
+            else{
+                $notification = array(
+                    'message' => 'Login Successfully',
+                    'alert-type' => 'success',
+                );
+                return redirect()->route('userss')->with($notification);
+
+            }
+
             // If role is not admin, log out and return error
             Auth::logout();
             return back()->withErrors([

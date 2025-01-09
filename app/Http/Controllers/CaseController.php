@@ -9,7 +9,9 @@ use App\Models\Casenew;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoomParticipant;
 use App\Models\Casefile;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Room;
+use App\Models\Email;
 
 
 
@@ -79,6 +81,20 @@ class CaseController extends Controller
             $participant->user_id = $userId;
             $participant->room_id = $room->id;
             $participant->save();
+            $userss = User::find($userId);
+            $email= $userss->email;
+            $data = [
+                'name' => $userss->name,  // Assuming $name is the variable containing the user's name
+                'message' => $request->email_description,  // Or any other content you want
+            ];
+            $sub= $request->email_subject;
+            Mail::send('emails.user_credentials', $data, function ($message) use ($email,$sub) {
+                $message->to($email)
+                        ->subject($sub);
+                // Embed the image in the email body using CID (Content-ID)
+                $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
+            });
+
         }
 
         $notification = array(
@@ -227,4 +243,21 @@ public function forwardStatus($id, Request $request)
 
         return response()->json($employees);
     }
+
+
+    public function searchEmailIdentifier(Request $request)
+    {
+        $query = $request->get('q');  // Get the query parameter 'q'
+
+        if ($query) {
+            // Fetch identifier_name, subject, and description from the database based on the query
+            $results = Email::where('identifier_name', 'like', '%' . $query . '%')
+                            ->get(['identifier_name', 'subject', 'description']);  // Include subject and description
+
+            return response()->json($results);  // Return as JSON
+        }
+
+        return response()->json([]);  // Return empty array if query is empty
+    }
+
 }
