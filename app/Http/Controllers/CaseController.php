@@ -81,29 +81,9 @@ class CaseController extends Controller
             $participant->user_id = $userId;
             $participant->room_id = $room->id;
             $participant->save();
-            $userss = User::find($userId);
-            $email= $userss->email;
-            $data = [
-                'name' => $userss->name,  // Assuming $name is the variable containing the user's name
-                'message' => $request->email_description,  // Or any other content you want
-            ];
-            $sub= $request->email_subject;
-            Mail::send('emails.user_credentials', $data, function ($message) use ($email,$sub) {
-                $message->to($email)
-                        ->subject($sub);
-                // Embed the image in the email body using CID (Content-ID)
-                $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
-            });
-
         }
 
-        $notification = array(
-            'message' => 'New Case Created Successfully',
-            'alert-type' => 'success',
-        );
-
-        // Redirect with a success message
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with('success', 'Case added successfully!');
     }
 
 
@@ -232,32 +212,4 @@ public function forwardStatus($id, Request $request)
 
         return response()->json($members);
     }
-
-    public function SearchEmployee(Request $request)
-    {
-        $query = $request->input('q');
-        $employees = User::where('email', 'LIKE', '%' . $query . '%')
-                         ->where('role', 'employee') // Ensure the role is 'employee'
-                         ->limit(3) // Explicitly limit the results to 3
-                         ->get(['id', 'email']); // Return id and email for frontend processing
-
-        return response()->json($employees);
-    }
-
-
-    public function searchEmailIdentifier(Request $request)
-    {
-        $query = $request->get('q');  // Get the query parameter 'q'
-
-        if ($query) {
-            // Fetch identifier_name, subject, and description from the database based on the query
-            $results = Email::where('identifier_name', 'like', '%' . $query . '%')
-                            ->get(['identifier_name', 'subject', 'description']);  // Include subject and description
-
-            return response()->json($results);  // Return as JSON
-        }
-
-        return response()->json([]);  // Return empty array if query is empty
-    }
-
 }

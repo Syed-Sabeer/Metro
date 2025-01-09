@@ -118,7 +118,7 @@
                                     <input type="text" id="email-subject" name="email_subject" class="form-control" placeholder="Email Subject">
                                 </div>
                                 <div class="form-group mb-3">
-                                  
+
                                     <textarea id="email-description" name="email_description" class="form-control" placeholder="Email Description" rows="3"></textarea>
                                 </div>
                                        <img src="{{ asset('img/mailsign.png') }}" alt="">
