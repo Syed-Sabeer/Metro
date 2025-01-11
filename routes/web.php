@@ -7,6 +7,7 @@ use App\Http\Controllers\CaseController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\CustomerCaseController;
 
 // Route::get('/', function () {
 //     return view('index');
@@ -84,6 +85,10 @@ Route::post('/case/{id}/back-status', [CaseController::class, 'backStatus'])->na
 Route::post('/case/{id}/forward-status', [CaseController::class, 'forwardStatus'])->name('case.forward');
 
 
+Route::get('/search/email-identifier', [CaseController::class, 'searchEmailIdentifier'])->name('search.email-identifier');
+
+
+
 // Email CRUD Routes
 Route::prefix('emails')->group(function () {
     Route::get('/', [EmailController::class, 'index'])->name('emails.index'); // List all emails
@@ -98,9 +103,8 @@ Route::prefix('emails')->group(function () {
 //     return view('caseview');
 // })->name('case.view');
 
-Route::get('/userindex', function () {
-    return view('userindex');
-});
+Route::get('/userindex', [CustomerCaseController::class, 'index'])->name('userss');
+
 Route::get('/usercaseview', function () {
     return view('usercaseview');
 });

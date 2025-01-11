@@ -43,129 +43,21 @@
     <div class="contents">
         <div class="container-fluid">
             {{-- form start --}}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="project-progree-breadcrumb">
-                        <div class="breadcrumb-main user-member justify-content-sm-between ">
-                            <div class=" d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
-                                <div class="d-flex align-items-center user-member__title justify-content-center me-sm-25">
-                                    <h4 class="text-capitalize fw-500 breadcrumb-title">Cases</h4>
-                                    <span class="sub-title ms-sm-25 ps-sm-25">12 Running Cases</span>
-                                </div>
-                            </div>
-                            <div class="action-btn">
-                                <a href="#" class="btn px-15 btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#new-member">
-                                    <i class="las la-plus fs-16"></i>create Cases</a>
-
-                                <div class="modal fade new-member " id="new-member" role="dialog" tabindex="-1"
-                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content  radius-xl">
-                                            <div class="modal-header">
-                                                <h6 class="modal-title fw-500" id="staticBackdropLabel">Create project</h6>
-                                                <button type="button" class="close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <img src="img/svg/x.svg" alt="x" class="svg">
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="new-member-modal">
-
-                                                    <form action="{{ route('case.store') }}" method="POST">
-                                                        @csrf
-                                                        <div class="row d-flex align-items-center">
-                                                            <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Case Information</h6>
-
-                                                            <div class="form-group col-md-6 mb-20">
-                                                                <div class="category-member">
-                                                                    <label for="">Case Status</label>
-                                                                    <select name="case_status" class="form-select form-control" aria-label="Default select example" required>
-                                                                        <option selected disabled>Select Status</option>
-                                                                       {{-- {{dd($statuses)}} --}}
-                                                                        @foreach ($statuses as $item)
-
-                                                                            <option value="{{ $item->id }}">{{ $item->status_name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group col-md-6 mb-20">
-                                                                <div class="category-member">
-                                                                    <label for="">Case Origin</label>
-                                                                    <select name="case_origin" class="form-select form-control" aria-label="Default select example" required>
-                                                                        <option selected>Select Origin</option>
-                                                                        <option value="Email">Email</option>
-                                                                        <option value="Contact">Contact</option>
-                                                                        <option value="Reference">Reference</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group col-md-6 mb-20">
-                                                                <div class="category-member">
-                                                                    <label for="">Priority</label>
-                                                                    <select name="priority" class="form-select form-control" aria-label="Default select example" required>
-                                                                        <option selected>Select Priority</option>
-                                                                        <option value="High">High</option>
-                                                                        <option value="Medium">Medium</option>
-                                                                        <option value="Low">Low</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group col-md-6 mb-20">
-                                                                <label for="">Case Owner</label>
-                                                                <input type="text" name="case_owner" class="form-control" value="{{ $case_owner }}" placeholder="Case Creator" required>
-                                                            </div>
-
-                                                            <div class="form-group col-md-6 mb-20">
-                                                                <label for="">Case No</label>
-                                                                <input type="text" name="case_no" class="form-control" value="{{ $randomNumber }}" placeholder="" required>
-                                                            </div>
-
-                                                            <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Contact Information</h6>
-
-                                                            <div class="form-group col-md-6 mb-10">
-                                                                <label for="name47">Select User</label>
-                                                                <input type="text" name="account_name" class="form-control" id="name47" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
-                                                                <div id="search-results" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
-                                                            </div>
-
-                                                            <div class="form-group col-md-6 mb-20">
-                                                                <label for="">Account Name</label>
-                                                                <input type="text" name="account_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
-                                                            </div>
-
-                                                            <h6 class="fw-500 mt-1 mb-10" style="background: lightgrey;">Subject Information</h6>
-
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Subject</label>
-                                                                <input type="text" name="subject" class="form-control" value="" placeholder="Enter Subject" required>
-                                                            </div>
-
-                                                            <div class="form-group col-md-12 mb-20">
-                                                                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description" required></textarea>
-                                                            </div>
-
-                                                            <div class="mb-3">
-                                                                <div class="checkbox-theme-default custom-checkbox ">
-                                                                    <input class="checkbox" type="checkbox" id="check-un1">
-                                                                    <label for="check-un1"><span class="checkbox-text">Checked</span></label>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="button-group d-flex pt-25">
-                                                                <button class="btn btn-primary btn-default btn-squared text-capitalize">Add New Case</button>
-                                                                <button type="button" class="btn btn-light btn-default btn-squared fw-400 text-capitalize b-light color-light" data-bs-dismiss="modal">Cancel</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+            <!-- resources/views/cases.blade.php -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="project-progree-breadcrumb">
+                            <div class="breadcrumb-main user-member justify-content-sm-between">
+                                <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
+                                    <div class="d-flex align-items-center user-member__title justify-content-center me-sm-25">
+                                        <h4 class="text-capitalize fw-500 breadcrumb-title">Cases</h4>
+                                        <span class="sub-title ms-sm-25 ps-sm-25">{{ $totalcaese }} Running Cases</span>
                                     </div>
+                                </div>
+                                <div class="action-btn">
+                                    <a href="#" class="btn px-15 btn-primary" data-bs-toggle="modal" data-bs-target="#new-member">
+                                        <i class="las la-plus fs-16"></i> Create Cases
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -240,9 +132,9 @@
                     <div class="tab-pane fade show active" id="ap-overview" role="tabpanel" aria-labelledby="ap-overview-tab">
                         <div class="row">
                             @foreach($cases as $case)
-                                <div class="col-xl-4 mb-25 col-md-6">
+                                                         <div class="col-xl-3 mb-25 col-md-3">
                                     <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
-                                        <div class="border-bottom px-30">
+                                        <div class="border-bottom px-20">
                                             <div class="media user-group-media d-flex justify-content-between">
                                                 <div class="media-body d-flex align-items-center flex-wrap text-capitalize my-sm-0 my-n2">
                                                     <a href="{{ route('case.view', ['id' => $case->id]) }}">
@@ -258,16 +150,16 @@
                                                             <img src="{{ asset('img/svg/more-horizontal.svg') }}" alt="more-horizontal" class="svg">
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a>
+                                                            {{-- <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a> --}}
                                                             <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Leave</a>
-                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                            {{-- <a class="dropdown-item" href="#">Leave</a>
+                                                            <a class="dropdown-item" href="#">Delete</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="user-group-people mt-15 text-capitalize">
-                                                <p>{{ $case->description }}</p>
+                                                <p>{{ implode(' ', array_slice(explode(' ', $case->description), 0, 10)) }}...</p>
                                                 <div class="user-group-project">
                                                     <div class="d-flex align-items-center user-group-progress-top">
                                                         <div class="media-ui__start">
@@ -278,30 +170,42 @@
                                                 </div>
                                             </div>
                                             <div class="user-group-progress-bar">
+                                                @php
+                                                        $completedTasks = $case->status->id; // Example: Get the number of completed tasks from your database or logic
+                                                        $totalTasks = $totalRows; // Example: Get the total number of tasks
+                                                        $progressPercentage = ($completedTasks / $totalTasks) * 100;
+                                                @endphp
                                                 <div class="progress-wrap d-flex align-items-center mb-0">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 83%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $progressPercentage }}%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
-                                                    <span class="progress-percentage">83%</span>
+                                                    <span class="progress-percentage">{{ $progressPercentage }}%</span>
                                                 </div>
-                                                <p class="color-light fs-12 mb-20">12 / 15 tasks completed</p>
+                                                <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{  $totalTasks }} tasks completed</p>
                                             </div>
                                         </div>
                                         <div class="mt-20 px-30">
                                             <div class="d-flex justify-content-between">
-                                                <p class="fs-13 color-light mb-10">Assigned To</p>
+                                                {{-- <p class="fs-13 color-light mb-10">Assigned To</p> --}}
+                                                <div class="dropdown dropdown-hover">
+                                                    <a class="btn-link">Assigned To</a>
+                                                    <div class="dropdown-default">
+                                                        @foreach($case->room_participants as $participant)
+                                                        {{-- {{ dd($participant) }} --}}
+
+                                                                <a class="dropdown-item">{{ $participant->user->name }}</a>
+
+                                                        @endforeach
+
+                                                    </div>
+                                                    </div>
+
                                                 @php
                                                     $created_name = App\Models\User::where('id', $case->owner_id)->value('name');
                                                 @endphp
                                                 <p class="fs-13 color-light mb-10">Created By: <span class="user">{{ $created_name }}</span></p>
                                             </div>
-                                            <ul class="d-flex flex-wrap user-group-people__parent">
-                                                @foreach($case->room_participants as $participant)
-                                                    <li>
-                                                        <span class="user">{{ $participant->user->name }}</span>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -314,7 +218,7 @@
                     <div class="tab-pane fade" id="{{ strtolower(str_replace(' ', '', $status->status_name)) }}" role="tabpanel" aria-labelledby="{{ strtolower(str_replace(' ', '', $status->status_name)) }}-tab">
                             <div class="row">
                                 @forelse($cases->where('status_id', $status->id) as $case)
-                                    <div class="col-xl-4 mb-25 col-md-6">
+                                    <div class="col-xl-3 mb-25 col-md-3">
                                         <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
                                             <!-- Same Card Structure as Above -->
                                             <div class="border-bottom px-30">
@@ -333,10 +237,10 @@
                                                                 <img src="{{ asset('img/svg/more-horizontal.svg') }}" alt="more-horizontal" class="svg">
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a>
+                                                                {{-- <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a> --}}
                                                                 <a class="dropdown-item" href="#">Edit</a>
-                                                                <a class="dropdown-item" href="#">Leave</a>
-                                                                <a class="dropdown-item" href="#">Delete</a>
+                                                                {{-- <a class="dropdown-item" href="#">Leave</a> --}}
+                                                                {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                                                             </div>
                                                         </div>
                                                     </div>

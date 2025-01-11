@@ -56,7 +56,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/metros/public/'),
+    'asset_url' => env('ASSET_URL', 'http://localhost/metro/public/'),
 
     /*
     |--------------------------------------------------------------------------
