@@ -7,6 +7,7 @@ use App\Http\Controllers\CaseController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\CustomerCaseController;
 
 // Route::get('/', function () {
 //     return view('index');
@@ -102,9 +103,8 @@ Route::prefix('emails')->group(function () {
 //     return view('caseview');
 // })->name('case.view');
 
-Route::get('/userindex', function () {
-    return view('userindex');
-})->name('userss'); 
+Route::get('/userindex', [CustomerCaseController::class, 'index'])->name('userss');
+
 Route::get('/usercaseview', function () {
     return view('usercaseview');
 });
