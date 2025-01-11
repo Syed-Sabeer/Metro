@@ -64,9 +64,9 @@
                             <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Contact Information</h6>
 
                             <div class="form-group col-md-4 mb-10">
-                                <label for="name47">Select User</label>
-                                <input type="text" name="customer_email" class="form-control" id="name47" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
-                                <div id="search-results" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                                <label for="name47_1">Select User</label>
+                                <input type="text" name="customer_email" class="form-control" id="name47_1" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
+                                <div id="search-results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
                             </div>
 
                             <div class="form-group col-md-4 select-px-15 tagSelect-rtl">
@@ -96,32 +96,30 @@
 
                             <div class="mb-3">
                                 <div class="checkbox-theme-default custom-checkbox">
-                                    <input class="checkbox" type="checkbox" id="check-un1">
-                                    <label for="check-un1">
+                                    <input class="checkbox" type="checkbox" id="check-un1_1">
+                                    <label for="check-un1_1">
                                         <span class="checkbox-text">Checked</span>
                                     </label>
                                 </div>
                             </div>
 
                             <!-- Hidden Input Field for Searching -->
-                            <div id="search-container" style="display: none;">
+                            <div id="search-container_1" style="display: none;">
                                 <div class="form-group mb-3">
-                                    <label for="search-email">Search Email Identifier</label>
-                                    <input type="text" id="search-email" class="form-control" placeholder="Search by email identifier">
-                                    <div id="search-results-email" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                                    <label for="search-identifier_1">Search Identifier</label>
+                                    <input type="text" id="search-identifier_1" class="form-control" placeholder="Search by identifier">
+                                    <div id="search-results-identifier_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
                                 </div>
 
                                 <!-- Fields to Display Subject and Description -->
-                                <label for="search-email">Dear [All]</label>
+                                <label for="search-identifier_1">Dear [All]</label>
                                 <div class="form-group mb-3">
-
-                                    <input type="text" id="email-subject" name="email_subject" class="form-control" placeholder="Email Subject">
+                                    <input type="text" id="subject_1" name="subject_1" class="form-control" placeholder="Subject">
                                 </div>
                                 <div class="form-group mb-3">
-
-                                    <textarea id="email-description" name="email_description" class="form-control" placeholder="Email Description" rows="3"></textarea>
+                                    <textarea id="description_1" name="description_1" class="form-control" placeholder="Description" rows="3"></textarea>
                                 </div>
-                                       <img src="{{ asset('img/mailsign.png') }}" alt="">
+                                <img src="{{ asset('img/mailsign.png') }}" alt="">
                             </div>
 
                             <div class="button-group d-flex pt-25">
@@ -141,11 +139,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#name47').on('keyup', function() {
+        $('#name47_1').on('keyup', function() {
             let query = $(this).val();
 
             if (query.length === 0) {
-                $('#search-results').hide().html('');
+                $('#search-results_1').hide().html('');
                 return;
             }
 
@@ -154,7 +152,7 @@
                 type: 'GET',
                 data: { q: query },
                 success: function(data) {
-                    let resultsContainer = $('#search-results');
+                    let resultsContainer = $('#search-results_1');
                     resultsContainer.show();
 
                     if (data.length > 0) {
@@ -182,8 +180,9 @@
     });
 
     function selectMember(email) {
-        $('#name47').val(email);
-        $('#search-results').hide();
+        // Ensure the selected email is set to the correct input field
+        $('#name47_1').val(email);
+        $('#search-results_1').hide();
     }
 </script>
 
@@ -227,35 +226,38 @@
 <script>
 $(document).ready(function () {
     // Show or hide the search field when the checkbox is clicked
-    $('#check-un1').on('change', function () {
+    $('#check-un1_1').on('change', function () {
         if ($(this).is(':checked')) {
-            $('#search-container').slideDown(); // Show search container
+            $('#search-container_1').slideDown(); // Show search container
         } else {
-            $('#search-container').slideUp(); // Hide search container
+            $('#search-container_1').slideUp(); // Hide search container
             // Reset fields
-            $('#search-email').val('');
-            $('#search-results-email').hide().html('');
-            $('#email-subject').val('');
-            $('#email-description').val('');
+            $('#search-identifier_1').val('');
+            $('#search-results-identifier_1').hide().html('');
+            $('#subject_1').val('');
+            $('#description_1').val('');
         }
     });
 
     // Handle search input
-    $('#search-email').on('keyup', function () {
+    $('#search-identifier_1').on('keyup', function () {
         let query = $(this).val();  // Get the input value
 
         if (query.length === 0) {
-            $('#search-results-email').hide().html(''); // Hide results if input is empty
+            $('#search-results-identifier_1').hide().html(''); // Hide results if input is empty
+            // Clear subject and description if identifier is empty
+            $('#subject_1').val('');
+            $('#description_1').val('');
             return;
         }
 
         // Send AJAX request to search for identifier_name
         $.ajax({
-            url: "{{ route('search.email-identifier') }}",  // Route defined below
+            url: "{{ route('search.email-identifier') }}",  // Original route used
             type: 'GET',
             data: { q: query },  // Send query to the server
             success: function (data) {
-                let resultsContainer = $('#search-results-email');
+                let resultsContainer = $('#search-results-identifier_1');
                 resultsContainer.show();  // Show the results container
 
                 if (data.length > 0) {
@@ -264,7 +266,7 @@ $(document).ready(function () {
                     // Loop through the results and append identifier_name to the container
                     data.forEach(function (member) {
                         resultsContainer.append(`
-                            <div class="search-item" onclick="selectMember('${member.identifier_name}', '${member.subject}', '${member.description}')">
+                            <div class="search-item" onclick="selectIdentifier('${member.identifier_name}', '${member.subject}', '${member.description}')">
                                 ${member.identifier_name}  <!-- Display only identifier_name -->
                             </div>
                         `);
@@ -280,15 +282,13 @@ $(document).ready(function () {
     });
 });
 
-// Populate subject and description fields on selecting a member
-function selectMember(identifier_name, subject, description) {
-    $('#search-email').val(identifier_name);  // Set the selected identifier_name in the search field
-    $('#email-subject').val(subject);  // Set the subject field
-    $('#email-description').val(description);  // Set the description field
-    $('#search-results-email').hide();  // Hide the results container
+// Populate subject and description fields on selecting an identifier
+function selectIdentifier(identifier_name, subject, description) {
+    $('#search-identifier_1').val(identifier_name);  // Set the selected identifier_name in the search field
+    $('#subject_1').val(subject);  // Set the subject field
+    $('#description_1').val(description);  // Set the description field
+    $('#search-results-identifier_1').hide();  // Hide the results container
 }
+    </script>
 
-
-
-</script>
 
