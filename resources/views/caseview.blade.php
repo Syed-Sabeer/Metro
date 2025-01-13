@@ -246,79 +246,119 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="case-files">
+                                @php $limit = 4; @endphp
+                                @foreach($caseFiles as $index => $file)
+                                    @if($index < $limit)
+                                        <div class="mb-20">
+                                            <div class="files-area d-flex justify-content-between align-items-center">
+                                                <div class="files-area__left d-flex align-items-center">
+                                                    <div class="files-area__img">
+                                                        @php
+                                                            $fileExtension = pathinfo($file->filename, PATHINFO_EXTENSION);
+                                                        @endphp
 
-                            @foreach($caseFiles as $file)
-                                <div class="mb-20">
-                                    <div class="files-area d-flex justify-content-between align-items-center">
-                                        <div class="files-area__left d-flex align-items-center">
-                                            <div class="files-area__img">
-                                                <!-- Check for file extension and dynamically display icons -->
-                                                @php
-                                                    $fileExtension = pathinfo($file->filename, PATHINFO_EXTENSION);
-                                                @endphp
-
-                                                <!-- Dynamic content based on file type -->
-                                                @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-                                                    <span class="fs-12 fw-500 color-primary">{{ pathinfo($file->filename, PATHINFO_BASENAME) }}</span>
-                                                @elseif($fileExtension === 'pdf')
-                                                    <a href="{{ asset($file->filename) }}" class="fs-12 fw-500 color-primary" target="_blank">View PDF</a>
-                                                @else
-                                                    <span class="fs-12 fw-500 color-primary">{{ pathinfo($file->filename, PATHINFO_BASENAME) }}</span>
-                                                @endif
-                                            </div>
-                                            <div class="files-area__title">
-                                                <p class="mb-0 fs-14 fw-500 color-dark text-capitalize"></p>
-
-                                                <div class="d-flex text-capitalize">
-                                                    <a href="{{ asset($file->file_path) }}" class="fs-12 fw-500 color-primary" download>Download</a>
-                                                    {{-- <a href="#" class="fs-12 fw-500 color-primary ms-10">Edit</a> --}}
+                                                        <!-- Dynamic content based on file type -->
+                                                        @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
+                                                            <span class="fs-12 fw-500 color-primary">{{ pathinfo($file->filename, PATHINFO_BASENAME) }}</span>
+                                                        @elseif($fileExtension === 'pdf')
+                                                            <a href="{{ asset($file->filename) }}" class="fs-12 fw-500 color-primary" target="_blank">View PDF</a>
+                                                        @else
+                                                            <span class="fs-12 fw-500 color-primary">{{ pathinfo($file->filename, PATHINFO_BASENAME) }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="files-area__title">
+                                                        <div class="d-flex text-capitalize">
+                                                            <a href="{{ asset($file->file_path) }}" class="fs-12 fw-500 color-primary" download>Download</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    @endif
+                                @endforeach
+
+                                @if(count($caseFiles) > $limit)
+                                    <div class="see-all-btn mt-3 text-end">
+                                        <button class="btn btn-primary btn-default btn-squared drawer-trigger" id="seeAllFilesBtn">
+                                            See All Files
+                                        </button>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for File Upload -->
+                <div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="fileUploadModalLabel">Upload Files</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('case.file.upload', $case->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="file" class="form-label">Select Files</label>
+                                        <input type="file" class="form-control" id="file" name="files[]" multiple>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="show_file" name="show_file" value="1">
+                                        <label class="form-check-label" for="show_file">Show Files</label>
                                     </div>
                                 </div>
-                            @endforeach
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-                            <!-- File Upload Button -->
-                            {{-- <div class="mb-3 text-end">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fileUploadModal">
-                                    Upload File
-                                </button>
-                            </div> --}}
+                <!-- Drawer -->
+<div class="drawer-basic-wrap">
+    <div class="dm-drawer drawer-basic d-none" id="fileDrawer">
+        <div class="dm-drawer__header d-flex justify-content-between align-items-center">
+            <h6 class="drawer-title">All Case Files</h6>
+            <button class="btn-close" id="closeDrawerBtn"></button>
+        </div>
+        <div class="dm-drawer__body">
+            <div class="drawer-content" id="drawerContent">
+                @foreach($caseFiles as $file)
+                    <div class="mb-20">
+                        <div class="files-area d-flex justify-content-between align-items-center">
+                            <div class="files-area__left d-flex align-items-center">
+                                <div class="files-area__img">
+                                    @php
+                                        $fileExtension = pathinfo($file->filename, PATHINFO_EXTENSION);
+                                    @endphp
 
-                            <!-- Modal for File Upload -->
-                            <div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="fileUploadModalLabel">Upload Files</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form action="{{ route('case.file.upload', $case->id) }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label for="file" class="form-label">Select Files</label>
-                                                    <input type="file" class="form-control" id="file" name="files[]" multiple>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="show_file" name="show_file" value="1">
-                                                    <label class="form-check-label" for="show_file">Show Files</label>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-primary">Upload</button>
-                                            </div>
-                                        </form>
+                                    <!-- Dynamic content based on file type -->
+                                    @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
+                                        <span class="fs-12 fw-500 color-primary">{{ pathinfo($file->filename, PATHINFO_BASENAME) }}</span>
+                                    @elseif($fileExtension === 'pdf')
+                                        <a href="{{ asset($file->filename) }}" class="fs-12 fw-500 color-primary" target="_blank">View PDF</a>
+                                    @else
+                                        <span class="fs-12 fw-500 color-primary">{{ pathinfo($file->filename, PATHINFO_BASENAME) }}</span>
+                                    @endif
+                                </div>
+                                <div class="files-area__title">
+                                    <div class="d-flex text-capitalize">
+                                        <a href="{{ asset($file->file_path) }}" class="fs-12 fw-500 color-primary" download>Download</a>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
-                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
 
 
                 <div class="chat-area d-flex mb-40 mt-3">
@@ -3114,5 +3154,23 @@
                 });
         });
     });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const drawer = document.getElementById('fileDrawer');
+    const seeAllBtn = document.getElementById('seeAllFilesBtn');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+
+    // Open drawer
+    seeAllBtn.addEventListener('click', function () {
+        drawer.classList.remove('d-none');
+    });
+
+    // Close drawer
+    closeDrawerBtn.addEventListener('click', function () {
+        drawer.classList.add('d-none');
+    });
+});
 </script>
 @endsection

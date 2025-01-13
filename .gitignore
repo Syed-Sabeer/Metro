@@ -16,7 +16,7 @@
 /storage/debugbar/*
 /bootstrap/cache/*
 /config
-
+/config/app.php
 /.phpunit.cache
 /node_modules
 
@@ -27,6 +27,7 @@
 /vendor
 /config
 /.env
+.evn
 .env.backup
 .env.production
 .phpunit.result.cache
