@@ -43,11 +43,23 @@
                     </div>
                     <div class="d-flex text-capitalize">
                         <button type="button"
-                            class="breadcrumb-edit btn btn-white border-0 color-primary content-center fs-12 fw-500 radius-md">
-                            <img src="{{asset('img/svg/edit-3.svg')}}" alt="edit-3" class="svg">edit</button>
-                        <button type="button"
+                                class="breadcrumb-edit btn btn-white border-0 color-primary content-center fs-12 fw-500 radius-md"
+                                data-bs-toggle="modal"
+                                data-bs-target="#CasenewModal"
+                                data-case-id="{{ $case->id }}"> <!-- Replace 123 with dynamic case ID -->
+                            <img src="{{ asset('img/svg/edit-3.svg') }}" alt="edit-3" class="svg">edit
+                        </button>
+
+                        {{-- <button type="button"
                             class="breadcrumb-remove border-0 color-danger content-center bg-white fs-12 fw-500 ms-10 radius-md">
-                            <img class="svg" src="{{asset('img/svg/trash-2.svg')}}" alt="trash-2">remove</button>
+                            <img class="svg" src="{{asset('img/svg/trash-2.svg')}}" alt="trash-2">remove</button> --}}
+
+                            <form action="{{ route('case.delete', $case->id) }}" method="GET">
+                                @csrf
+                                <button type="submit" class="breadcrumb-remove border-0 color-danger content-center bg-white fs-12 fw-500 ms-10 radius-md">
+                                    <img class="svg" src="{{asset('img/svg/trash-2.svg')}}" alt="trash-2">remove
+                                </button>
+                            </form>
                     </div>
                 </div>
 
@@ -542,5 +554,65 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="CasenewModal" tabindex="-1" aria-labelledby="CasenewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CasenewModalLabel">Case Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="caseForm" method="post" action="{{ route('update.case.sub.des', $case->id) }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="caseSubject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="caseSubject" name="subject">
+                    </div>
+                    <div class="mb-3">
+                        <label for="caseDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="caseDescription" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="saveCaseBtn">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @vite('resources/js/app.js')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const casenewModal = document.getElementById('CasenewModal');
+
+        casenewModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; // Button that triggered the modal
+            const caseId = button.getAttribute('data-case-id'); // Extract info from data-* attributes
+
+            // Dynamically generate the URL for the case details route
+            const url = "{{ route('get-case-details', ['id' => ':id']) }}".replace(':id', caseId);
+
+            // AJAX Request to get case data
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        // Populate the modal fields
+                        document.getElementById('caseSubject').value = data.subject;
+                        document.getElementById('caseDescription').value = data.description;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching case details:', error);
+                });
+        });
+    });
+</script>
 @endsection

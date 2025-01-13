@@ -132,7 +132,7 @@
                     <div class="tab-pane fade show active" id="ap-overview" role="tabpanel" aria-labelledby="ap-overview-tab">
                         <div class="row">
                             @foreach($cases as $case)
-                                                         <div class="col-xl-3 mb-25 col-md-3">
+                                <div class="col-xl-3 mb-25 col-md-3">
                                     <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
                                         <div class="border-bottom px-20">
                                             <div class="media user-group-media d-flex justify-content-between">

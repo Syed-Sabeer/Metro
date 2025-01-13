@@ -39,7 +39,7 @@
                     <div class=" d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
                         <div
                             class="d-flex align-items-center user-member__title justify-content-center me-sm-25">
-                            <h4 class="text-capitalize fw-500 breadcrumb-title">Admin list </h4>
+                            <h4 class="text-capitalize fw-500 breadcrumb-title">Employee list </h4>
                         </div>
                         <form action="/" class="d-flex align-items-center user-member__form my-sm-0 my-2">
                             <img src="img/svg/search.svg" alt="search" class="svg">

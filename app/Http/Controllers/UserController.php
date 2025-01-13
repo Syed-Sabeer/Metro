@@ -6,9 +6,10 @@ use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -20,8 +21,6 @@ class UserController extends Controller
 
     public function LoginAdmin(Request $request)
     {
-
-
 
         // Validate input fields
         $request->validate([
@@ -90,29 +89,21 @@ class UserController extends Controller
     function viewEmployee()
     {
         $users = User::with('userDetail')->where('role',  'employee')->get();
+        // dd($users);
         return view('view_admin', compact('users'));
     }
 
     function StoreUser(Request $request)
     {
         // Validate the incoming request
-        // $request->validate([
-        //     'email' => 'required|email|unique:users,email',
-        //     'account_owner' => 'required|string|max:255',
-        //     'first_name' => 'required|string|max:255',
-        //     'last_name' => 'required|string|max:255',
-        //     'address' => 'required|string|max:255',
-        //     'suite' => 'nullable|string|max:255',
-        //     'city' => 'required|string|max:255',
-        //     'state' => 'required|string|max:255',
-        //     'zipcode' => 'required|numeric',
-        //     'country' => 'required|string|max:255',
-        //     'phone' => 'required|string|max:20',
-        //     'cell_phone_number' => 'required|string|max:20',
-        //     'website_url' => 'nullable|string|max:255|url',
-        //     'fax' => 'nullable|string|max:20',
-        //     'description' => 'required|string|max:500',
-        // ]);
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'account_owner' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'cell_phone_number' => 'required|string|max:20',
+        ]);
 
         $password = Str::random(10);
 
@@ -163,7 +154,7 @@ class UserController extends Controller
             'alert-type' => 'success',
         ];
 
-        return redirect()->route('list.user')->with($notification);
+        return redirect()->route('view.customer')->with($notification);
     }
 
     public function ListUser()
@@ -259,7 +250,7 @@ class UserController extends Controller
             'alert-type' => 'success',
         ];
 
-        return redirect()->route('list.user')->with($notification);
+        return redirect()->route('view.customer')->with($notification);
     }
 
 
@@ -281,7 +272,7 @@ class UserController extends Controller
             'alert-type' => 'success',
         ];
 
-        return redirect()->route('list.user')->with($notification);
+        return redirect()->route('view.customer')->with($notification);
     }
 
     public function LoginUser()
@@ -369,30 +360,21 @@ class UserController extends Controller
     function StoreEmployee(Request $request)
     {
         // Validate the incoming request
-        // $request->validate([
-        //     'email' => 'required|email|unique:users,email',
-        //     'account_owner' => 'required|string|max:255',
-        //     'first_name' => 'required|string|max:255',
-        //     'last_name' => 'required|string|max:255',
-        //     'address' => 'required|string|max:255',
-        //     'suite' => 'nullable|string|max:255',
-        //     'city' => 'required|string|max:255',
-        //     'state' => 'required|string|max:255',
-        //     'zipcode' => 'required|numeric',
-        //     'country' => 'required|string|max:255',
-        //     'phone' => 'required|string|max:20',
-        //     'cell_phone_number' => 'required|string|max:20',
-        //     'website_url' => 'nullable|string|max:255|url',
-        //     'fax' => 'nullable|string|max:20',
-        //     'description' => 'required|string|max:500',
-        // ]);
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'account_owner' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'cell_phone_number' => 'required|string|max:20',
+        ]);
 
         $password = Str::random(10);
 
         $getuser_id = User::insertGetId([
             'name' => $request->account_owner,
             'email' => $request->email,
-            'role' => 'supplier',
+            'role' => 'employee',
             'password' => Hash::make($password),
             'status' => 0,
             'created_at' => Carbon::now(),
@@ -432,11 +414,11 @@ class UserController extends Controller
         // });
 
         $notification = [
-            'message' => 'New Supplier Inserted Successfully',
+            'message' => 'New Employee Inserted Successfully',
             'alert-type' => 'success',
         ];
 
-        return redirect()->route('list.user')->with($notification);
+        return redirect()->route('view.employee')->with($notification);
     }
 
     public function AddAdmin()
@@ -448,23 +430,14 @@ class UserController extends Controller
     function StoreAdmin(Request $request)
     {
         // Validate the incoming request
-        // $request->validate([
-        //     'email' => 'required|email|unique:users,email',
-        //     'account_owner' => 'required|string|max:255',
-        //     'first_name' => 'required|string|max:255',
-        //     'last_name' => 'required|string|max:255',
-        //     'address' => 'required|string|max:255',
-        //     'suite' => 'nullable|string|max:255',
-        //     'city' => 'required|string|max:255',
-        //     'state' => 'required|string|max:255',
-        //     'zipcode' => 'required|numeric',
-        //     'country' => 'required|string|max:255',
-        //     'phone' => 'required|string|max:20',
-        //     'cell_phone_number' => 'required|string|max:20',
-        //     'website_url' => 'nullable|string|max:255|url',
-        //     'fax' => 'nullable|string|max:20',
-        //     'description' => 'required|string|max:500',
-        // ]);
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'account_owner' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'cell_phone_number' => 'required|string|max:20',
+        ]);
 
         $password = Str::random(10);
 
@@ -515,7 +488,7 @@ class UserController extends Controller
             'alert-type' => 'success',
         ];
 
-        return redirect()->route('list.user')->with($notification);
+        return redirect()->route('view.admin')->with($notification);
     }
 
 
@@ -536,6 +509,8 @@ class UserController extends Controller
 
         return response()->json(['success' => false]);
     }
+
+
 
 
 

@@ -1,3 +1,20 @@
+<style>
+    .select2-container--default .select2-selection--multiple {
+        border: 1px solid #d1d3e2;
+        border-radius: 5px;
+        /* padding: 8px; */
+        height: 45px;
+        box-shadow: none;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+        margin: 0;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        border-radius: 4px;
+    }
+</style>
 <!-- resources/views/partials/create-case-modal.blade.php -->
 <div class="modal fade new-member" id="new-member" role="dialog" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 1170px;">
@@ -72,7 +89,7 @@
                             <div class="form-group col-md-4 select-px-15 tagSelect-rtl">
                                 <label class="il-gray fs-14 fw-500 align-center mb-10">Search and Select Employees</label>
                                 <div class="dm-select">
-                                    <select name="employee_emails[]" id="employeeSelect" class="form-control" multiple="multiple" style="width: 100%; border:#777">
+                                    <select name="employee_emails[]" id="employeeSelect" class="form-control" multiple="multiple" style="width: 100%;">
                                         <!-- Dynamically added options will appear here -->
                                     </select>
                                 </div>
@@ -94,9 +111,20 @@
                                 <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description" required></textarea>
                             </div>
 
+                            {{-- <div class="mb-3">
+                                <div class="checkbox-theme-default custom-checkbox">
+                                    <input class="checkbox" value="1" name="checked" type="checkbox" id="check-un1_1">
+                                    <label for="check-un1_1">
+                                        <span class="checkbox-text">Checked</span>
+                                    </label>
+                                </div>
+                            </div> --}}
+
                             <div class="mb-3">
                                 <div class="checkbox-theme-default custom-checkbox">
-                                    <input class="checkbox" type="checkbox" id="check-un1_1">
+                                    <!-- Hidden input to ensure checkbox_value is always posted -->
+                                    <input type="hidden" name="checkbox_value" value="0"> <!-- This ensures '0' is sent if unchecked -->
+                                    <input class="checkbox" type="checkbox" id="check-un1_1" name="checkbox_value" value="1" {{ old('checkbox_value') ? 'checked' : '' }}>
                                     <label for="check-un1_1">
                                         <span class="checkbox-text">Checked</span>
                                     </label>
@@ -290,5 +318,19 @@ function selectIdentifier(identifier_name, subject, description) {
     $('#search-results-identifier_1').hide();  // Hide the results container
 }
     </script>
+<script>
+    $('#check-un1_1').on('change', function () {
+    if ($(this).is(':checked')) {
+        $('#search-container_1').slideDown(); // Show search container
+    } else {
+        $('#search-container_1').slideUp(); // Hide search container
+        // Reset fields when unchecked
+        $('#search-identifier_1').val('');
+        $('#search-results-identifier_1').hide().html('');
+        $('#subject_1').val('');
+        $('#description_1').val('');
+    }
+});
+</script>
 
 

@@ -12,8 +12,8 @@ use App\Models\Casefile;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Room;
 use App\Models\Email;
-
-
+use App\Models\Message;
+use App\Models\Notification;
 
 class CaseController extends Controller
 {
@@ -24,7 +24,7 @@ class CaseController extends Controller
         $case_owner = User::where('id', Auth::id())->value('name');
         // dd($case_owner);
         $cases = Casenew::all();
-     
+
         $totalRows = Status::latest('id')->value('id');
         $totalcaese = Casenew::count();
         // dd($cases);
@@ -48,8 +48,8 @@ class CaseController extends Controller
         $case->client_id = $client_id;
         $case->case_no = $request->case_no;
         $case->account_name = $request->account_name;
-        $case->subject = $request->subject;
-        $case->description = $request->description;
+        $case->subject = $request->subject_1;
+        $case->description = $request->description_1;
         $case->save();
 
         // Create a new room associated with the case
@@ -84,31 +84,49 @@ class CaseController extends Controller
             $participant->user_id = $userId;
             $participant->room_id = $room->id;
             $participant->save();
-            $userss = User::find($userId);
-            $email= $userss->email;
-            $data = [
-                'name' => $userss->name,  // Assuming $name is the variable containing the user's name
-                'message' => $request->email_description,  // Or any other content you want
-            ];
-            $sub= $request->email_subject;
-            Mail::send('emails.user_credentials', $data, function ($message) use ($email,$sub) {
-                $message->to($email)
-                        ->subject($sub);
-                // Embed the image in the email body using CID (Content-ID)
-                $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
-            });
 
+
+            // Create notification for each participant
+            $user = User::find($userId);
+            $message = 'A new case has been created case # ' . $case->case_no;
+
+            // Save the notification
+            Notification::create([
+                'to' => $userId,
+                'from' => Auth::id(),
+                'message' => $message,
+                'status' => 0, // Unread notification
+            ]);
         }
 
+        // Check if the checkbox is checked (checkbox_value = 1)
+        if ($request->checkbox_value == '1') {
+            // Send emails to participants
+            foreach ($userIds as $userId) {
+                $userss = User::find($userId);
+                $email = $userss->email;
+                $data = [
+                    'name' => $userss->name,  // Assuming $name is the variable containing the user's name
+                    'message' => $request->description_1,  // Or any other content you want
+                ];
+                $sub = $request->subject_1;
+                Mail::send('emails.user_credentials', $data, function ($message) use ($email, $sub) {
+                    $message->to($email)
+                            ->subject($sub);
+                    // Embed the image in the email body using CID (Content-ID)
+                    $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
+                });
+            }
+        }
+
+        // Redirect with a success message
         $notification = array(
             'message' => 'New Case Created Successfully',
             'alert-type' => 'success',
         );
 
-        // Redirect with a success message
         return redirect()->back()->with($notification);
     }
-
 
 
     public function viewCase($id)
@@ -231,7 +249,8 @@ public function forwardStatus($id, Request $request)
     public function SearchMember(Request $request)
     {
         $query = $request->input('q');
-        $members = User::where('email', 'LIKE', '%' . $query . '%')->where('role', 'customer')->take(10)->get(['id', 'email']);
+        $members = User::where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
+        ->where('role', 'customer')->take(10)->get(['id', 'email']);
 
         return response()->json($members);
     }
@@ -239,7 +258,7 @@ public function forwardStatus($id, Request $request)
     public function SearchEmployee(Request $request)
     {
         $query = $request->input('q');
-        $employees = User::where('email', 'LIKE', '%' . $query . '%')
+        $employees = User::where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
                          ->where('role', 'employee') // Ensure the role is 'employee'
                          ->limit(3) // Explicitly limit the results to 3
                          ->get(['id', 'email']); // Return id and email for frontend processing
@@ -262,5 +281,82 @@ public function forwardStatus($id, Request $request)
 
         return response()->json([]);  // Return empty array if query is empty
     }
+
+
+    public function getCaseDetails($id)
+    {
+        $case = Casenew::find($id); // Casenew is the model for your table
+        if ($case) {
+            return response()->json([
+                'subject' => $case->subject,
+                'description' => $case->description,
+            ]);
+        }
+        return response()->json(['error' => 'Case not found'], 404);
+    }
+
+
+    public function updateCaseDetails(Request $request, $id)
+    {
+        $request->validate([
+            'subject' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $case = Casenew::find($id); // Adjust this based on your structure
+
+        if ($case) {
+            $case->subject = $request->subject;
+            $case->description = $request->description;
+            $case->save();
+
+            // Flash notification
+            $notification = array(
+                'message' => 'Case Updated Successfully',
+                'alert-type' => 'success',
+            );
+
+            return back()->with($notification);  // Redirect back with the notification
+        }
+
+        // Flash notification for failure
+        $notification = array(
+            'message' => 'Case not found',
+            'alert-type' => 'error',
+        );
+
+        return back()->with($notification);  // Redirect back with the notification
+    }
+    public function Delete($id)
+    {
+        $room_id = Room::where('case_id', $id)->pluck('id');
+        if ($room_id->isNotEmpty()) {
+            $message = Message::whereIn('room_id', $room_id)->get();
+            if ($message->isNotEmpty()) {
+                $message->each(function ($msg) {
+                    $msg->delete();
+                });
+            }
+        }
+
+        Room::where('case_id', $id)->delete();
+
+        RoomParticipant::where('case_id', $id)->delete();
+
+        Casefile::where('case_id', $id)->delete();
+
+        $case = Casenew::find($id);
+        if ($case) {
+            $case->delete();
+        }
+
+        $notification = array(
+            'message' => 'Case Deleted Successfully',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('add.cases')->with($notification);
+    }
+
 
 }

@@ -134,91 +134,48 @@
                             <a href="javascript:;" class="nav-item-toggle icon-active">
                                 <img class="svg" src="{{ asset('img/svg/alarm.svg') }}" alt="img">
                             </a>
+
+                            @php
+                                // Fetch the current user's ID
+                                $userId = Auth::id();
+
+                                // Fetch notifications for the current user
+                                $notifications = \App\Models\Notification::where('to', $userId)->where('status', 1)
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+
+                                // Count unread notifications
+                                $unreadCount = $notifications->where('status', 0)->count();
+                            @endphp
                             <div class="dropdown-parent-wrapper">
                                 <div class="dropdown-wrapper">
-                                    <h2 class="dropdown-wrapper__title">Notifications <span
-                                            class="badge-circle badge-warning ms-1">4</span></h2>
+                                    <h2 class="dropdown-wrapper__title">Notifications
+                                        <span class="badge-circle badge-warning ms-1">{{ $unreadCount }}</span>
+                                    </h2>
                                     <ul>
-                                        <li
-                                            class="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
-                                            <div class="nav-notification__type nav-notification__type--primary">
-                                                <img class="svg" src="{{ asset('img/svg/inbox.svg') }}" alt="inbox">
-                                            </div>
-                                            <div class="nav-notification__details">
-                                                <p>
-                                                    <a href class="subject stretched-link text-truncate"
-                                                        style="max-width: 180px;">James</a>
-                                                    <span>sent you a message</span>
-                                                </p>
-                                                <p>
-                                                    <span class="time-posted">5 hours ago</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            class="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
-                                            <div class="nav-notification__type nav-notification__type--secondary">
-                                                <img class="svg" src="{{ asset('img/svg/upload.svg') }}" alt="upload">
-                                            </div>
-                                            <div class="nav-notification__details">
-                                                <p>
-                                                    <a href class="subject stretched-link text-truncate"
-                                                        style="max-width: 180px;">James</a>
-                                                    <span>sent you a message</span>
-                                                </p>
-                                                <p>
-                                                    <span class="time-posted">5 hours ago</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li
-                                            class="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
-                                            <div class="nav-notification__type nav-notification__type--success">
-                                                <img class="svg" src="{{ asset('img/svg/log-in.svg') }}" alt="log-in">
-                                            </div>
-                                            <div class="nav-notification__details">
-                                                <p>
-                                                    <a href class="subject stretched-link text-truncate"
-                                                        style="max-width: 180px;">James</a>
-                                                    <span>sent you a message</span>
-                                                </p>
-                                                <p>
-                                                    <span class="time-posted">5 hours ago</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="nav-notification__single nav-notification__single d-flex flex-wrap">
-                                            <div class="nav-notification__type nav-notification__type--info">
-                                                <img class="svg" src="{{ asset('img/svg/at-sign.svg') }}" alt="at-sign">
-                                            </div>
-                                            <div class="nav-notification__details">
-                                                <p>
-                                                    <a href class="subject stretched-link text-truncate"
-                                                        style="max-width: 180px;">James</a>
-                                                    <span>sent you a message</span>
-                                                </p>
-                                                <p>
-                                                    <span class="time-posted">5 hours ago</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="nav-notification__single nav-notification__single d-flex flex-wrap">
-                                            <div class="nav-notification__type nav-notification__type--danger">
-                                                <img src="{{ asset('img/svg/heart.svg') }}" alt="heart" class="svg">
-                                            </div>
-                                            <div class="nav-notification__details">
-                                                <p>
-                                                    <a href class="subject stretched-link text-truncate"
-                                                        style="max-width: 180px;">James</a>
-                                                    <span>sent you a message</span>
-                                                </p>
-                                                <p>
-                                                    <span class="time-posted">5 hours ago</span>
-                                                </p>
-                                            </div>
-                                        </li>
+                                        @forelse ($notifications as $notification)
+                                            <li class="nav-notification__single {{ $notification->status == 0 ? 'nav-notification__single--unread' : '' }} d-flex flex-wrap">
+                                                <div class="nav-notification__type nav-notification__type--primary">
+                                                    <img class="svg" src="{{ asset('img/svg/inbox.svg') }}" alt="inbox">
+                                                </div>
+                                                <div class="nav-notification__details">
+                                                    <p>
+                                                        <span>{{ $notification->message }}</span>
+                                                    </p>
+                                                    <p>
+                                                        <span class="time-posted">{{ $notification->created_at->diffForHumans() }}</span>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        @empty
+                                            <li class="nav-notification__single d-flex flex-wrap">
+                                                <div class="nav-notification__details">
+                                                    <p>No new notifications</p>
+                                                </div>
+                                            </li>
+                                        @endforelse
                                     </ul>
-                                    <a href class="dropdown-wrapper__more">See all incoming activity</a>
+                                    <a href="{{ route('index.notification', Auth::id()) }}" class="dropdown-wrapper__more">See all incoming activity</a>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +194,7 @@
                                 <div class="dropdown-wrapper">
                                     <div class="nav-author__info">
                                         <div class="author-img">
-                                          
+
                                         </div>
                                         <div>
                                             <h6>{{ Auth::user()->name; }}</h6>

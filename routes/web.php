@@ -8,6 +8,8 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CustomerCaseController;
+use App\Http\Controllers\NotificationController;
+
 
 // Route::get('/', function () {
 //     return view('index');
@@ -77,6 +79,9 @@ Route::get('/search-members', [CaseController::class, 'SearchMember'])->name('me
 Route::get('/search-employees', [CaseController::class, 'SearchEmployee'])->name('employees.search');
 Route::post('/case/store', [CaseController::class, 'storecase'])->name('case.store');
 Route::get('/caseview/{id}', [CaseController::class, 'viewCase'])->name('case.view');
+Route::get('/get-case-details/{id}', [CaseController::class, 'getCaseDetails'])->name('get-case-details');
+Route::post('/update-case-details/{id}', [CaseController::class, 'updateCaseDetails'])->name('update.case.sub.des');
+Route::get('/case/delete{id}', [CaseController::class, 'Delete'])->name('case.delete');
 
 Route::post('/cases/upload-file/{id}', [CaseController::class, 'casefileupload'])->name('case.file.upload');
 // Route for moving backward the status
@@ -120,3 +125,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/index/notification', [NotificationController::class, 'Notification'])->name('index.notification');
+Route::get('/notifications/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+Route::get('/notifications/delete/{id}', [NotificationController::class, 'delete'])->name('notifications.delete');
