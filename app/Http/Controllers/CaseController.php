@@ -144,29 +144,28 @@ class CaseController extends Controller
     public function casefileupload(Request $request, $id)
     {
         $request->validate([
-            'file' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,zip|max:2048', // Adjust MIME types and size limit as needed
+            'files.*' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,zip|max:2048',
         ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
+        $showFile = $request->has('show_file') ? 1 : 0;
 
-            // Generate a unique filename
-            $fileName = time() . '_' . $file->getClientOriginalName();
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = 'uploads/' . $fileName;
 
-            // Define the path to store the file inside the public directory
-            $filePath = public_path('uploads/' . $fileName);
+                $file->move(public_path('uploads'), $fileName);
 
-            // Move the uploaded file to the public folder
-            $file->move(public_path('uploads'), $fileName);
-
-            // Save the file path in the database
-            Casefile::create([
-                'case_id' => $id,
-                'file_path' => 'uploads/' . $fileName, // Store the relative path
-            ]);
+                Casefile::create([
+                    'case_id' => $id,
+                    'file_path' => $filePath,
+                    'filename' => $file->getClientOriginalName(),
+                    'show_file' => $showFile,
+                ]);
+            }
 
             $notification = [
-                'message' => 'File uploaded successfully!',
+                'message' => 'Files uploaded successfully!',
                 'alert-type' => 'success',
             ];
 
@@ -174,12 +173,13 @@ class CaseController extends Controller
         }
 
         $notification = [
-            'message' => 'No file was uploaded.',
+            'message' => 'No files were uploaded.',
             'alert-type' => 'error',
         ];
 
         return back()->with($notification);
     }
+
 
 
     // Forward Status Update

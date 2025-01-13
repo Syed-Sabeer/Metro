@@ -147,7 +147,7 @@
                                 <div class="form-group mb-3">
                                     <textarea id="description_1" name="description_1" class="form-control" placeholder="Description" rows="3"></textarea>
                                 </div>
-                                <img src="{{ asset('img/mailsign.png') }}" alt="">
+                                <img src="{{ asset('img/mailsign.jpg') }}" alt="">
                             </div>
 
                             <div class="button-group d-flex pt-25">
