@@ -67,11 +67,8 @@
 
                     <div class="card-body">
                       <div class="dm-steps-wrap">
-
-
                         <div class="dm-steps">
                           <ul class="nav">
-
                             @foreach($statuses as $status)
                                 <li class="dm-steps__item
                                     {{ $case->status_id >= $status->id ? 'finished' : '' }}
@@ -85,55 +82,11 @@
                                     </div>
                                 </li>
                             @endforeach
-
-                            {{-- <li class="dm-steps__item finished">
-                              <div class="dm-steps__line"></div>
-                              <div class="dm-steps__content">
-                                <span class="dm-steps__icon"><span class="dm-steps__count">2</span></span>
-                                <span class="dm-steps__text">In Progress</span>
-                              </div>
-                            </li>
-                            <li class="dm-steps__item finished">
-                              <div class="dm-steps__content">
-                                <span class="dm-steps__icon"><span class="dm-steps__count">3</span></span>
-                                <span class="dm-steps__text">pending</span>
-                              </div>
-                            </li>
-                            <li class="dm-steps__item active">
-                                <div class="dm-steps__content">
-                                  <span class="dm-steps__icon"><span class="dm-steps__count">3</span></span>
-                                  <span class="dm-steps__text">Waiting</span>
-                                </div>
-                              </li>
-                              <li class="dm-steps__item">
-                                <div class="dm-steps__content">
-                                  <span class="dm-steps__icon"><span class="dm-steps__count">3</span></span>
-                                  <span class="dm-steps__text">Waiting</span>
-                                </div>
-                              </li>
-                              <li class="dm-steps__item">
-                                <div class="dm-steps__content">
-                                  <span class="dm-steps__icon"><span class="dm-steps__count">3</span></span>
-                                  <span class="dm-steps__text">Waiting</span>
-                                </div>
-                              </li>
-                              <li class="dm-steps__item">
-                                <div class="dm-steps__content">
-                                  <span class="dm-steps__icon"><span class="dm-steps__count">3</span></span>
-                                  <span class="dm-steps__text">Waiting</span>
-                                </div>
-                              </li> --}}
-
-
                           </ul>
                         </div>
-
-
                       </div>
                     </div>
                   </div>
-
-
             </div>
         </div>
 
@@ -157,9 +110,6 @@
                     <div class="card mt-25">
                         <div class="card-body">
                             <div class="application-task d-flex align-items-center mb-25">
-                                {{-- <div class="application-task-icon wh-60 bg-opacity-secondary content-center">
-                                    <img class="svg wh-25 text-secondary" src="{{asset('img/svg/at.svg')}}" alt="img">
-                                </div> --}}
                                 <div class="application-task-content">
                                     <h4>Case owner</h4>
                                     @php
@@ -169,32 +119,19 @@
                                 </div>
                             </div>
                             <div class="application-task d-flex align-items-center mb-25">
-                                {{-- <div class="application-task-icon wh-60 bg-opacity-primary content-center">
-                                    <img class="svg wh-25 text-primary" src="{{asset('img/svg/at2.svg')}}" alt="img">
-                                </div> --}}
+                                <div class="application-task-content">
+                                    <h4>Case #</h4>
+                                    <span class="text-light fs-14 mt-1 text-capitalize">{{ $case->case_no }}</span>
+                                </div>
+                            </div>
+                            <div class="application-task d-flex align-items-center mb-25">
+
                                 <div class="application-task-content">
                                     <h4>Start Date</h4>
                                     <span class="text-light fs-14 mt-1 text-capitalize">{{ $case->created_at->format('d M Y') }}</span>
                                 </div>
                             </div>
-                            {{-- <div class="application-task d-flex align-items-center mb-25">
-                                <div class="application-task-icon wh-60 bg-opacity-success content-center">
-                                    <img class="svg wh-25 text-success" src="{{asset('img/svg/at4.svg')}}" alt="img">
-                                </div>
-                                <div class="application-task-content">
-                                    <h4>$27,500</h4>
-                                    <span class="text-light fs-14 mt-1 text-capitalize">Spendings</span>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="application-task d-flex align-items-center">
-                                <div class="application-task-icon wh-60 bg-opacity-warning content-center">
-                                    <img class="svg wh-25 text-warning" src="{{asset('img/svg/at3.svg')}}" alt="img">
-                                </div>
-                                <div class="application-task-content">
-                                    <h4>250</h4>
-                                    <span class="text-light fs-14 mt-1 text-capitalize">hours spent</span>
-                                </div>
-                            </div> --}}
+
                         </div>
                     </div>
 
@@ -280,7 +217,7 @@
 
                                 @if(count($caseFiles) > $limit)
                                     <div class="see-all-btn mt-3 text-end">
-                                        <button class="btn btn-primary btn-default btn-squared drawer-trigger" id="seeAllFilesBtn">
+                                        <button class="btn btn-primary btn-default btn-squared drawer-trigger" data-drawer="basic" id="seeAllFilesBtn">
                                             See All Files
                                         </button>
                                     </div>
@@ -3156,7 +3093,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
     const drawer = document.getElementById('fileDrawer');
     const seeAllBtn = document.getElementById('seeAllFilesBtn');
@@ -3172,5 +3109,5 @@
         drawer.classList.add('d-none');
     });
 });
-</script>
+</script> --}}
 @endsection

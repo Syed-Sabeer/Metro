@@ -85,6 +85,7 @@ Route::get('/case/delete{id}', [CaseController::class, 'Delete'])->name('case.de
 
 Route::post('/cases/upload-file/{id}', [CaseController::class, 'casefileupload'])->name('case.file.upload');
 // Route for moving backward the status
+// Route::post('/case/{id}/back-status', [CaseController::class, 'backStatus'])->name('case.back');
 Route::post('/case/{id}/back-status', [CaseController::class, 'backStatus'])->name('case.back');
 // Route for moving forward the status
 Route::post('/case/{id}/forward-status', [CaseController::class, 'forwardStatus'])->name('case.forward');

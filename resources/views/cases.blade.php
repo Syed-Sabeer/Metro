@@ -51,7 +51,7 @@
                                 <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
                                     <div class="d-flex align-items-center user-member__title justify-content-center me-sm-25">
                                         <h4 class="text-capitalize fw-500 breadcrumb-title">Cases</h4>
-                                        <span class="sub-title ms-sm-25 ps-sm-25">{{ $totalcaese }} Running Cases</span>
+                                        <span class="sub-title ms-sm-25 ps-sm-25">{{ $totalcaese }} Total Cases</span>
                                     </div>
                                 </div>
                                 <div class="action-btn">
@@ -95,33 +95,14 @@
                                     </li>
                                     @endforeach
                                 </ul>
-
                             </div>
-
-                        </div>
-                        {{-- <div class="project-top-right d-flex flex-wrap">
-                            <div class="project-category">
-                                <div class="d-flex align-items-center">
-                                    <p class="mb-0 me-10 fs-14 color-light">sort by:</p>
-                                    <div class="project-category__select">
-                                        <select class="js-example-basic-single js-states form-control"
-                                            id="event-category">
-                                            <option value="all" selected>Status</option>
-                                            <option value="JAN">event</option>
-                                            <option value="FBR">Venues</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="project-search project-search--height global-shadow ms-md-20 my-10 order-md-2 order-1">
-                                <form action="/" class="d-flex align-items-center user-member__form">
-                                    <img src="img/svg/search.svg" alt="search" class="svg">
-                                    <input class="form-control me-sm-2 border-0 box-shadow-none" type="search"
-                                        placeholder="Search by Name" aria-label="Search">
+                            <div class="project-search project-search--height global-shadow ms-md-20 my-10 order-md-2 order-1">
+                                <form action="/" method="GET" class="d-flex align-items-center user-member__form">
+                                    <img src="{{ asset('img/svg/search.svg') }}" alt="search" class="svg">
+                                    <input id="searchInput" class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Search by Name" aria-label="Search">
                                 </form>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,7 +113,7 @@
                     <div class="tab-pane fade show active" id="ap-overview" role="tabpanel" aria-labelledby="ap-overview-tab">
                         <div class="row">
                             @foreach($cases as $case)
-                                <div class="col-xl-3 mb-25 col-md-3">
+                                <div class="col-xl-3 mb-25 col-md-3 case-item" data-id="{{ $case->id }}" data-name="{{ $case->subject }}" data-case_no="{{ $case->case_no }}" data-status_name="{{ $case->status->status_name }}">
                                     <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
                                         <div class="border-bottom px-20">
                                             <div class="media user-group-media d-flex justify-content-between">
@@ -142,7 +123,23 @@
                                                             {{ $case->subject }}
                                                         </h6>
                                                     </a>
-                                                    <span class="my-sm-0 my-2 media-badge text-uppercase color-white bg-primary">{{ $case->status->status_name }}</span>
+                                                    @php
+                                                        $statusClasses = [
+                                                            1 => 'bg-primary',    // New
+                                                            2 => 'bg-warning',    // Customer Awaited
+                                                            3 => 'bg-info',       // Factory Awaited
+                                                            4 => 'bg-secondary',  // In Process
+                                                            5 => 'bg-success',    // In Production
+                                                            6 => 'bg-dark',       // Shipped
+                                                            7 => 'bg-danger',     // Delivered
+                                                            8 => 'bg-light',      // Close
+                                                        ];
+
+                                                        $statusClass = $statusClasses[$case->status->id] ?? 'bg-default'; // Default class for unexpected status
+                                                    @endphp
+                                                    <span class="my-sm-0 my-2 media-badge text-uppercase color-white {{ $statusClass }}">
+                                                        {{ $case->status->status_name }}
+                                                    </span>
                                                 </div>
                                                 <div class="mt-n15">
                                                     <div class="dropdown dropleft">
@@ -161,27 +158,51 @@
                                             <div class="user-group-people mt-15 text-capitalize">
                                                 <p>{{ implode(' ', array_slice(explode(' ', $case->description), 0, 10)) }}...</p>
                                                 <div class="user-group-project">
-                                                    <div class="d-flex align-items-center user-group-progress-top">
+                                                    <div class="d-flex align-items-center justify-content-between user-group-progress-top">
                                                         <div class="media-ui__start">
                                                             <span class="color-light fs-12">Created Date</span>
                                                             <p class="fs-14 fw-500 color-dark mb-0">{{ $case->created_at->format('d M Y') }}</p>
+                                                        </div>
+                                                        <div class="media-ui__start text-end">
+                                                            <span class="color-light fs-12">Case #</span>
+                                                            <p class="fs-14 fw-500 color-dark mb-0">{{ $case->case_no }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="user-group-progress-bar">
                                                 @php
-                                                        $completedTasks = $case->status->id; // Example: Get the number of completed tasks from your database or logic
-                                                        $totalTasks = $totalRows; // Example: Get the total number of tasks
-                                                        $progressPercentage = ($completedTasks / $totalTasks) * 100;
+                                                    // Map status IDs to specific progress bar colors
+                                                    $statusColors = [
+                                                        1 => 'bg-primary',   // New
+                                                        2 => 'bg-warning',   // Customer Awaited
+                                                        3 => 'bg-info',      // Factory Awaited
+                                                        4 => 'bg-secondary', // In Process
+                                                        5 => 'bg-success',   // In Production
+                                                        6 => 'bg-dark',      // Shipped
+                                                        7 => 'bg-danger',    // Delivered
+                                                        8 => 'bg-light',     // Close
+                                                    ];
+
+                                                    // Determine the color for the current status
+                                                    $progressColor = $statusColors[$case->status->id] ?? 'bg-default'; // Default class if no match
+
+                                                    // Calculate progress percentage
+                                                    $completedTasks = $case->status->id; // Example: Use status ID or logic to determine completion level
+                                                    $totalTasks = $totalRows;           // Example: Total tasks or steps
+                                                    $progressPercentage = ($completedTasks / $totalTasks) * 100;
                                                 @endphp
+
                                                 <div class="progress-wrap d-flex align-items-center mb-0">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $progressPercentage }}%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar {{ $progressColor }}" role="progressbar"
+                                                            style="width: {{ $progressPercentage }}%;"
+                                                            aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
+                                                        </div>
                                                     </div>
-                                                    <span class="progress-percentage">{{ $progressPercentage }}%</span>
+                                                    <span class="progress-percentage">{{ number_format($progressPercentage, 2) }}%</span>
                                                 </div>
-                                                <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{  $totalTasks }} tasks completed</p>
+                                                <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{ $totalTasks }} tasks completed</p>
                                             </div>
                                         </div>
                                         <div class="mt-20 px-30">
@@ -229,7 +250,24 @@
                                                                 {{ $case->subject }}
                                                             </h6>
                                                         </a>
-                                                        <span class="my-sm-0 my-2 media-badge text-uppercase color-white bg-primary">{{ $case->status->status_name }}</span>
+                                                        @php
+                                                            $statusClasses = [
+                                                                1 => 'bg-primary',    // New
+                                                                2 => 'bg-warning',    // Customer Awaited
+                                                                3 => 'bg-info',       // Factory Awaited
+                                                                4 => 'bg-secondary',  // In Process
+                                                                5 => 'bg-success',    // In Production
+                                                                6 => 'bg-dark',       // Shipped
+                                                                7 => 'bg-danger',     // Delivered
+                                                                8 => 'bg-light',      // Close
+                                                            ];
+
+                                                            $statusClass = $statusClasses[$case->status->id] ?? 'bg-default'; // Default class for unexpected status
+                                                        @endphp
+
+                                                        <span class="my-sm-0 my-2 media-badge text-uppercase color-white {{ $statusClass }}">
+                                                            {{ $case->status->status_name }}
+                                                        </span>
                                                     </div>
                                                     <div class="mt-n15">
                                                         <div class="dropdown dropleft">
@@ -246,24 +284,53 @@
                                                     </div>
                                                 </div>
                                                 <div class="user-group-people mt-15 text-capitalize">
-                                                    <p>{{ $case->description }}</p>
+                                                    <p>{{ implode(' ', array_slice(explode(' ', $case->description), 0, 10)) }}...</p>
                                                     <div class="user-group-project">
-                                                        <div class="d-flex align-items-center user-group-progress-top">
+                                                        <div class="d-flex align-items-center justify-content-between user-group-progress-top">
                                                             <div class="media-ui__start">
                                                                 <span class="color-light fs-12">Created Date</span>
                                                                 <p class="fs-14 fw-500 color-dark mb-0">{{ $case->created_at->format('d M Y') }}</p>
+                                                            </div>
+                                                            <div class="media-ui__start text-end">
+                                                                <span class="color-light fs-12">Case #</span>
+                                                                <p class="fs-14 fw-500 color-dark mb-0">{{ $case->case_no }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="user-group-progress-bar">
+                                                    @php
+                                                        // Map status IDs to specific progress bar colors
+                                                        $statusColors = [
+                                                            1 => 'bg-primary',   // New
+                                                            2 => 'bg-warning',   // Customer Awaited
+                                                            3 => 'bg-info',      // Factory Awaited
+                                                            4 => 'bg-secondary', // In Process
+                                                            5 => 'bg-success',   // In Production
+                                                            6 => 'bg-dark',      // Shipped
+                                                            7 => 'bg-danger',    // Delivered
+                                                            8 => 'bg-light',     // Close
+                                                        ];
+
+                                                        // Determine the color for the current status
+                                                        $progressColor = $statusColors[$case->status->id] ?? 'bg-default'; // Default class if no match
+
+                                                        // Calculate progress percentage
+                                                        $completedTasks = $case->status->id; // Example: Use status ID or logic to determine completion level
+                                                        $totalTasks = $totalRows;           // Example: Total tasks or steps
+                                                        $progressPercentage = ($completedTasks / $totalTasks) * 100;
+                                                    @endphp
+
                                                     <div class="progress-wrap d-flex align-items-center mb-0">
                                                         <div class="progress">
-                                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 83%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar {{ $progressColor }}" role="progressbar"
+                                                                style="width: {{ $progressPercentage }}%;"
+                                                                aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
                                                         </div>
-                                                        <span class="progress-percentage">83%</span>
+                                                        <span class="progress-percentage">{{ number_format($progressPercentage, 2) }}%</span>
                                                     </div>
-                                                    <p class="color-light fs-12 mb-20">12 / 15 tasks completed</p>
+                                                    <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{ $totalTasks }} tasks completed</p>
                                                 </div>
                                             </div>
                                             <div class="mt-20 px-30">
@@ -298,8 +365,33 @@
 
         </div>
     </div>
-@endsection
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function () {
+            let searchQuery = this.value.toLowerCase().trim(); // Get search input and convert to lowercase
+            let cases = document.querySelectorAll('.case-item'); // Select all case items
+
+            cases.forEach(function (caseItem) {
+                // Extract all data attributes
+                let caseName = caseItem.getAttribute('data-name').toLowerCase();
+                let caseNo = caseItem.getAttribute('data-case_no').toLowerCase();
+                let statusName = caseItem.getAttribute('data-status_name').toLowerCase();
+
+                // Check if search query matches any attribute
+                if (
+                    caseName.includes(searchQuery) ||
+                    caseNo.includes(searchQuery) ||
+                    statusName.includes(searchQuery)
+                ) {
+                    caseItem.style.display = 'block'; // Show matching case
+                } else {
+                    caseItem.style.display = 'none'; // Hide non-matching case
+                }
+            });
+        });
+    </script>
 
 
 
 
+    @endsection
