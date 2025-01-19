@@ -38,6 +38,13 @@
     font-style: italic;
     color: #777;
 }
+.single-line-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
 </style>
 @section('main-container')
     <div class="contents">
@@ -156,7 +163,7 @@
                                                 </div>
                                             </div>
                                             <div class="user-group-people mt-15 text-capitalize">
-                                                <p>{{ implode(' ', array_slice(explode(' ', $case->description), 0, 10)) }}...</p>
+                                                <p class="single-line-ellipsis">{{$case->description }}</p>
                                                 <div class="user-group-project">
                                                     <div class="d-flex align-items-center justify-content-between user-group-progress-top">
                                                         <div class="media-ui__start">
@@ -284,7 +291,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="user-group-people mt-15 text-capitalize">
-                                                    <p>{{ implode(' ', array_slice(explode(' ', $case->description), 0, 10)) }}...</p>
+                                                    <p class="single-line-ellipsis">{{ $case->description }}...</p>
                                                     <div class="user-group-project">
                                                         <div class="d-flex align-items-center justify-content-between user-group-progress-top">
                                                             <div class="media-ui__start">
