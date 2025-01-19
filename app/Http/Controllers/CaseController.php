@@ -48,8 +48,8 @@ class CaseController extends Controller
         $case->client_id = $client_id;
         $case->case_no = $request->case_no;
         $case->account_name = $request->account_name;
-        $case->subject = $request->subject_1;
-        $case->description = $request->description_1;
+        $case->subject = $request->subject;
+        $case->description = $request->description;
         $case->save();
 
         // Create a new room associated with the case
