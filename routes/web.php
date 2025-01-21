@@ -105,6 +105,9 @@ Route::prefix('emails')->group(function () {
     Route::get('/{email}', [EmailController::class, 'destroy'])->name('emails.destroy'); // Delete email
 });
 
+// Logout
+Route::get('/supperadmin/logout', [UserController::class, 'logout'])->name('supperadmin.logout');
+
 // Route::get('/caseview', function () {
 //     return view('caseview');
 // })->name('case.view');

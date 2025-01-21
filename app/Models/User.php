@@ -28,6 +28,11 @@ class User extends Authenticatable
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
     }
 
+    public function roomParticipants()
+    {
+        return $this->hasMany(RoomParticipant::class, 'user_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -23,7 +23,7 @@ class CaseController extends Controller
         $randomNumber = random_int(1000, 9999);
         $case_owner = User::where('id', Auth::id())->value('name');
         // dd($case_owner);
-        $cases = Casenew::all();
+        $cases = Casenew::orderBy('created_at', 'desc')->get();
 
         $totalRows = Status::latest('id')->value('id');
         $totalcaese = Casenew::count();
@@ -144,7 +144,7 @@ class CaseController extends Controller
     public function casefileupload(Request $request, $id)
     {
         $request->validate([
-            'files.*' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,zip|max:2048',
+            'files.*' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,zip,xls,xlsx|max:2048',
         ]);
 
         $showFile = $request->has('show_file') ? 1 : 0;

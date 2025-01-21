@@ -124,27 +124,13 @@
                                     <div class="user-group radius-xl media-ui media-ui--early pt-30 pb-25">
                                         <div class="border-bottom px-20">
                                             <div class="media user-group-media d-flex justify-content-between">
-                                                <div class="media-body d-flex align-items-center flex-wrap text-capitalize my-sm-0 my-n2">
+                                                <div class="media-body d-flex align-items-start flex-column text-capitalize my-sm-0 my-n2 mb-3">
                                                     <a href="{{ route('case.view', ['id' => $case->id]) }}">
                                                         <h6 class="mt-0 fw-500 user-group media-ui__title bg-transparent">
                                                             {{ $case->subject }}
                                                         </h6>
                                                     </a>
-                                                    @php
-                                                        $statusClasses = [
-                                                            1 => 'bg-primary',    // New
-                                                            2 => 'bg-warning',    // Customer Awaited
-                                                            3 => 'bg-info',       // Factory Awaited
-                                                            4 => 'bg-secondary',  // In Process
-                                                            5 => 'bg-success',    // In Production
-                                                            6 => 'bg-dark',       // Shipped
-                                                            7 => 'bg-danger',     // Delivered
-                                                            8 => 'bg-light',      // Close
-                                                        ];
-
-                                                        $statusClass = $statusClasses[$case->status->id] ?? 'bg-default'; // Default class for unexpected status
-                                                    @endphp
-                                                    <span class="my-sm-0 my-2 media-badge text-uppercase color-white {{ $statusClass }}">
+                                                    <span class="my-sm-0 my-2 media-badge text-uppercase color-white" style="background-color: {{ $case->status->status_color_code }}">
                                                         {{ $case->status->status_name }}
                                                     </span>
                                                 </div>
@@ -179,20 +165,8 @@
                                             </div>
                                             <div class="user-group-progress-bar">
                                                 @php
-                                                    // Map status IDs to specific progress bar colors
-                                                    $statusColors = [
-                                                        1 => 'bg-primary',   // New
-                                                        2 => 'bg-warning',   // Customer Awaited
-                                                        3 => 'bg-info',      // Factory Awaited
-                                                        4 => 'bg-secondary', // In Process
-                                                        5 => 'bg-success',   // In Production
-                                                        6 => 'bg-dark',      // Shipped
-                                                        7 => 'bg-danger',    // Delivered
-                                                        8 => 'bg-light',     // Close
-                                                    ];
-
                                                     // Determine the color for the current status
-                                                    $progressColor = $statusColors[$case->status->id] ?? 'bg-default'; // Default class if no match
+                                                    $progressColor = $case->status->status_color_code ?? 'bg-default'; // Default class if no match
 
                                                     // Calculate progress percentage
                                                     $completedTasks = $case->status->id; // Example: Use status ID or logic to determine completion level
@@ -202,8 +176,8 @@
 
                                                 <div class="progress-wrap d-flex align-items-center mb-0">
                                                     <div class="progress">
-                                                        <div class="progress-bar {{ $progressColor }}" role="progressbar"
-                                                            style="width: {{ $progressPercentage }}%;"
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="width: {{ $progressPercentage }}%; background-color: {{ $progressColor }} !important;"
                                                             aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
                                                         </div>
                                                     </div>
@@ -251,28 +225,13 @@
                                             <!-- Same Card Structure as Above -->
                                             <div class="border-bottom px-30">
                                                 <div class="media user-group-media d-flex justify-content-between">
-                                                    <div class="media-body d-flex align-items-center flex-wrap text-capitalize my-sm-0 my-n2">
+                                                    <div class="media-body d-flex align-items-start flex-column text-capitalize my-sm-0 my-n2 mb-3">
                                                         <a href="{{ route('case.view', ['id' => $case->id]) }}">
                                                             <h6 class="mt-0 fw-500 user-group media-ui__title bg-transparent">
                                                                 {{ $case->subject }}
                                                             </h6>
                                                         </a>
-                                                        @php
-                                                            $statusClasses = [
-                                                                1 => 'bg-primary',    // New
-                                                                2 => 'bg-warning',    // Customer Awaited
-                                                                3 => 'bg-info',       // Factory Awaited
-                                                                4 => 'bg-secondary',  // In Process
-                                                                5 => 'bg-success',    // In Production
-                                                                6 => 'bg-dark',       // Shipped
-                                                                7 => 'bg-danger',     // Delivered
-                                                                8 => 'bg-light',      // Close
-                                                            ];
-
-                                                            $statusClass = $statusClasses[$case->status->id] ?? 'bg-default'; // Default class for unexpected status
-                                                        @endphp
-
-                                                        <span class="my-sm-0 my-2 media-badge text-uppercase color-white {{ $statusClass }}">
+                                                        <span class="my-sm-0 my-2 media-badge text-uppercase color-white" style="background-color: {{ $case->status->status_color_code }}">
                                                             {{ $case->status->status_name }}
                                                         </span>
                                                     </div>
@@ -283,7 +242,7 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 {{-- <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a> --}}
-                                                                <a class="dropdown-item" href="#">Edit</a>
+                                                                <a class="dropdown-item" id="delete" href="{{ route('case.delete', $case->id) }}">Delete</a>
                                                                 {{-- <a class="dropdown-item" href="#">Leave</a> --}}
                                                                 {{-- <a class="dropdown-item" href="#">Delete</a> --}}
                                                             </div>
@@ -307,20 +266,8 @@
                                                 </div>
                                                 <div class="user-group-progress-bar">
                                                     @php
-                                                        // Map status IDs to specific progress bar colors
-                                                        $statusColors = [
-                                                            1 => 'bg-primary',   // New
-                                                            2 => 'bg-warning',   // Customer Awaited
-                                                            3 => 'bg-info',      // Factory Awaited
-                                                            4 => 'bg-secondary', // In Process
-                                                            5 => 'bg-success',   // In Production
-                                                            6 => 'bg-dark',      // Shipped
-                                                            7 => 'bg-danger',    // Delivered
-                                                            8 => 'bg-light',     // Close
-                                                        ];
-
                                                         // Determine the color for the current status
-                                                        $progressColor = $statusColors[$case->status->id] ?? 'bg-default'; // Default class if no match
+                                                        $progressColor = $case->status->status_color_code ?? 'bg-default'; // Default class if no match
 
                                                         // Calculate progress percentage
                                                         $completedTasks = $case->status->id; // Example: Use status ID or logic to determine completion level
@@ -330,8 +277,8 @@
 
                                                     <div class="progress-wrap d-flex align-items-center mb-0">
                                                         <div class="progress">
-                                                            <div class="progress-bar {{ $progressColor }}" role="progressbar"
-                                                                style="width: {{ $progressPercentage }}%;"
+                                                            <div class="progress-bar" role="progressbar"
+                                                                style="width: {{ $progressPercentage }}%; background-color: {{ $progressColor }} !important;"
                                                                 aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
                                                             </div>
                                                         </div>

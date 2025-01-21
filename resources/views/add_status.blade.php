@@ -48,6 +48,10 @@
                                                         <label for="status_number">Status Serial Number</label>
                                                         <input type="number" class="form-control" id="status_number"name="status_number" placeholder="1" required>
                                                     </div>
+                                                    <div class="form-group mb-25">
+                                                        <label for="status_color_code">Status Color</label>
+                                                        <input type="color" class="form-control" id="status_color_code"name="status_color_code" placeholder="1" required>
+                                                    </div>
 
 
 

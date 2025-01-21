@@ -111,9 +111,9 @@
                             <span class="toggle-icon"></span>
                         </a>
                         <ul>
-                            <li class>
+                            {{-- <li class>
                                 <a href="{{ route('view.email') }}">Emails </a>
-                            </li>
+                            </li> --}}
                             <li class>
                                 <a href="{{ route('emails.index') }}">View Emails </a>
                             </li>

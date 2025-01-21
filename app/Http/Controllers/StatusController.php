@@ -22,6 +22,7 @@ class StatusController extends Controller
 
     public function StoreStatus(Request $request)
     {
+        // dd($request->toArray());
         $request->validate([
             'status_name' => 'required',
             'status_number' => 'required',
@@ -30,6 +31,7 @@ class StatusController extends Controller
         Status::insert([
             'status_name' => $request->status_name,
             'status_number' => $request->status_number,
+            'status_color_code' => $request->status_color_code,
             'created_at' => Carbon::now(),
         ]);
 
@@ -58,6 +60,7 @@ class StatusController extends Controller
         Status::findOrFail( $id)->update([
             'status_name' => $request->status_name,
             'status_number' => $request->status_number,
+            'status_color_code' => $request->status_color_code,
             'updated_at' => Carbon::now(),
         ]);
 

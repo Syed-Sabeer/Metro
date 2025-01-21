@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="d-flex align-items-center user-member__title mb-30 mt-30">
-                    <h4 class="text-capitalize">Add Supplier</h4>
+                    <h4 class="text-capitalize">Add Employee</h4>
                 </div>
             </div>
         </div>
@@ -55,38 +55,38 @@
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="last_name">Last Name</label>
-                                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Duran Clayton" required>
+                                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Duran Clayton">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="address">Address</label>
-                                                        <input type="text" class="form-control" id="address" name="address" placeholder="Type Address" required>
+                                                        <input type="text" class="form-control" id="address" name="address" placeholder="Type Address">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="suite">Suite #</label>
-                                                        <input type="text" class="form-control" id="suite" name="suite" placeholder="Type Suite" required>
+                                                        <input type="text" class="form-control" id="suite" name="suite" placeholder="Type Suite">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="city">City</label>
-                                                        <input type="text" class="form-control" id="city" name="city" placeholder="Type City" required>
+                                                        <input type="text" class="form-control" id="city" name="city" placeholder="Type City">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="state">State</label>
-                                                        <input type="text" class="form-control" id="state" name="state" placeholder="Type State" required>
+                                                        <input type="text" class="form-control" id="state" name="state" placeholder="Type State">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="zipcode">ZipCode</label>
-                                                        <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="Type ZipCode" required>
+                                                        <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="Type ZipCode">
                                                     </div>
 
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="country">Country</label>
-                                                        <input type="number" class="form-control" id="country" name="country" placeholder="Type Country" required>
+                                                        <input type="text" class="form-control" id="country" name="country" value="United State" placeholder="Type Country">
                                                     </div>
 
 
@@ -103,17 +103,17 @@
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="website_url">Website</label>
-                                                        <input type="text" class="form-control" id="website_url" name="website_url" placeholder="Website URL" required>
+                                                        <input type="text" class="form-control" id="website_url" name="website_url" placeholder="Website URL">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="fax">Fax</label>
-                                                        <input type="tel" class="form-control" id="fax" name="fax" placeholder="+440 2546 5236" required>
+                                                        <input type="tel" class="form-control" id="fax" name="fax" placeholder="+440 2546 5236">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-12">
                                                         <label for="description">Description</label>
-                                                        <textarea class="form-control" id="description" name="description" placeholder="Company Description" rows="4" required></textarea>
+                                                        <textarea class="form-control" id="description" name="description" placeholder="Company Description" rows="4"></textarea>
                                                     </div>
                                                 </div>
 

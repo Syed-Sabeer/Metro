@@ -43,7 +43,9 @@
                                 @forelse ($emails as $email)
                                     <tr>
                                         <td><h6>{{ $email->subject }}</h6></td>
-                                        <td>{{ $email->description }}</td>
+                                        <td title="{{ $email->description }}">
+                                            {{ \Illuminate\Support\Str::limit($email->description, 50, '...') }}
+                                        </td>
                                         <td>{{ $email->identifier_name }}</td>
                                         <td>
                                             <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">

@@ -24,7 +24,7 @@
             <div class="navbar-right">
                 <ul class="navbar-right__menu">
 
-                    <li class="nav-message">
+                    {{-- <li class="nav-message">
                         <div class="dropdown-custom">
                             <a href="javascript:;" class="nav-item-toggle icon-active">
                                 <img class="svg" src="{{ asset('img/svg/message.svg') }}" alt="img">
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-notification">
                         <div class="dropdown-custom">
@@ -203,17 +203,17 @@
                                     </div>
                                     <div class="nav-author__options">
                                         <ul>
-                                            <li><a href="#"><i class="uil uil-user"></i> Profile</a></li>
+                                            {{-- <li><a href="#"><i class="uil uil-user"></i> Profile</a></li>
                                             <li><a href="#"><i class="uil uil-setting"></i> Settings</a></li>
                                             <li><a href="#"><i class="uil uil-key-skeleton"></i> Billing</a></li>
-                                            <li><a href="#"><i class="uil uil-users-alt"></i> Activity</a></li>
-                                            <li><a href="#"><i class="uil uil-bell"></i> Help</a></li>
+                                            <li><a href="#"><i class="uil uil-users-alt"></i> Activity</a></li> --}}
+                                            <li><a href="{{ route('supperadmin.logout') }}"><i class="uil uil-sign-out-alt"></i> Sign Out</a></li>
                                         </ul>
 
 
-                                            <button type="submit" class="nav-author__signout">
+                                            {{-- <button type="submit" class="nav-author__signout">
                                                 <i class="uil uil-sign-out-alt"></i> Sign Out
-                                            </button>
+                                            </button> --}}
 
                                     </div>
                                 </div>

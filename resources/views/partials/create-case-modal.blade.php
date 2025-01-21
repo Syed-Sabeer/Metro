@@ -49,9 +49,11 @@
                                     <label for="">Case Origin</label>
                                     <select name="case_origin" class="form-select form-control" aria-label="Default select example" required>
                                         <option selected>Select Origin</option>
+                                        <option value="Contact">Call</option>
                                         <option value="Email">Email</option>
-                                        <option value="Contact">Contact</option>
-                                        <option value="Reference">Reference</option>
+                                        <option value="Reference">In Person</option>
+                                        <option value="Reference">Online Metting</option>
+                                        <option value="Reference">Web</option>
                                     </select>
                                 </div>
                             </div>

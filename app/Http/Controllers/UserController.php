@@ -272,7 +272,7 @@ class UserController extends Controller
             'alert-type' => 'success',
         ];
 
-        return redirect()->route('view.customer')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function LoginUser()
@@ -510,7 +510,11 @@ class UserController extends Controller
         return response()->json(['success' => false]);
     }
 
-
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
 
 
 

@@ -16,8 +16,10 @@ use App\Http\Controllers\ChatController;
 */
 
 
-Route::get('/rooms', [ChatController::class, 'getRooms']);
+Route::get('/rooms/{case_id}', [ChatController::class, 'getRooms']);
 Route::get('/rooms/{roomId}/messages', [ChatController::class, 'getMessages']);
+Route::get('/room/{roomId}/participants', [ChatController::class, 'getRoomPar']);
+Route::post('/addroom', [ChatController::class, 'createRoom']);
 Route::post('/rooms/messages', [ChatController::class, 'sendMessage']);
 Route::get('/users', [ChatController::class, 'fetchUsers']);
 Route::get('/messages', [ChatController::class, 'fetchMessages']);

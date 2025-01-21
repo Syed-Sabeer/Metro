@@ -15,7 +15,7 @@
                         <div class="card border-0">
                             <div class="card-header">
                                 <div class="edit-profile__title">
-                                    <h6>Admin Loginsdssds</h6>
+                                    <h6>Admin Login</h6>
                                 </div>
                             </div>
                             <div class="card-body">

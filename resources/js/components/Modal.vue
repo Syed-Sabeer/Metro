@@ -3,7 +3,7 @@
     <div v-if="visible" class="modal-overlay">
       <div class="modall">
         <slot></slot>
-        <button @click="closeModal">Close</button>
+        <button class="btn btn-primary" @click="closeModal">Close</button>
       </div>
     </div>
   </template>

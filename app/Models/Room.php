@@ -15,4 +15,8 @@ class Room extends Model
     {
         return $this->belongsTo(Casenews::class, 'case_id');
     }
+    public function participants()
+    {
+        return $this->hasMany(RoomParticipant::class);
+    }
 }

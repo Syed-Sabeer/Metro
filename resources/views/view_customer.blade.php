@@ -42,11 +42,12 @@
                             <h4 class="text-capitalize fw-500 breadcrumb-title">Customer list </h4>
                             <span class="sub-title ms-sm-25 ps-sm-25">Home</span>
                         </div>
-                        <form action="/" class="d-flex align-items-center user-member__form my-sm-0 my-2">
-                            <img src="img/svg/search.svg" alt="search" class="svg">
-                            <input class="form-control me-sm-2 border-0 box-shadow-none" type="search"
-                                placeholder="Search by Name" aria-label="Search">
-                        </form>
+                        <div class="project-search project-search--height global-shadow ms-md-20 my-10 order-md-2 order-1">
+                            <form action="/" method="GET" class="d-flex align-items-center user-member__form">
+                                <img src="{{ asset('img/svg/search.svg') }}" alt="search" class="svg">
+                                <input id="searchInput" class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Search by Name" aria-label="Search">
+                            </form>
+                        </div>
                     </div>
                     <div class="action-btn">
                         {{-- <a href="#" class="btn px-15 btn-primary" data-bs-toggle="modal"
@@ -227,10 +228,10 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="userTable">
 
                                 @foreach($users as $user)
-                                <tr>
+                                <tr data-name="{{ strtolower($user->name) }}" data-email="{{ strtolower($user->email) }}">
                                     <td><h6>{{ $user->name }}</h6></td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->userDetail->first_name }} - {{ $user->userDetail->last_name }}</td>
@@ -373,5 +374,23 @@
             });
         });
     });
+</script>
+
+<script>
+document.getElementById('searchInput').addEventListener('input', function () {
+    const searchQuery = this.value.toLowerCase().trim(); // Lowercase and remove extra spaces
+    const rows = document.querySelectorAll('#userTable tr'); // All rows in the table body
+
+    rows.forEach(row => {
+        const name = row.getAttribute('data-name') || ''; // Get 'data-name' attribute
+        const email = row.getAttribute('data-email') || ''; // Get 'data-email' attribute
+
+        if (searchQuery === '' || name.includes(searchQuery) || email.includes(searchQuery)) {
+            row.style.display = ''; // Show the row
+        } else {
+            row.style.display = 'none'; // Hide the row
+        }
+    });
+});
 </script>
 @endsection

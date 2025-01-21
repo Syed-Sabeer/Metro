@@ -56,7 +56,7 @@
 
                             <form action="{{ route('case.delete', $case->id) }}" method="GET">
                                 @csrf
-                                <button type="submit" class="breadcrumb-remove border-0 color-danger content-center bg-white fs-12 fw-500 ms-10 radius-md">
+                                <button type="submit" id="delete" class="breadcrumb-remove border-0 color-danger content-center bg-white fs-12 fw-500 ms-10 radius-md">
                                     <img class="svg" src="{{asset('img/svg/trash-2.svg')}}" alt="trash-2">remove
                                 </button>
                             </form>
@@ -297,7 +297,11 @@
     </div>
 </div>
 
+<div id="app">
+<Roots></Roots>
+</div>
 
+{{-- 
                 <div class="chat-area d-flex mb-40 mt-3">
                     <div class="mb-lg-0 mb-40 chat-sidebar">
                         <div class="sidebar-group left-sidebar chat_sidebar">
@@ -2859,7 +2863,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- <div class="col-xxl-3 col-lg-6 col-12 mb-25 order-xxl-0 order-lg-1">
                     <div class="card h-100">

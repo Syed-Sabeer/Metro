@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="footer-copyright">
-                        <p><span>© 2025</span><a href="#">Metro Textiles</a>
+                        <p><span>© 2025</span><a href="#">Super Soft Technology</a>
                         </p>
                     </div>
                 </div>
