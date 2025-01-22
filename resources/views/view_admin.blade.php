@@ -59,22 +59,22 @@
                             <thead>
                                 <tr class="userDatatable-header">
                                     <th>
-                                        <span class="userDatatable-title">Name</span>
+                                        <span class="userDatatable-title">Company Name</span>
                                     </th>
                                     <th>
-                                        <span class="userDatatable-title">emaill</span>
+                                        <span class="userDatatable-title">User Name</span>
                                     </th>
                                     <th>
-                                        <span class="userDatatable-title">Name</span>
+                                        <span class="userDatatable-title">Email</span>
                                     </th>
                                     <th>
-                                        <span class="userDatatable-title">join date</span>
+                                        <span class="userDatatable-title">Join Date</span>
                                     </th>
                                     <th>
-                                        <span class="userDatatable-title">status</span>
+                                        <span class="userDatatable-title">Status</span>
                                     </th>
                                     <th>
-                                        <span class="userDatatable-title">action</span>
+                                        <span class="userDatatable-title">Action</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -83,10 +83,13 @@
                                 @foreach($users as $user)
                                 <tr data-name="{{ strtolower($user->name) }}" data-email="{{ strtolower($user->email) }}">
                                     <td><h6>{{ $user->name }}</h6></td>
+                                    
+                                    <td>{{ $user->userDetail?->first_name ?? '' }} {{ $user->userDetail?->last_name ?? '' }}</td>
+
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->userDetail->first_name }} - {{ $user->userDetail->last_name }}</td>
                                     <td>
-                                        {{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->diffForHumans() : 'N/A' }}
+                                        {{ $user->created_at ? $user->created_at->format('Y-m-d') : 'N/A' }}
+
                                     </td>
                                     <td>
                                         <div class="userDatatable-content d-inline-block">

@@ -365,8 +365,7 @@ class UserController extends Controller
             'account_owner' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'cell_phone_number' => 'required|string|max:20',
+            
         ]);
 
         $password = Str::random(10);
