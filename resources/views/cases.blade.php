@@ -8,7 +8,8 @@
     max-height: 200px; /* Limit the height of the container */
     overflow-y: auto;  /* Enable scrolling if content overflows */
     height: 100px;      /* Adjust height based on the content */
-}
+}<td>{{ $user->userDetail?->first_name ?? '' }} {{ $user->userDetail?->last_name ?? '' }}</td>
+
 
 #employee-search-results {
     border: 1px solid #ddd;

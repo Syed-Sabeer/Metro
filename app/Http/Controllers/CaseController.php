@@ -250,7 +250,7 @@ public function forwardStatus($id, Request $request)
     {
         $query = $request->input('q');
         $members = User::where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
-        ->where('role', 'customer')->take(10)->get(['id', 'email']);
+        ->where('role', 'customer')->take(10)->get(['id', 'email','name']);
 
         return response()->json($members);
     }
@@ -261,7 +261,7 @@ public function forwardStatus($id, Request $request)
         $employees = User::where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
                          ->where('role', 'employee') // Ensure the role is 'employee'
                          ->limit(3) // Explicitly limit the results to 3
-                         ->get(['id', 'email']); // Return id and email for frontend processing
+                         ->get(['id', 'email', 'name']); // Return id and email for frontend processing
 
         return response()->json($employees);
     }

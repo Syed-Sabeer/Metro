@@ -70,6 +70,20 @@
                                 </div>
                             </div>
 
+                            {{-- <div class="form-group col-md-4 select-px-15 tagSelect-rtl">
+                                <label class="il-gray fs-14 fw-500 align-center mb-10">Search and Select Employees</label>
+                                <div class="dm-select">
+                                    <select name="employee_emails[]" id="employeeSelect" class="form-control" multiple="multiple" style="width: 100%;">
+                                        <!-- Dynamically added options will appear here -->
+                                    </select>
+                                </div>
+                            </div> --}}
+                               {{-- <div class="form-group col-md-4 mb-10">
+                                        <label for="name47_1">Team Email
+                                        </label>
+                                        <input type="text" name="customer_email" class="form-control" id="name47_1" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
+                                        <div id="search-results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                                    </div> --}}
                             <div class="form-group col-md-3 mb-20">
                                 <label for="">Case Owner</label>
                                 <input type="text" name="case_owner" class="form-control" value="{{ $case_owner }}" placeholder="Case Creator" readonly required>
@@ -80,27 +94,184 @@
                                 <input type="text" name="case_no" class="form-control" value="{{ $randomNumber }}" placeholder="" required>
                             </div>
 
-                            <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Contact Information</h6>
+                            <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Enter Customer Emails</h6>
 
-                            <div class="form-group col-md-4 mb-10">
-                                <label for="name47_1">Select User</label>
-                                <input type="text" name="customer_email" class="form-control" id="name47_1" placeholder="Search members" onkeyup="searchMembers(this.value)" required>
-                                <div id="search-results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
-                            </div>
-
-                            <div class="form-group col-md-4 select-px-15 tagSelect-rtl">
-                                <label class="il-gray fs-14 fw-500 align-center mb-10">Search and Select Employees</label>
-                                <div class="dm-select">
-                                    <select name="employee_emails[]" id="employeeSelect" class="form-control" multiple="multiple" style="width: 100%;">
-                                        <!-- Dynamically added options will appear here -->
-                                    </select>
+                            <div id="add-new-customer-section" class="container">
+                                <div class="customer-entry row"> 
+                                    <div class="form-group col-md-4 mb-10">
+                                        <label for="customer_email_1">Customer Email</label>
+                                        <input type="text" name="customer_email" class="form-control" id="customer_email_1" placeholder="Search members" onkeyup="searchCustomer(this.value)" required>
+                                        <div id="customer_search_results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-20">
+                                        <label for="">Name</label>
+                                        <input type="text" name="account_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-20">
+                                        <label for="">Company Name</label>
+                                        <input type="text" name="company_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="form-group col-md-4 mb-20">
-                                <label for="">Account Name</label>
-                                <input type="text" name="account_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                            <button class="btn btn-primary mt-3" id="add-new-customer">Add new</button>
+                            
+                            <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Enter Team Member Emails</h6>
+                            
+                            <div id="add-new-employee-section" class="container">
+                                <div class="employee-entry row"> 
+                                    <div class="form-group col-md-4 mb-10">
+                                        <label for="employee_email_1">Team Member Email</label>
+                                        <input type="text" name="employee_emails[]" multiple="multiple" class="form-control" id="employee_email_1" placeholder="Search team members" onkeyup="searchEmployee(this.value)" required>
+                                        <div id="employee_search_results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-20">
+                                        <label for="">Name</label>
+                                        <input type="text" name="account_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-20">
+                                        <label for="">Company Name</label>
+                                        <input type="text" name="company_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                    </div>
+                                </div>
                             </div>
+                            <button class="btn btn-primary mt-3" id="add-new-employee">Add new</button>
+                            
+                            <script>
+                                // Add new customer functionality
+                                document.getElementById('add-new-customer').addEventListener('click', () => {
+                                    const section = document.querySelector('#add-new-customer-section');
+                                    const customerEntry = section.querySelector('.customer-entry');
+                                    const clone = customerEntry.cloneNode(true);
+                            
+                                    // Generate unique IDs for new fields
+                                    const timestamp = Date.now();
+                                    clone.querySelector('[id^="customer_email_"]').id = `customer_email_${timestamp}`;
+                                    clone.querySelector('[id^="customer_search_results_"]').id = `customer_search_results_${timestamp}`;
+                            
+                                    // Clear input values
+                                    clone.querySelectorAll('input').forEach(input => (input.value = ''));
+                                    section.appendChild(clone);
+                                });
+                            
+                                // Add new employee functionality
+                                document.getElementById('add-new-employee').addEventListener('click', () => {
+                                    const section = document.querySelector('#add-new-employee-section');
+                                    const employeeEntry = section.querySelector('.employee-entry');
+                                    const clone = employeeEntry.cloneNode(true);
+                            
+                                    // Generate unique IDs for new fields
+                                    const timestamp = Date.now();
+                                    clone.querySelector('[id^="employee_email_"]').id = `employee_email_${timestamp}`;
+                                    clone.querySelector('[id^="employee_search_results_"]').id = `employee_search_results_${timestamp}`;
+                            
+                                    // Clear input values
+                                    clone.querySelectorAll('input').forEach(input => (input.value = ''));
+                                    section.appendChild(clone);
+                                });
+                            
+                                // Search functionality for customers
+                               // Search functionality for customers
+function searchCustomer(query) {
+    const inputField = event.target;
+    const resultsContainer = inputField.closest('.form-group').querySelector('[id^="customer_search_results_"]');
+
+    if (query.length === 0) {
+        resultsContainer.style.display = 'none';
+        resultsContainer.innerHTML = '';
+        return;
+    }
+
+    $.ajax({
+        url: "{{ route('members.search') }}", // Customer search route
+        type: 'GET',
+        data: { q: query },
+        success: function (data) {
+            resultsContainer.style.display = 'block';
+
+            if (data.length > 0) {
+                resultsContainer.innerHTML = ''; // Clear previous results
+
+                data.forEach((member, index) => {
+                    setTimeout(function () {
+                        resultsContainer.innerHTML += `
+                            <div class="search-item" onclick="selectCustomer('${member.email}', '${member.name}', '${inputField.id}')">
+                                ${member.email}
+                            </div>
+                        `;
+                    }, 200 * index); // 200ms delay for each result
+                });
+            } else {
+                resultsContainer.innerHTML = '<div class="search-item no-results">No results found</div>';
+            }
+        },
+        error: function (error) {
+            console.error('Error fetching search results:', error);
+        }
+    });
+}
+
+// Search functionality for team members
+function searchEmployee(query) {
+    const inputField = event.target;
+    const resultsContainer = inputField.closest('.form-group').querySelector('[id^="employee_search_results_"]');
+
+    if (query.length === 0) {
+        resultsContainer.style.display = 'none';
+        resultsContainer.innerHTML = '';
+        return;
+    }
+
+    $.ajax({
+        url: "{{ route('employees.search') }}", // Employee search route
+        type: 'GET',
+        data: { q: query },
+        success: function (data) {
+            resultsContainer.style.display = 'block';
+
+            if (data.length > 0) {
+                resultsContainer.innerHTML = ''; // Clear previous results
+
+                data.forEach((employee, index) => {
+                    setTimeout(function () {
+                        resultsContainer.innerHTML += `
+                            <div class="search-item" onclick="selectEmployee('${employee.email}', '${employee.name}', '${inputField.id}')">
+                                ${employee.email}
+                            </div>
+                        `;
+                    }, 200 * index); // 200ms delay for each result
+                });
+            } else {
+                resultsContainer.innerHTML = '<div class="search-item no-results">No results found</div>';
+            }
+        },
+        error: function (error) {
+            console.error('Error fetching search results:', error);
+        }
+    });
+}
+
+// Dynamically handle selecting a customer email and name
+function selectCustomer(email, name, inputId) {
+    let inputField = document.getElementById(inputId);
+    inputField.value = email;
+    inputField.closest('.form-group').querySelector('[id^="customer_search_results_"]').style.display = 'none';
+    let row = inputField.closest('.customer-entry');
+    row.querySelector('[name="company_name"]').value = name;
+}
+
+// Dynamically handle selecting an employee email and name
+function selectEmployee(email, name, inputId) {
+    let inputField = document.getElementById(inputId);
+    inputField.value = email;
+    inputField.closest('.form-group').querySelector('[id^="employee_search_results_"]').style.display = 'none';
+    let row = inputField.closest('.employee-entry');
+    row.querySelector('[name="company_name"]').value = name;
+}
+
+                            </script>
+                            
+
+
 
                             <h6 class="fw-500 mt-1 mb-10" style="background: lightgrey;">Subject Information</h6>
 
@@ -167,54 +338,9 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#name47_1').on('keyup', function() {
-            let query = $(this).val();
 
-            if (query.length === 0) {
-                $('#search-results_1').hide().html('');
-                return;
-            }
 
-            $.ajax({
-                url: "{{ route('members.search') }}",
-                type: 'GET',
-                data: { q: query },
-                success: function(data) {
-                    let resultsContainer = $('#search-results_1');
-                    resultsContainer.show();
 
-                    if (data.length > 0) {
-                        resultsContainer.html(''); // Clear previous results
-
-                        // Display one result at a time
-                        data.forEach((member, index) => {
-                            setTimeout(function() {
-                                resultsContainer.append(`
-                                    <div class="search-item" onclick="selectMember('${member.email}')">
-                                        ${member.email}
-                                    </div>
-                                `);
-                            }, 200 * index); // 200ms delay for each result
-                        });
-                    } else {
-                        resultsContainer.html('<div class="search-item no-results">No results found</div>');
-                    }
-                },
-                error: function(error) {
-                    console.error('Error fetching search results:', error);
-                }
-            });
-        });
-    });
-
-    function selectMember(email) {
-        // Ensure the selected email is set to the correct input field
-        $('#name47_1').val(email);
-        $('#search-results_1').hide();
-    }
-</script>
 
 <script>
     $(document).ready(function () {
