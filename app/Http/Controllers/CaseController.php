@@ -32,101 +32,116 @@ class CaseController extends Controller
     }
 
     public function storecase(Request $request)
-    {
-        // Debugging: Verify all incoming data
-        // dd($request->all());
+{
+    // Fetch the client ID based on the first provided customer email
+    $client_id = null;
+    if (!empty($request->customer_emails)) {
+        // Get the ID of the first customer email
+        $client_id = User::where('email', $request->customer_emails[0])->value('id');
+    }
 
-        // Fetch the client ID based on the provided email
-        $client_id = User::where('email', $request->customer_email)->value('id');
+    // Check if a valid client_id was fetched
+    if (!$client_id) {
+        // Handle the case where client_id is not found
+        return redirect()->back()->with('error', 'Invalid customer email!');
+    }
 
-        // Create a new case
-        $case = new Casenew;
-        $case->status_id = $request->case_status;
-        $case->origin = $request->case_origin;
-        $case->priority = $request->priority;
-        $case->owner_id = Auth::id();
-        $case->client_id = $client_id;
-        $case->case_no = $request->case_no;
-        $case->account_name = $request->account_name;
-        $case->subject = $request->subject;
-        $case->description = $request->description;
-        $case->save();
+    // Create a new case
+    $case = new Casenew;
+    $case->status_id = $request->case_status;
+    $case->origin = $request->case_origin;
+    $case->priority = $request->priority;
+    $case->owner_id = Auth::id();
+    $case->client_id = $client_id;
+    $case->case_no = $request->case_no;
+    $case->account_name = $request->account_name;
+    $case->subject = $request->subject;
+    $case->description = $request->description;
+    $case->save();
 
-        // Create a new room associated with the case
-        $room = new Room;
-        $room->case_id = $case->id;
-        $room->save();
+    // Create a new room associated with the case
+    $room = new Room;
+    $room->case_id = $case->id;
+    $room->save();
 
-        // Fetch superadmins and admins
-        $superadmins = User::where('role', 'supperadmin')->get();
-        $admins = User::where('role', 'admin')->get();
+    // Initialize userIds with the client ID
+    $userIds = [$client_id];
 
-        // Collect all participant IDs
-        $userIds = [$client_id]; // Add the client ID
-        foreach ($superadmins as $superadmin) {
-            $userIds[] = $superadmin->id;
+    // Add superadmin and admin IDs to userIds
+    $superadmins = User::where('role', 'supperadmin')->get();
+    $admins = User::where('role', 'admin')->get();
+
+    foreach ($superadmins as $superadmin) {
+        $userIds[] = $superadmin->id;
+    }
+    foreach ($admins as $admin) {
+        $userIds[] = $admin->id;
+    }
+
+    // Add all additional customer emails (including the first if not handled properly)
+    foreach ($request->customer_emails as $customerEmail) {
+        $customerId = User::where('email', $customerEmail)->value('id');
+        if ($customerId && !in_array($customerId, $userIds)) {
+            $userIds[] = $customerId;
         }
-        foreach ($admins as $admin) {
-            $userIds[] = $admin->id;
-        }
+    }
 
-        // Add employee IDs from the request
-        if (!empty($request->employee_emails)) {
-            foreach ($request->employee_emails as $employeeId) {
+    // Add employee emails
+    if (!empty($request->employee_emails)) {
+        foreach ($request->employee_emails as $employeeEmail) {
+            $employeeId = User::where('email', $employeeEmail)->value('id');
+            if ($employeeId && !in_array($employeeId, $userIds)) {
                 $userIds[] = $employeeId;
             }
         }
-
-        // Store participants in the RoomParticipant table
-        foreach ($userIds as $userId) {
-            $participant = new RoomParticipant;
-            $participant->case_id = $case->id;
-            $participant->user_id = $userId;
-            $participant->room_id = $room->id;
-            $participant->save();
-
-
-            // Create notification for each participant
-            $user = User::find($userId);
-            $message = 'A new case has been created case # ' . $case->case_no;
-
-            // Save the notification
-            Notification::create([
-                'to' => $userId,
-                'from' => Auth::id(),
-                'message' => $message,
-                'status' => 0, // Unread notification
-            ]);
-        }
-
-        // Check if the checkbox is checked (checkbox_value = 1)
-        if ($request->checkbox_value == '1') {
-            // Send emails to participants
-            foreach ($userIds as $userId) {
-                $userss = User::find($userId);
-                $email = $userss->email;
-                $data = [
-                    'name' => $userss->name,  // Assuming $name is the variable containing the user's name
-                    'message' => $request->description_1,  // Or any other content you want
-                ];
-                $sub = $request->subject_1;
-                Mail::send('emails.user_credentials', $data, function ($message) use ($email, $sub) {
-                    $message->to($email)
-                            ->subject($sub);
-                    // Embed the image in the email body using CID (Content-ID)
-                    $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
-                });
-            }
-        }
-
-        // Redirect with a success message
-        $notification = array(
-            'message' => 'New Case Created Successfully',
-            'alert-type' => 'success',
-        );
-
-        return redirect()->back()->with($notification);
     }
+
+    // Store participants in the RoomParticipant table
+    foreach ($userIds as $userId) {
+        $participant = new RoomParticipant;
+        $participant->case_id = $case->id;
+        $participant->user_id = $userId;
+        $participant->room_id = $room->id;
+        $participant->save();
+
+        // Create notification for each participant
+        $user = User::find($userId);
+        $message = 'A new case has been created case # ' . $case->case_no;
+
+        Notification::create([
+            'to' => $userId,
+            'from' => Auth::id(),
+            'message' => $message,
+            'status' => 0,
+        ]);
+    }
+
+    // Send emails if checkbox is checked
+    if ($request->checkbox_value == '1') {
+        foreach ($userIds as $userId) {
+            $userss = User::find($userId);
+            $email = $userss->email;
+            $data = [
+                'name' => $userss->name,
+                'message' => $request->description_1,
+            ];
+            $sub = $request->subject_1;
+            Mail::send('emails.user_credentials', $data, function ($message) use ($email, $sub) {
+                $message->to($email)->subject($sub);
+                $message->embed(public_path('public/img/mailsign.png'), 'mailsign');
+            });
+        }
+    }
+
+    // Redirect with a success message
+    $notification = [
+        'message' => 'New Case Created Successfully',
+        'alert-type' => 'success',
+    ];
+
+    return redirect()->back()->with($notification);
+}
+
 
 
     public function viewCase($id)
@@ -282,21 +297,55 @@ public function forwardStatus($id, Request $request)
     public function SearchMember(Request $request)
     {
         $query = $request->input('q');
-        $members = User::where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
-        ->where('role', 'customer')->take(10)->get(['id', 'email','name']);
 
-        return response()->json($members);
+    $members = User::with(['userDetail:id,user_id,first_name,last_name'])
+        ->where('email', 'LIKE', '%' . $query . '%')
+        ->where('status', 1)
+        ->where('role', 'customer')
+        ->take(10)
+        ->get(['id', 'email', 'name']);
+
+    $results = $members->map(function ($member) {
+        return [
+            'email' => $member->email,
+            'name' => $member->name,
+            'first_name' => $member->userDetail->first_name ?? '',
+            'last_name' => $member->userDetail->last_name ?? '',
+        ];
+    });
+
+    return response()->json($results);
     }
 
     public function SearchEmployee(Request $request)
     {
-        $query = $request->input('q');
-        $employees = User::where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
-                         ->where('role', 'employee') // Ensure the role is 'employee'
-                         ->limit(3) // Explicitly limit the results to 3
-                         ->get(['id', 'email', 'name']); // Return id and email for frontend processing
+        // $query = $request->input('q');
+        // $employees = User::with(['userDetail:id,user_id,first_name,last_name'])->where('email', 'LIKE', '%' . $query . '%')->where('status', 1)
+        //                  ->where('role', 'employee') // Ensure the role is 'employee'
+        //                  ->limit(3) // Explicitly limit the results to 3
+        //                  ->get(['id', 'email', 'name']); // Return id and email for frontend processing
 
-        return response()->json($employees);
+        // return response()->json($employees);
+
+        $query = $request->input('q');
+
+    $employees = User::with(['userDetail:id,user_id,first_name,last_name'])
+        ->where('email', 'LIKE', '%' . $query . '%')
+        ->where('status', 1)
+        ->where('role', 'employee') // Assuming 'employee' is the role for employees
+        ->take(10)
+        ->get(['id', 'email', 'name']);
+
+    $results = $employees->map(function ($employee) {
+        return [
+            'email' => $employee->email,
+            'name' => $employee->name,
+            'first_name' => $employee->userDetail->first_name ?? '',
+            'last_name' => $employee->userDetail->last_name ?? '',
+        ];
+    });
+
+    return response()->json($results);
     }
 
 

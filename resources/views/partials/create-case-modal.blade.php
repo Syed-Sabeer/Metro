@@ -100,7 +100,8 @@
                                 <div class="customer-entry row"> 
                                     <div class="form-group col-md-4 mb-10">
                                         <label for="customer_email_1">Customer Email</label>
-                                        <input type="text" name="customer_email" class="form-control" id="customer_email_1" placeholder="Search members" onkeyup="searchCustomer(this.value)" required>
+                                        <input type="text" name="customer_emails[]" class="form-control" id="customer_email_1" placeholder="Search members" onkeyup="searchCustomer(this.value)" required>
+
                                         <div id="customer_search_results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
                                     </div>
                                     <div class="form-group col-md-4 mb-20">
@@ -121,7 +122,8 @@
                                 <div class="employee-entry row"> 
                                     <div class="form-group col-md-4 mb-10">
                                         <label for="employee_email_1">Team Member Email</label>
-                                        <input type="text" name="employee_emails[]" multiple="multiple" class="form-control" id="employee_email_1" placeholder="Search team members" onkeyup="searchEmployee(this.value)" required>
+                                        <input type="text" name="employee_emails[]" class="form-control" id="employee_email_1" placeholder="Search team members" onkeyup="searchEmployee(this.value)" required>
+
                                         <div id="employee_search_results_1" class="form-control" style="display: none; max-height: 200px; overflow-y: auto;"></div>
                                     </div>
                                     <div class="form-group col-md-4 mb-20">
@@ -194,7 +196,7 @@ function searchCustomer(query) {
                 data.forEach((member, index) => {
                     setTimeout(function () {
                         resultsContainer.innerHTML += `
-                            <div class="search-item" onclick="selectCustomer('${member.email}', '${member.name}', '${inputField.id}')">
+                            <div class="search-item" onclick="selectCustomer('${member.email}', '${member.name}','${member.first_name}', '${inputField.id}')">
                                 ${member.email}
                             </div>
                         `;
@@ -234,7 +236,7 @@ function searchEmployee(query) {
                 data.forEach((employee, index) => {
                     setTimeout(function () {
                         resultsContainer.innerHTML += `
-                            <div class="search-item" onclick="selectEmployee('${employee.email}', '${employee.name}', '${inputField.id}')">
+                            <div class="search-item" onclick="selectEmployee('${employee.email}', '${employee.name}','${employee.first_name}', '${inputField.id}')">
                                 ${employee.email}
                             </div>
                         `;
@@ -251,21 +253,24 @@ function searchEmployee(query) {
 }
 
 // Dynamically handle selecting a customer email and name
-function selectCustomer(email, name, inputId) {
+function selectCustomer(email, name, first_name, inputId) {
     let inputField = document.getElementById(inputId);
     inputField.value = email;
     inputField.closest('.form-group').querySelector('[id^="customer_search_results_"]').style.display = 'none';
     let row = inputField.closest('.customer-entry');
     row.querySelector('[name="company_name"]').value = name;
+    row.querySelector('[name="account_name"]').value = first_name;
+    
 }
 
 // Dynamically handle selecting an employee email and name
-function selectEmployee(email, name, inputId) {
+function selectEmployee(email, name, first_name, inputId) {
     let inputField = document.getElementById(inputId);
     inputField.value = email;
     inputField.closest('.form-group').querySelector('[id^="employee_search_results_"]').style.display = 'none';
     let row = inputField.closest('.employee-entry');
     row.querySelector('[name="company_name"]').value = name;
+    row.querySelector('[name="account_name"]').value = first_name; // Assuming there's an input for first_name
 }
 
                             </script>
