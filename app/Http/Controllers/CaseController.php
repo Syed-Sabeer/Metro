@@ -25,7 +25,7 @@ class CaseController extends Controller
         // dd($case_owner);
         $cases = Casenew::orderBy('created_at', 'desc')->get();
 
-        $totalRows = Status::latest('id')->value('id');
+        $totalRows = Status::latest('status_number')->value('status_number');
         $totalcaese = Casenew::count();
         // dd($cases);
         return view('cases', compact('statuses', 'randomNumber','totalcaese', 'case_owner','totalRows', 'cases'));
@@ -137,7 +137,10 @@ class CaseController extends Controller
         // dd($case, $statuses);
         $caseFiles = Casefile::where('case_id', $id)->get();
         // dd($caseFiles);
-        return view('caseview', compact('case', 'caseFiles', 'statuses')); // Or return a proper view
+        $totalRows = Status::latest('status_number')->value('status_number');
+        $color = Status::latest('status_number')->where('id', $case->status_id)->value('status_color_code');
+        // dd($color);
+        return view('caseview', compact('case', 'caseFiles', 'statuses', 'totalRows', 'color')); // Or return a proper view
     }
 
 
@@ -181,7 +184,37 @@ class CaseController extends Controller
     }
 
 
+    public function updateStatus($id, Request $request)
+    {
+        $request->validate([
+            'status_id' => 'required|integer|exists:statuses,id',
+        ]);
 
+        $case = Casenew::findOrFail($id);
+        $newStatusId = $request->input('status_id');
+
+        // Check if the new status exists
+        $status = Status::find($newStatusId);
+
+        if ($status) {
+            $case->status_id = $newStatusId;
+            $case->save();
+
+            $notification = [
+                'message' => 'Status updated successfully!',
+                'alert-type' => 'success',
+            ];
+
+            return back()->with($notification);
+        }
+
+        $notification = [
+            'message' => 'Invalid status selected.',
+            'alert-type' => 'error',
+        ];
+
+        return back()->with($notification);
+    }
     // Forward Status Update
 public function forwardStatus($id, Request $request)
 {

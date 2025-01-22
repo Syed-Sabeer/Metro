@@ -21,7 +21,7 @@
                                 <div class="col-xxl-8 col-10">
                                     <div class="mt-sm-40 mb-sm-50 mt-20 mb-20">
                                         <div class="user-tab-info-title mb-sm-40 mb-20 text-capitalize">
-                                            <h5 class="fw-500">Personal Information</h5>
+                                            <h5 class="fw-500">Employee Information</h5>
                                         </div>
                                         @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -40,65 +40,65 @@
                                                 <div class="row">
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="account_owner">Company Name</label>
-                                                        <input type="text" class="form-control" id="account_owner" name="account_owner" placeholder="Duran Clayton" required>
+                                                        <input type="text" class="form-control" id="account_owner" name="account_owner" placeholder="Company Name" required>
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="email">Email</label>
-                                                        <input type="email" class="form-control" id="email" name="email" placeholder="email@gmail.com" required>
+                                                        <input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" required>
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="first_name">First Name</label>
-                                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Duran Clayton" required>
+                                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="last_name">Last Name</label>
-                                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Duran Clayton">
+                                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="address">Address</label>
-                                                        <input type="text" class="form-control" id="address" name="address" placeholder="Type Address">
+                                                        <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="suite">Suite #</label>
-                                                        <input type="text" class="form-control" id="suite" name="suite" placeholder="Type Suite">
+                                                        <input type="text" class="form-control" id="suite" name="suite" placeholder="Enter Suite">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="city">City</label>
-                                                        <input type="text" class="form-control" id="city" name="city" placeholder="Type City">
+                                                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter City">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="state">State</label>
-                                                        <input type="text" class="form-control" id="state" name="state" placeholder="Type State">
+                                                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter State">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="zipcode">ZipCode</label>
-                                                        <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="Type ZipCode">
+                                                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Enter ZipCode">
                                                     </div>
 
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="country">Country</label>
-                                                        <input type="text" class="form-control" id="country" name="country" value="United State" placeholder="Type Country">
+                                                        <input type="text" class="form-control" id="country" name="country" value="United States" placeholder="Enter Country">
                                                     </div>
 
 
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="phone">Phone Number</label>
-                                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+440 2546 5236" required>
+                                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+1 212 555 1212">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="cell_phone_number">Cell Phone Number</label>
-                                                        <input type="tel" class="form-control" id="cell_phone_number" name="cell_phone_number" placeholder="+440 2546 5236" required>
+                                                        <input type="tel" class="form-control" id="cell_phone_number" name="cell_phone_number" placeholder="+1 212 555 1212">
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">

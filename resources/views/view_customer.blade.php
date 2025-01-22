@@ -287,7 +287,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-end pt-30">
+                    {{-- <div class="d-flex justify-content-end pt-30">
                         <nav class="dm-page ">
                             <ul class="dm-pagination d-flex">
                                 <li class="dm-pagination__item">
@@ -319,7 +319,7 @@
                                 </li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

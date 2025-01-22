@@ -101,8 +101,8 @@ class UserController extends Controller
             'account_owner' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'cell_phone_number' => 'required|string|max:20',
+            // 'phone' => 'required|string|max:20',
+            // 'cell_phone_number' => 'required|string|max:20',
         ]);
 
         $password = Str::random(10);
@@ -365,8 +365,8 @@ class UserController extends Controller
             'account_owner' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'cell_phone_number' => 'required|string|max:20',
+            // 'phone' => 'required|string|max:20',
+            // 'cell_phone_number' => 'required|string|max:20',
         ]);
 
         $password = Str::random(10);
@@ -435,8 +435,8 @@ class UserController extends Controller
             'account_owner' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'cell_phone_number' => 'required|string|max:20',
+            // 'phone' => 'required|string|max:20',
+            // 'cell_phone_number' => 'required|string|max:20',
         ]);
 
         $password = Str::random(10);
@@ -510,10 +510,10 @@ class UserController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function logout()
+public function logout()
     {
-        Auth::logout();
-        return redirect('/');
+        Auth::logout();  // User ko log out karna
+        return redirect('/'); // Redirect to home or login page
     }
 
 

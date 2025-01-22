@@ -20,7 +20,7 @@
                             <h4 class="text-capitalize fw-500 breadcrumb-title">Application UI Design</h4>
                         </div>
                         <!-- Backward Status Button -->
-                        <form action="{{ route('case.back', $case->id) }}" method="POST">
+                        {{-- <form action="{{ route('case.back', $case->id) }}" method="POST">
                             @csrf
                             <input type="hidden" name="current_status_id" value="{{ $case->status_id }}">
                             <div class="action-btn me-10 my-sm-0">
@@ -28,17 +28,17 @@
                                     <img src="{{asset('img/svg/minus.svg')}}" alt="minus" class="svg"> Backward
                                 </button>
                             </div>
-                        </form>
+                        </form> --}}
 
                         <!-- Forward Status Button -->
-                        <form action="{{ route('case.forward', $case->id) }}" method="POST">
+                        {{-- <form action="{{ route('case.forward', $case->id) }}" method="POST">
                             @csrf
                             <div class="action-btn me-10 my-sm-0">
                                 <button type="submit" class="btn btn-primary bg-primary fs-12 fw-500">
                                     <img src="{{asset('img/svg/plus.svg')}}" alt="plus" class="svg"> Forward
                                 </button>
                             </div>
-                        </form>
+                        </form> --}}
 
                     </div>
                     <div class="d-flex text-capitalize">
@@ -114,7 +114,7 @@ a:hover {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none; 
+	user-select: none;
   transition: background-color 0.2s ease;
 }
 
@@ -128,7 +128,7 @@ a:hover {
 	height: 0;
 	border-top: 19px solid transparent;
 	border-bottom: 17px solid transparent;
-	border-left: 17px solid #d9e3f7;	
+	border-left: 17px solid #d9e3f7;
 	z-index: 2;
   transition: border-color 0.2s ease;
 }
@@ -136,7 +136,7 @@ a:hover {
 .arrow-steps .step:before {
 	right: auto;
 	left: 0;
-	border-left: 17px solid #fff;	
+	border-left: 17px solid #fff;
 	z-index: 0;
 }
 
@@ -175,7 +175,7 @@ a:hover {
 }
 
 .arrow-steps .step.current:after {
-	border-left: 17px solid #8231D3;	
+	border-left: 17px solid #8231D3;
 }
                 </style>
 
@@ -202,21 +202,25 @@ a:hover {
                         </div>
                       </div>
                     </div> --}}
-                    <div class="wrapper">	
+                    <div class="wrapper">
                         <div class="arrow-steps clearfix">
                             @foreach($statuses as $status)
-                                <div class="step 
-                                    {{ $case->status_id >= $status->id ? 'finished' : '' }}
-                                    {{ $case->status_id == $status->id ? 'current' : '' }}">
-                                    <span>{{ $status->status_name }}</span>
-                                </div>
+                                <form action="{{ route('case.updateStatus', $case->id) }}" method="POST" class="step-form">
+                                    @csrf
+                                    <input type="hidden" name="status_id" value="{{ $status->id }}">
+                                    <button type="submit" style="border: none !important;" class="step-btn step
+                                        {{ $case->status_id >= $status->id ? 'finished' : '' }}
+                                        {{ $case->status_id == $status->id ? 'current' : '' }}">
+                                        <span style="border: none !important;">{{ $status->status_name }}</span>
+                                    </button>
+                                </form>
                             @endforeach
                         </div>
                     </div>
-                  </div> 
+                  </div>
 
-                
-                
+
+
 
             </div>
         </div>
@@ -224,16 +228,29 @@ a:hover {
         <div class="projects-tab-content mb-30">
             <div class="row">
                 <div class="col-xxl-3 col-lg-4 mb-25">
+                    @php
+                        // Calculate progress percentage
+                        $completedTasks = $case->status->id; // Current status ID
+                        $totalTasks = $totalRows;
 
-                    <div class="progress-box px-25 pt-25 pb-10 bg-success radius-xl">
+                        $progressPercentage = ($completedTasks / $totalTasks) * 100; // Calculate percentage
+                        $progressPercentage = round($progressPercentage); // Round off to nearest integer
+                        @endphp
+
+                    <div class="progress-box px-25 pt-25 pb-10 radius-xl" style="background-color: {{ $color }} !important;">
                         <div class="d-flex justify-content-between mb-3">
                             <h6 class="text-white fw-500 fs-16 text-capitalize">progress</h6>
-                            <span class="progress-percentage text-white fw-500 fs-16 text-capitalize">64%</span>
+                            <span class="progress-percentage text-white fw-500 fs-16 text-capitalize">
+                                {{ $progressPercentage }}%
+                            </span>
                         </div>
                         <div class="progress-wrap d-flex align-items-center mb-15">
                             <div class="progress progress-height">
-                                <div class="progress-bar bg-white" role="progressbar" style="width: 64%;"
-                                    aria-valuenow="64" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-white" role="progressbar"
+                                    style="width: {{ $progressPercentage }}%;"
+                                    aria-valuenow="{{ $progressPercentage }}"
+                                    aria-valuemin="0" aria-valuemax="100">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -339,7 +356,7 @@ a:hover {
     <img width="45" src="{{ asset('assetsCommon/svgs/pdf.svg') }}" alt="">
     @elseif(in_array($fileExtension, ['doc','docx']))
     <img width="45" src="{{ asset('assetsCommon/svgs/doc.svg') }}" alt="">
-    
+
 
     @elseif(in_array($fileExtension, ['xls','xlsm','xlsx','xltx']))
     <img width="45" src="{{ asset('assetsCommon/svgs/excel.svg') }}" alt="">
@@ -427,7 +444,7 @@ a:hover {
                                         $fileExtension = pathinfo($file->filename, PATHINFO_EXTENSION);
                                     @endphp
 
-                                 
+
 @if (in_array($fileExtension, [ 'png']))
 <img width="45" src="{{ asset('assetsCommon/svgs/png.svg') }}" alt="">
 
@@ -435,7 +452,7 @@ a:hover {
     <img width="45" src="{{ asset('assetsCommon/svgs/pdf.svg') }}" alt="">
     @elseif(in_array($fileExtension, ['doc','docx']))
     <img width="45" src="{{ asset('assetsCommon/svgs/doc.svg') }}" alt="">
-    
+
 
     @elseif(in_array($fileExtension, ['xls','xlsm','xlsx','xltx']))
     <img width="45" src="{{ asset('assetsCommon/svgs/excel.svg') }}" alt="">
@@ -455,7 +472,7 @@ a:hover {
                                         <a  class="fs-12 fw-500 color-primary" >{{$file->filename}}</a>
                                     </div>
                                     <div class="d-flex text-capitalize">
-                                      
+
                                         <a href="{{ asset($file->file_path) }}" class="fs-12 fw-500 color-primary" download>Download</a>
                                     </div>
                                 </div>
@@ -472,7 +489,7 @@ a:hover {
 <Roots></Roots>
 </div>
 
-{{-- 
+{{--
                 <div class="chat-area d-flex mb-40 mt-3">
                     <div class="mb-lg-0 mb-40 chat-sidebar">
                         <div class="sidebar-group left-sidebar chat_sidebar">
