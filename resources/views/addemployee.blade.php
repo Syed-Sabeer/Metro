@@ -21,7 +21,7 @@
                                 <div class="col-xxl-8 col-10">
                                     <div class="mt-sm-40 mb-sm-50 mt-20 mb-20">
                                         <div class="user-tab-info-title mb-sm-40 mb-20 text-capitalize">
-                                            <h5 class="fw-500">Personal Information</h5>
+                                            <h5 class="fw-500">Employee Information</h5>
                                         </div>
                                         @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -55,7 +55,11 @@
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="last_name">Last Name</label>
+<<<<<<< HEAD
                                                         <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+=======
+                                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+>>>>>>> 397e5d89b5307980e51b2f6580c8c47397500ebb
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
@@ -93,12 +97,20 @@
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="phone">Phone Number</label>
+<<<<<<< HEAD
                                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="+1 212 555 1212" >
+=======
+                                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+1 212 555 1212">
+>>>>>>> 397e5d89b5307980e51b2f6580c8c47397500ebb
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">
                                                         <label for="cell_phone_number">Cell Phone Number</label>
+<<<<<<< HEAD
                                                         <input type="tel" class="form-control" id="cell_phone_number" name="cell_phone_number" placeholder="+1 212 555 1212" >
+=======
+                                                        <input type="tel" class="form-control" id="cell_phone_number" name="cell_phone_number" placeholder="+1 212 555 1212">
+>>>>>>> 397e5d89b5307980e51b2f6580c8c47397500ebb
                                                     </div>
 
                                                     <div class="form-group mb-25 col-md-6">

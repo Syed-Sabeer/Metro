@@ -142,7 +142,8 @@
                                                         </button>
                                                         <div class="dropdown-menu">
                                                             {{-- <a class="dropdown-item" href="{{ route('case.view', ['id' => $case->id]) }}">View</a> --}}
-                                                            <a class="dropdown-item" href="#">Edit</a>
+                                                            <a class="dropdown-item" id="delete" href="{{ route('case.delete', $case->id) }}">Delete</a>
+                                                            {{-- <a class="dropdown-item" href="#">Edit</a> --}}
                                                             {{-- <a class="dropdown-item" href="#">Leave</a>
                                                             <a class="dropdown-item" href="#">Delete</a> --}}
                                                         </div>
@@ -272,8 +273,8 @@
 
                                                         // Calculate progress percentage
                                                         $completedTasks = $case->status->id; // Example: Use status ID or logic to determine completion level
-                                                        $totalTasks = $totalRows;           // Example: Total tasks or steps
-                                                        $progressPercentage = ($completedTasks / $totalTasks) * 100;
+                                                                // Example: Total tasks or steps
+                                                        $progressPercentage = ($completedTasks / $totalRows) * 100;
                                                     @endphp
 
                                                     <div class="progress-wrap d-flex align-items-center mb-0">
@@ -285,7 +286,7 @@
                                                         </div>
                                                         <span class="progress-percentage">{{ number_format($progressPercentage, 2) }}%</span>
                                                     </div>
-                                                    <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{ $totalTasks }} tasks completed</p>
+                                                    <p class="color-light fs-12 mb-20">{{ $completedTasks }} / {{ $totalRows }} tasks completed</p>
                                                 </div>
                                             </div>
                                             <div class="mt-20 px-30">
