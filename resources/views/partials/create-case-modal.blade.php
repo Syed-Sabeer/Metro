@@ -91,13 +91,14 @@
 
                             <div class="form-group col-md-3 mb-20">
                                 <label for="">Case No</label>
-                                <input type="text" name="case_no" class="form-control" value="{{ $randomNumber }}" placeholder="" required>
+                                <input type="text" name="case_no" id="case_no" class="form-control" value="{{ $randomNumber }}" placeholder="" required>
+                                <div id="case_no_error"></div>
                             </div>
 
                             <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Enter Customer Emails</h6>
 
                             <div id="add-new-customer-section" class="container">
-                                <div class="customer-entry row"> 
+                                <div class="customer-entry row">
                                     <div class="form-group col-md-4 mb-10">
                                         <label for="customer_email_1">Customer Email</label>
                                         <input type="text" name="customer_emails[]" class="form-control" id="customer_email_1" placeholder="Search members" onkeyup="searchCustomer(this.value)" required>
@@ -106,20 +107,20 @@
                                     </div>
                                     <div class="form-group col-md-4 mb-20">
                                         <label for="">Name</label>
-                                        <input type="text" name="account_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                        <input type="text" name="account_name" class="form-control" placeholder="Name" readonly required>
                                     </div>
                                     <div class="form-group col-md-4 mb-20">
                                         <label for="">Company Name</label>
-                                        <input type="text" name="company_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                        <input type="text" name="company_name" class="form-control" placeholder="Company Name" readonly required>
                                     </div>
                                 </div>
                             </div>
                             <button class="btn btn-primary mt-3" id="add-new-customer">Add new</button>
-                            
+
                             <h6 class="form-group fw-500 mt-1" style="background: lightgrey;">Enter Team Member Emails</h6>
-                            
+
                             <div id="add-new-employee-section" class="container">
-                                <div class="employee-entry row"> 
+                                <div class="employee-entry row">
                                     <div class="form-group col-md-4 mb-10">
                                         <label for="employee_email_1">Team Member Email</label>
                                         <input type="text" name="employee_emails[]" class="form-control" id="employee_email_1" placeholder="Search team members" onkeyup="searchEmployee(this.value)" required>
@@ -128,51 +129,83 @@
                                     </div>
                                     <div class="form-group col-md-4 mb-20">
                                         <label for="">Name</label>
-                                        <input type="text" name="account_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                        <input type="text" name="account_name" class="form-control" placeholder="Name" readonly required>
                                     </div>
                                     <div class="form-group col-md-4 mb-20">
                                         <label for="">Company Name</label>
-                                        <input type="text" name="company_name" class="form-control" value="METRO TEXTILE INC" placeholder="METRO TEXTILE INC" required>
+                                        <input type="text" name="company_name" class="form-control" placeholder="Company Name" readonly required>
                                     </div>
                                 </div>
                             </div>
                             <button class="btn btn-primary mt-3" id="add-new-employee">Add new</button>
-                            
-                            <script>
-                                // Add new customer functionality
-                                document.getElementById('add-new-customer').addEventListener('click', () => {
-                                    const section = document.querySelector('#add-new-customer-section');
-                                    const customerEntry = section.querySelector('.customer-entry');
-                                    const clone = customerEntry.cloneNode(true);
-                            
-                                    // Generate unique IDs for new fields
-                                    const timestamp = Date.now();
-                                    clone.querySelector('[id^="customer_email_"]').id = `customer_email_${timestamp}`;
-                                    clone.querySelector('[id^="customer_search_results_"]').id = `customer_search_results_${timestamp}`;
-                            
-                                    // Clear input values
-                                    clone.querySelectorAll('input').forEach(input => (input.value = ''));
-                                    section.appendChild(clone);
-                                });
-                            
-                                // Add new employee functionality
-                                document.getElementById('add-new-employee').addEventListener('click', () => {
-                                    const section = document.querySelector('#add-new-employee-section');
-                                    const employeeEntry = section.querySelector('.employee-entry');
-                                    const clone = employeeEntry.cloneNode(true);
-                            
-                                    // Generate unique IDs for new fields
-                                    const timestamp = Date.now();
-                                    clone.querySelector('[id^="employee_email_"]').id = `employee_email_${timestamp}`;
-                                    clone.querySelector('[id^="employee_search_results_"]').id = `employee_search_results_${timestamp}`;
-                            
-                                    // Clear input values
-                                    clone.querySelectorAll('input').forEach(input => (input.value = ''));
-                                    section.appendChild(clone);
-                                });
-                            
-                                // Search functionality for customers
-                               // Search functionality for customers
+
+<script>
+// Add new customer functionality
+document.getElementById('add-new-customer').addEventListener('click', () => {
+    const section = document.querySelector('#add-new-customer-section');
+    const customerEntry = section.querySelector('.customer-entry');
+    const clone = customerEntry.cloneNode(true);
+
+    // Generate unique IDs for new fields
+    const timestamp = Date.now();
+    clone.querySelector('[id^="customer_email_"]').id = `customer_email_${timestamp}`;
+    clone.querySelector('[id^="customer_search_results_"]').id = `customer_search_results_${timestamp}`;
+
+    // Clear input values
+    clone.querySelectorAll('input').forEach(input => (input.value = ''));
+
+    // Create and append the delete icon (X)
+    const deleteIcon = document.createElement('span');
+    deleteIcon.classList.add('delete-icon');
+    deleteIcon.innerHTML = '❌';  // Red cross as the delete icon
+
+    // Add click event to delete the row
+    deleteIcon.addEventListener('click', () => {
+        section.removeChild(clone); // Remove the cloned row when the delete icon is clicked
+    });
+
+    // Append the delete icon to the cloned row (at the bottom)
+    clone.appendChild(deleteIcon);  // Insert the icon at the bottom of the cloned row
+
+    // Append the cloned row to the section
+    section.appendChild(clone);
+});
+
+
+
+// Add new employee functionality
+document.getElementById('add-new-employee').addEventListener('click', () => {
+    const section = document.querySelector('#add-new-employee-section');
+    const employeeEntry = section.querySelector('.employee-entry');
+    const clone = employeeEntry.cloneNode(true);
+
+    // Generate unique IDs for new fields
+    const timestamp = Date.now();
+    clone.querySelector('[id^="employee_email_"]').id = `employee_email_${timestamp}`;
+    clone.querySelector('[id^="employee_search_results_"]').id = `employee_search_results_${timestamp}`;
+
+    // Clear input values
+    clone.querySelectorAll('input').forEach(input => (input.value = ''));
+
+    // Create and append delete icon
+    const deleteIcon = document.createElement('span');
+    deleteIcon.classList.add('delete-icon');
+    deleteIcon.innerHTML = '❌'; // You can replace this with an icon or image if desired
+
+    // Add click event to delete the row
+    deleteIcon.addEventListener('click', () => {
+        section.removeChild(clone); // Remove the cloned row when the delete icon is clicked
+    });
+
+    // Append the delete icon to the cloned row
+    clone.appendChild(deleteIcon);
+
+    // Append the cloned row to the section
+    section.appendChild(clone);
+});
+
+
+// Search functionality for customers
 function searchCustomer(query) {
     const inputField = event.target;
     const resultsContainer = inputField.closest('.form-group').querySelector('[id^="customer_search_results_"]');
@@ -260,7 +293,7 @@ function selectCustomer(email, name, first_name, inputId) {
     let row = inputField.closest('.customer-entry');
     row.querySelector('[name="company_name"]').value = name;
     row.querySelector('[name="account_name"]').value = first_name;
-    
+
 }
 
 // Dynamically handle selecting an employee email and name
@@ -274,7 +307,7 @@ function selectEmployee(email, name, first_name, inputId) {
 }
 
                             </script>
-                            
+
 
 
 
@@ -466,4 +499,34 @@ function selectIdentifier(identifier_name, subject, description) {
 });
 </script>
 
+<script>
+    // Ensure this script is placed after the HTML elements
+    const checkCaseNoUrl = "{{ route('check.case.no', ':case_no') }}";
+
+    document.getElementById('case_no').addEventListener('input', function() {
+        const caseNo = this.value;
+        const url = checkCaseNoUrl.replace(':case_no', caseNo);
+
+        // Check if caseNo is not empty before making the request
+        if (caseNo) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const errorMessage = document.getElementById('case_no_error');
+                    if (data.exists) {
+                        errorMessage.textContent = 'Case Number Already Exists!';
+                        errorMessage.style.color = 'red';
+                    } else {
+                        errorMessage.textContent = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        } else {
+            // Clear the error message if the input is empty
+            document.getElementById('case_no_error').textContent = '';
+        }
+    });
+</script>
 

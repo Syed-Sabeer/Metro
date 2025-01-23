@@ -25,4 +25,8 @@ class Casenew extends Model
     {
         return $this->hasMany(Room::class, 'case_id');
     }
+    public function participants()
+    {
+        return $this->hasMany(CaseParticipant::class, 'case_id');
+    }
 }

@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 mb-25">
+                {{-- <div class="col-xxl-6 mb-25">
                     <div class="card border-0 h-100">
                         <div class="card-header border-0 pb-md-0 pb-20">
                             <h4>Sales Reports</h4>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-xxl-4 mb-25">
                     <div class="card border-0 px-25 h-100">
                         <div class="card-header px-0 border-0">
@@ -262,7 +262,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-8 mb-25">
+                {{-- <div class="col-xxl-8 mb-25">
                     <div class="card border-0 h-100">
                         <div class="card-header">
                             <h6>Sales by Location</h6>
@@ -504,8 +504,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xxl-6 col-lg-6 mb-25">
+                </div> --}}
+                {{-- <div class="col-xxl-6 col-lg-6 mb-25">
                     <div class="card border-0 px-25">
                         <div class="card-header px-0 border-0">
                             <h6>Top Selling Products</h6>
@@ -1080,7 +1080,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>

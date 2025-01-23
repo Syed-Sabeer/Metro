@@ -138,9 +138,10 @@
                             @php
                                 // Fetch the current user's ID
                                 $userId = Auth::id();
+                                // print_r($userId);
 
                                 // Fetch notifications for the current user
-                                $notifications = \App\Models\Notification::where('to', $userId)->where('status', 1)
+                                $notifications = \App\Models\Notification::where('to', $userId)->where('status', 0)
                                     ->orderBy('created_at', 'desc')
                                     ->get();
 

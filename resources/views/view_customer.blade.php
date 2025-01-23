@@ -43,7 +43,7 @@
                             <span class="sub-title ms-sm-25 ps-sm-25">Home</span>
                         </div>
                         <div class="project-search project-search--height global-shadow ms-md-20 my-10 order-md-2 order-1">
-                            <form action="/" method="GET" class="d-flex align-items-center user-member__form">
+                            <form action="" method="GET" class="d-flex align-items-center user-member__form">
                                 <img src="{{ asset('img/svg/search.svg') }}" alt="search" class="svg">
                                 <input id="searchInput" class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Search by Name" aria-label="Search">
                             </form>
@@ -211,7 +211,7 @@
                                     <th>
                                         <span class="userDatatable-title">Company Name</span>
                                     </th>
-                                    
+
                                     <th>
                                         <span class="userDatatable-title">User Name</span>
                                     </th>
@@ -234,7 +234,7 @@
                                 @foreach($users as $user)
                                 <tr data-name="{{ strtolower($user->name) }}" data-email="{{ strtolower($user->email) }}">
                                     <td><h6>{{ $user->name }}</h6></td>
-                                  
+
                                     <td>{{ $user->userDetail->first_name }} {{ $user->userDetail->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
@@ -289,39 +289,61 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- <div class="d-flex justify-content-end pt-30">
-                        <nav class="dm-page ">
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-end pt-30">
+                        <nav class="dm-page">
                             <ul class="dm-pagination d-flex">
-                                <li class="dm-pagination__item">
-                                    <a href="#" class="dm-pagination__link pagination-control"><span
-                                            class="la la-angle-left"></span></a>
-                                    <a href="#" class="dm-pagination__link"><span
-                                            class="page-number">1</span></a>
-                                    <a href="#" class="dm-pagination__link active"><span
-                                            class="page-number">2</span></a>
-                                    <a href="#" class="dm-pagination__link"><span
-                                            class="page-number">3</span></a>
-                                    <a href="#" class="dm-pagination__link pagination-control"><span
-                                            class="page-number">...</span></a>
-                                    <a href="#" class="dm-pagination__link"><span
-                                            class="page-number">12</span></a>
-                                    <a href="#" class="dm-pagination__link pagination-control"><span
-                                            class="la la-angle-right"></span></a>
-                                    <a href="#" class="dm-pagination__option">
-                                    </a>
-                                </li>
-                                <li class="dm-pagination__item">
-                                    <div class="paging-option">
-                                        <select name="page-number" class="page-selection">
-                                            <option value="20">20/page</option>
-                                            <option value="40">40/page</option>
-                                            <option value="60">60/page</option>
-                                        </select>
-                                    </div>
-                                </li>
+                                {{-- Previous Page Link --}}
+                                @if ($users->onFirstPage())
+                                    <li class="dm-pagination__item">
+                                        <span class="dm-pagination__link pagination-control disabled">
+                                            <span class="la la-angle-left"></span>
+                                        </span>
+                                    </li>
+                                @else
+                                    <li class="dm-pagination__item">
+                                        <a href="{{ $users->previousPageUrl() }}" class="dm-pagination__link pagination-control">
+                                            <span class="la la-angle-left"></span>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($users->links()->elements[0] as $page => $url)
+                                    @if ($page == $users->currentPage())
+                                        <li class="dm-pagination__item">
+                                            <a class="dm-pagination__link active">
+                                                <span class="page-number">{{ $page }}</span>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="dm-pagination__item">
+                                            <a href="{{ $url }}" class="dm-pagination__link">
+                                                <span class="page-number">{{ $page }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($users->hasMorePages())
+                                    <li class="dm-pagination__item">
+                                        <a href="{{ $users->nextPageUrl() }}" class="dm-pagination__link pagination-control">
+                                            <span class="la la-angle-right"></span>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="dm-pagination__item">
+                                        <span class="dm-pagination__link pagination-control disabled">
+                                            <span class="la la-angle-right"></span>
+                                        </span>
+                                    </li>
+                                @endif
                             </ul>
                         </nav>
-                    </div> --}}
+                    </div>
+                    {{-- Pagination --}}
+
                 </div>
             </div>
         </div>

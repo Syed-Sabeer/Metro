@@ -8,7 +8,7 @@
     max-height: 200px; /* Limit the height of the container */
     overflow-y: auto;  /* Enable scrolling if content overflows */
     height: 100px;      /* Adjust height based on the content */
-}<td>{{ $user->userDetail?->first_name ?? '' }} {{ $user->userDetail?->last_name ?? '' }}</td>
+}
 
 
 #employee-search-results {
@@ -105,7 +105,7 @@
                                 </ul>
                             </div>
                             <div class="project-search project-search--height global-shadow ms-md-20 my-10 order-md-2 order-1">
-                                <form action="/" method="GET" class="d-flex align-items-center user-member__form">
+                                <form action="" method="" class="d-flex align-items-center user-member__form">
                                     <img src="{{ asset('img/svg/search.svg') }}" alt="search" class="svg">
                                     <input id="searchInput" class="form-control me-sm-2 border-0 box-shadow-none" type="search" placeholder="Search by Name" aria-label="Search">
                                 </form>

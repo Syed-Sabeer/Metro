@@ -28,13 +28,10 @@ class UserController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        // Attempt to login user
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Check if the logged-in user has the role 'admin'
             if (Auth::user()->role === 'supperadmin' ) {
-                // Redirect to admin dashboard
                 $notification = array(
                     'message' => 'Super Admin Login Successfully',
                     'alert-type' => 'success',
@@ -76,19 +73,19 @@ class UserController extends Controller
 
     function ViewCustomer()
     {
-        $users = User::with('userDetail')->where('role',  'customer')->get();
+        $users = User::with('userDetail')->where('role', 'customer')->paginate(10); // Default 20 users per page
         return view('view_customer', compact('users'));
     }
 
     function ViewAdmin()
     {
-        $users = User::with('userDetail')->where('role',  'admin')->get();
-        return view('view_admin', compact('users'));
+        $users = User::with('userDetail')->where('role',  'admin')->paginate(10);
+        return view('userslist', compact('users'));
     }
 
     function viewEmployee()
     {
-        $users = User::with('userDetail')->where('role',  'employee')->get();
+        $users = User::with('userDetail')->where('role',  'employee')->paginate(10);
         // dd($users);
         return view('view_admin', compact('users'));
     }
@@ -365,12 +362,8 @@ class UserController extends Controller
             'account_owner' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-<<<<<<< HEAD
-            
-=======
             // 'phone' => 'required|string|max:20',
             // 'cell_phone_number' => 'required|string|max:20',
->>>>>>> 397e5d89b5307980e51b2f6580c8c47397500ebb
         ]);
 
         $password = Str::random(10);
@@ -517,7 +510,7 @@ class UserController extends Controller
 public function logout()
     {
         Auth::logout();  // User ko log out karna
-        return redirect('/'); // Redirect to home or login page
+        return redirect()->route('signin'); // Redirect to home or login page
     }
 
 

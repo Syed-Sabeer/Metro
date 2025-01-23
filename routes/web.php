@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 // Admin Login Route
-Route::get('/login/admin', [UserController::class, 'SignIn'])->name('signin');
+Route::get('/login-page', [UserController::class, 'SignIn'])->name('signin');
 Route::post('/login/admin/store', [UserController::class, 'LoginAdmin'])->name('login.admin');
 
 // Admin Status Route
@@ -72,6 +72,8 @@ Route::get('/view-email', function () {
 Route::post('/update-status', [UserController::class, 'updateStatus'])->name('update.status');
 
 
+// case no validation
+Route::get('/check-case-no/{case_no}',[CaseController::class, 'checkCaseNo'])->name('check.case.no');
 
 // Cases All Route
 Route::get('/cases', [CaseController::class, 'Cases'])->name('add.cases');
