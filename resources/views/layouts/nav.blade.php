@@ -199,7 +199,7 @@
                                         </div>
                                         <div>
                                             <h6>{{ Auth::user()->name; }}</h6>
-                                            <span>UI Designer</span>
+                                            {{-- <span>UI Designer</span> --}}
                                         </div>
                                     </div>
                                     <div class="nav-author__options">
