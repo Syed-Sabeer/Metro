@@ -235,7 +235,8 @@
                                 <tr data-name="{{ strtolower($user->name) }}" data-email="{{ strtolower($user->email) }}">
                                     <td><h6>{{ $user->name }}</h6></td>
 
-                                    <td>{{ $user->userDetail->first_name }} {{ $user->userDetail->last_name }}</td>
+                                    <td>{{ $user->userDetail->first_name ?? '' }} {{ $user->userDetail->last_name ?? '' }}</td>
+
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         {{ $user->created_at ? $user->created_at->format('Y-m-d') : 'N/A' }}
