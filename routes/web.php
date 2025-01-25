@@ -19,7 +19,7 @@ use App\Http\Controllers\NotificationController;
 Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard');
 
 Route::get('/', function () {
-    return redirect('/login/admin');
+    return redirect('/login-page');
 });
 
 // Admin Login Route
